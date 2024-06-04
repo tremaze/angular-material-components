@@ -21,7 +21,6 @@ import {
   Input,
   NgZone,
   OnDestroy,
-  OnInit,
   Optional,
   Output,
   ViewContainerRef,
@@ -44,7 +43,7 @@ export const NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY = new InjectionToken<
 >("ngx-mat-colorpicker-scroll-strategy");
 
 export function NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY_FACTORY(
-  overlay: Overlay
+  overlay: Overlay,
 ): () => ScrollStrategy {
   return () => overlay.scrollStrategies.reposition();
 }
@@ -58,7 +57,7 @@ export const NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 const _MatColorpickerContentBase = mixinColor(
   class {
     constructor(public _elementRef: ElementRef) {}
-  }
+  },
 );
 
 @Component({
@@ -108,7 +107,7 @@ export class NgxMatColorPickerContentComponent
     NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
   ],
 })
-export class NgxMatColorPickerComponent implements OnInit, OnDestroy, CanColor {
+export class NgxMatColorPickerComponent implements OnDestroy, CanColor {
   private _scrollStrategy: () => ScrollStrategy;
 
   /** Emits when the datepicker has been opened. */
@@ -214,12 +213,10 @@ export class NgxMatColorPickerComponent implements OnInit, OnDestroy, CanColor {
     @Optional() private _dir: Directionality,
     @Inject(NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional() @Inject(DOCUMENT) private _document: any,
-    private _viewContainerRef: ViewContainerRef
+    private _viewContainerRef: ViewContainerRef,
   ) {
     this._scrollStrategy = scrollStrategy;
   }
-
-  ngOnInit() {}
 
   ngOnDestroy() {
     this.close();
@@ -251,7 +248,7 @@ export class NgxMatColorPickerComponent implements OnInit, OnDestroy, CanColor {
     }
     this._pickerInput = input;
     this._inputSubscription = this._pickerInput._valueChange.subscribe(
-      (value: Color) => (this._selected = value)
+      (value: Color) => (this._selected = value),
     );
   }
 
@@ -284,7 +281,7 @@ export class NgxMatColorPickerComponent implements OnInit, OnDestroy, CanColor {
         direction: this._dir ? this._dir.value : "ltr",
         viewContainerRef: this._viewContainerRef,
         panelClass: "ngx-mat-colorpicker-dialog",
-      }
+      },
     );
 
     this._dialogRef.afterClosed().subscribe(() => this.close());
@@ -297,7 +294,7 @@ export class NgxMatColorPickerComponent implements OnInit, OnDestroy, CanColor {
     if (!this._portal) {
       this._portal = new ComponentPortal<NgxMatColorPickerContentComponent>(
         NgxMatColorPickerContentComponent,
-        this._viewContainerRef
+        this._viewContainerRef,
       );
     }
 
@@ -344,8 +341,8 @@ export class NgxMatColorPickerComponent implements OnInit, OnDestroy, CanColor {
             event.keyCode === ESCAPE ||
             (this._pickerInput && event.altKey && event.keyCode === UP_ARROW)
           );
-        })
-      )
+        }),
+      ),
     ).subscribe((event) => {
       if (event) {
         event.preventDefault();

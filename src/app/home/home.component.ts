@@ -14,10 +14,10 @@ import { RouterLink } from "@angular/router";
     MatCard,
     MatCardContent,
     MatDivider,
-    MatNavList,
-    MatListItem,
-    RouterLink,
     MatIcon,
+    MatListItem,
+    MatNavList,
+    RouterLink,
   ],
 })
 export class HomeComponent {}

@@ -138,9 +138,12 @@
           (ngModelChange)="onDisabledChanged($event)"
         >
           @for (option of options; track option.value) {
-          <mat-radio-button class="example-radio-button" [value]="option.value">
-            {{ option.label }}</mat-radio-button
-          >
+            <mat-radio-button
+              class="example-radio-button"
+              [value]="option.value"
+            >
+              {{ option.label }}</mat-radio-button
+            >
           }
         </mat-radio-group>
       </div>
@@ -153,9 +156,12 @@
           [color]="color"
         >
           @for (option of options; track option.value) {
-          <mat-radio-button class="example-radio-button" [value]="option.value">
-            {{ option.label }}</mat-radio-button
-          >
+            <mat-radio-button
+              class="example-radio-button"
+              [value]="option.value"
+            >
+              {{ option.label }}</mat-radio-button
+            >
           }
         </mat-radio-group>
       </div>
@@ -166,9 +172,9 @@
           <mat-label>Select color</mat-label>
           <mat-select [(ngModel)]="color">
             @for (item of listColors; track item) {
-            <mat-option [value]="item">
-              {{ item }}
-            </mat-option>
+              <mat-option [value]="item">
+                {{ item }}
+              </mat-option>
             }
           </mat-select>
         </mat-form-field>

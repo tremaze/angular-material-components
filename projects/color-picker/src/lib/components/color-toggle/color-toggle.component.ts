@@ -5,11 +5,11 @@ import {
   Directive,
   EventEmitter,
   Input,
-  OnChanges,
   OnDestroy,
-  SimpleChanges,
   ViewEncapsulation,
+  effect,
   input,
+  untracked,
   viewChild,
 } from "@angular/core";
 import { MatButton, MatButtonModule } from "@angular/material/button";
@@ -42,9 +42,7 @@ export class NgxMatColorpickerToggleIcon {}
   standalone: true,
   imports: [MatButtonModule, MatIconModule],
 })
-export class NgxMatColorToggleComponent
-  implements AfterContentInit, OnChanges, OnDestroy
-{
+export class NgxMatColorToggleComponent implements AfterContentInit, OnDestroy {
   private _stateChanges = Subscription.EMPTY;
 
   picker = input<NgxMatColorPickerComponent>(undefined, { alias: "for" });
@@ -65,12 +63,12 @@ export class NgxMatColorToggleComponent
 
   _button = viewChild<MatButton>("button");
 
-  constructor(private _cd: ChangeDetectorRef) {}
+  constructor(private _cd: ChangeDetectorRef) {
+    effect(() => {
+      this.picker();
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["picker"]) {
-      this._watchStateChanges();
-    }
+      untracked(() => this._watchStateChanges());
+    });
   }
 
   ngOnDestroy() {
@@ -101,7 +99,7 @@ export class NgxMatColorToggleComponent
     this._stateChanges = merge(
       disabled$,
       inputDisabled$,
-      pickerToggled$
+      pickerToggled$,
     ).subscribe(() => this._cd.markForCheck());
   }
 }

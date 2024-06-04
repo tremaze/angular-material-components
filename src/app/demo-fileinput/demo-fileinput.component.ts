@@ -41,10 +41,10 @@ import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
     MatRadioModule,
     MatSelectModule,
     MatTabsModule,
-    NgxMatNativeDateModule,
-    ReactiveFormsModule,
     NgxMatFileInputComponent,
     NgxMatHighlightDirective,
+    NgxMatNativeDateModule,
+    ReactiveFormsModule,
   ],
 })
 export class DemoFileInputComponent implements OnInit {

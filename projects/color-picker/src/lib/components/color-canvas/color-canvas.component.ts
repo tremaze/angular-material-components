@@ -40,10 +40,10 @@ const RADIUS_NOB = 5;
   },
   standalone: true,
   imports: [
-    ReactiveFormsModule,
-    NgxMatColorSliderComponent,
     MatFormFieldModule,
     MatInputModule,
+    NgxMatColorSliderComponent,
+    ReactiveFormsModule,
   ],
 })
 export class NgxMatColorCanvasComponent
@@ -97,7 +97,7 @@ export class NgxMatColorCanvasComponent
       this.rCtrl.valueChanges,
       this.gCtrl.valueChanges,
       this.bCtrl.valueChanges,
-      this.aCtrl.valueChanges
+      this.aCtrl.valueChanges,
     );
     rgbaCtrl$
       .pipe(takeUntil(this._destroyed), debounceTime(400))
@@ -106,7 +106,7 @@ export class NgxMatColorCanvasComponent
           Number(this.rCtrl.value),
           Number(this.gCtrl.value),
           Number(this.bCtrl.value),
-          Number(this.aCtrl.value)
+          Number(this.aCtrl.value),
         );
         this.emitChange(color);
       });
@@ -116,7 +116,7 @@ export class NgxMatColorCanvasComponent
       .pipe(
         takeUntil(this._destroyed),
         debounceTime(400),
-        distinctUntilChanged()
+        distinctUntilChanged(),
       )
       .subscribe((hex) => {
         const obj = stringInputToObject(hex);

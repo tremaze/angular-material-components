@@ -321,12 +321,12 @@
             [color]="color"
           >
             @for (option of options; track option.value) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -339,12 +339,12 @@
             [color]="color"
           >
             @for (option of options; track option) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -357,12 +357,12 @@
             [color]="color"
           >
             @for (option of options; track option) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -375,12 +375,12 @@
             [color]="color"
           >
             @for (option of options; track option) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -393,12 +393,12 @@
             [color]="color"
           >
             @for (option of options; track option) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -411,12 +411,12 @@
             [color]="color"
           >
             @for (option of options; track option) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -429,12 +429,12 @@
             [color]="color"
           >
             @for (option of options; track option) {
-            <mat-radio-button
-              class="example-radio-button"
-              [value]="option.value"
-            >
-              {{ option.label }}</mat-radio-button
-            >
+              <mat-radio-button
+                class="example-radio-button"
+                [value]="option.value"
+              >
+                {{ option.label }}</mat-radio-button
+              >
             }
           </mat-radio-group>
         </div>
@@ -445,9 +445,9 @@
             <mat-label>hour (default: 1)</mat-label>
             <mat-select [(ngModel)]="stepHour">
               @for (step of stepHours; track step) {
-              <mat-option [value]="step">
-                {{ step }}
-              </mat-option>
+                <mat-option [value]="step">
+                  {{ step }}
+                </mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -456,9 +456,9 @@
             <mat-label>minute (default: 1)</mat-label>
             <mat-select [(ngModel)]="stepMinute">
               @for (step of stepMinutes; track step) {
-              <mat-option [value]="step">
-                {{ step }}
-              </mat-option>
+                <mat-option [value]="step">
+                  {{ step }}
+                </mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -467,9 +467,9 @@
             <mat-label>second (default: 1)</mat-label>
             <mat-select [(ngModel)]="stepSecond">
               @for (step of stepSeconds; track step) {
-              <mat-option [value]="step">
-                {{ step }}
-              </mat-option>
+                <mat-option [value]="step">
+                  {{ step }}
+                </mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -481,9 +481,9 @@
             <mat-label>Select color</mat-label>
             <mat-select [(ngModel)]="color">
               @for (item of listColors; track item) {
-              <mat-option [value]="item">
-                {{ item }}
-              </mat-option>
+                <mat-option [value]="item">
+                  {{ item }}
+                </mat-option>
               }
             </mat-select>
           </mat-form-field>

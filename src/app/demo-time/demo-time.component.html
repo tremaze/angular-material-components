@@ -38,9 +38,9 @@
       <span class="label">disabled (Default: false) </span>
       <mat-radio-group aria-label="Select an option" [(ngModel)]="disabled">
         @for (option of options; track option) {
-        <mat-radio-button class="example-radio-button" [value]="option.value">
-          {{ option.label }}</mat-radio-button
-        >
+          <mat-radio-button class="example-radio-button" [value]="option.value">
+            {{ option.label }}</mat-radio-button
+          >
         }
       </mat-radio-group>
     </div>
@@ -49,9 +49,9 @@
       <span class="label">showSpinners (Default: true) </span>
       <mat-radio-group aria-label="Select an option" [(ngModel)]="showSpinners">
         @for (option of options; track option) {
-        <mat-radio-button class="example-radio-button" [value]="option.value">
-          {{ option.label }}</mat-radio-button
-        >
+          <mat-radio-button class="example-radio-button" [value]="option.value">
+            {{ option.label }}</mat-radio-button
+          >
         }
       </mat-radio-group>
     </div>
@@ -60,9 +60,9 @@
       <span class="label">showSeconds (Default: false) </span>
       <mat-radio-group aria-label="Select an option" [(ngModel)]="showSeconds">
         @for (option of options; track option) {
-        <mat-radio-button class="example-radio-button" [value]="option.value">
-          {{ option.label }}</mat-radio-button
-        >
+          <mat-radio-button class="example-radio-button" [value]="option.value">
+            {{ option.label }}</mat-radio-button
+          >
         }
       </mat-radio-group>
     </div>
@@ -74,9 +74,9 @@
         [(ngModel)]="disableMinute"
       >
         @for (option of options; track option) {
-        <mat-radio-button class="example-radio-button" [value]="option.value">
-          {{ option.label }}</mat-radio-button
-        >
+          <mat-radio-button class="example-radio-button" [value]="option.value">
+            {{ option.label }}</mat-radio-button
+          >
         }
       </mat-radio-group>
     </div>
@@ -88,9 +88,9 @@
         [(ngModel)]="enableMeridian"
       >
         @for (option of options; track option) {
-        <mat-radio-button class="example-radio-button" [value]="option.value">
-          {{ option.label }}</mat-radio-button
-        >
+          <mat-radio-button class="example-radio-button" [value]="option.value">
+            {{ option.label }}</mat-radio-button
+          >
         }
       </mat-radio-group>
     </div>
@@ -101,9 +101,9 @@
         <mat-label>hour (default: 1)</mat-label>
         <mat-select [(ngModel)]="stepHour">
           @for (step of stepHours; track step) {
-          <mat-option [value]="step">
-            {{ step }}
-          </mat-option>
+            <mat-option [value]="step">
+              {{ step }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -111,9 +111,9 @@
         <mat-label>minute (default: 1)</mat-label>
         <mat-select [(ngModel)]="stepMinute">
           @for (step of stepMinutes; track step) {
-          <mat-option [value]="step">
-            {{ step }}
-          </mat-option>
+            <mat-option [value]="step">
+              {{ step }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -122,9 +122,9 @@
         <mat-label>second (default: 1)</mat-label>
         <mat-select [(ngModel)]="stepSecond">
           @for (step of stepSeconds; track step) {
-          <mat-option [value]="step">
-            {{ step }}
-          </mat-option>
+            <mat-option [value]="step">
+              {{ step }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -136,9 +136,9 @@
         <mat-label>Select color</mat-label>
         <mat-select [(ngModel)]="color">
           @for (item of listColors; track item) {
-          <mat-option [value]="item">
-            {{ item }}
-          </mat-option>
+            <mat-option [value]="item">
+              {{ item }}
+            </mat-option>
           }
         </mat-select>
       </mat-form-field>
