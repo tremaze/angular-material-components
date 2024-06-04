@@ -124,6 +124,7 @@ $touch-max-height: 815px;
 @media all and (orientation: portrait) {
   .mat-datepicker-content-touch {
     max-height: 100vh;
+
     .mat-datepicker-content-container {
       width: $touch-portrait-width;
       height: $touch-portrait-height;
@@ -132,7 +133,7 @@ $touch-max-height: 815px;
         height: auto;
         max-height: 870px;
 
-        &.mat-datepicker-content-container-with-actions{
+        &.mat-datepicker-content-container-with-actions {
           max-height: none !important;
         }
       }

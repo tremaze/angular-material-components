@@ -1,22 +1,24 @@
-
-
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { Inject, Injectable, InjectionToken, Optional } from "@angular/core";
+import { MAT_DATE_LOCALE } from "@angular/material/core";
 // Depending on whether rollup is used, moment needs to be imported differently.
 // Since Moment.js doesn't have a default export, we normally need to import using the `* as`
 // syntax. However, rollup creates a synthetic default module and we thus need to import it using
 // the `default as` syntax.
 // TODO(mmalerba): See if we can clean this up at some point.
-import * as _moment from 'moment';
+import * as _moment from "moment";
 // tslint:disable-next-line:no-duplicate-imports
-import { default as _rollupMoment, Moment, MomentFormatSpecification, MomentInput } from 'moment';
-import { NgxMatDateAdapter } from '@angular-material-components/datetime-picker';
+import { NgxMatDateAdapter } from "@angular-material-components/datetime-picker";
+import {
+  default as _rollupMoment,
+  Moment,
+  MomentFormatSpecification,
+  MomentInput,
+} from "moment";
 
 const moment = _rollupMoment || _moment;
 
 /** Configurable options for {@see MomentDateAdapter}. */
 export interface NgxMatMomentDateAdapterOptions {
-
   /**
    * When enabled, the dates have to match the format exactly.
    * See https://momentjs.com/guides/#/parsing/strict-mode/.
@@ -32,20 +34,21 @@ export interface NgxMatMomentDateAdapterOptions {
 }
 
 /** InjectionToken for moment date adapter to configure options. */
-export const NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS = new InjectionToken<NgxMatMomentDateAdapterOptions>(
-  'NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS', {
-  providedIn: 'root',
-  factory: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY
-});
-
+export const NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS =
+  new InjectionToken<NgxMatMomentDateAdapterOptions>(
+    "NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS",
+    {
+      providedIn: "root",
+      factory: NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY,
+    }
+  );
 
 /** @docs-private */
 export function NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS_FACTORY(): NgxMatMomentDateAdapterOptions {
   return {
-    useUtc: false
+    useUtc: false,
   };
 }
-
 
 /** Creates an array and fills it with values. */
 function range<T>(length: number, valueFunction: (index: number) => T): T[] {
@@ -56,30 +59,30 @@ function range<T>(length: number, valueFunction: (index: number) => T): T[] {
   return valuesArray;
 }
 
-
 /** Adapts Moment.js Dates for use with Angular Material. */
 @Injectable()
 export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
-
   // Note: all of the methods that accept a `Moment` input parameter immediately call `this.clone`
   // on it. This is to ensure that we're working with a `Moment` that has the correct locale setting
   // while avoiding mutating the original object passed to us. Just calling `.locale(...)` on the
   // input would mutate the object.
 
   private _localeData: {
-    firstDayOfWeek: number,
-    longMonths: string[],
-    shortMonths: string[],
-    dates: string[],
-    longDaysOfWeek: string[],
-    shortDaysOfWeek: string[],
-    narrowDaysOfWeek: string[]
+    firstDayOfWeek: number;
+    longMonths: string[];
+    shortMonths: string[];
+    dates: string[];
+    longDaysOfWeek: string[];
+    shortDaysOfWeek: string[];
+    narrowDaysOfWeek: string[];
   };
 
-  constructor(@Optional() @Inject(MAT_DATE_LOCALE) dateLocale: string,
-    @Optional() @Inject(NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS)
-    private _options?: NgxMatMomentDateAdapterOptions) {
-
+  constructor(
+    @Optional() @Inject(MAT_DATE_LOCALE) private dateLocale: string,
+    @Optional()
+    @Inject(NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS)
+    private _options?: NgxMatMomentDateAdapterOptions
+  ) {
     super();
     this.setLocale(dateLocale || moment.locale());
   }
@@ -92,7 +95,7 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
       firstDayOfWeek: momentLocaleData.firstDayOfWeek(),
       longMonths: momentLocaleData.months(),
       shortMonths: momentLocaleData.monthsShort(),
-      dates: range(31, (i) => this.createDate(2017, 0, i + 1).format('D')),
+      dates: range(31, (i) => this.createDate(2017, 0, i + 1).format("D")),
       longDaysOfWeek: momentLocaleData.weekdays(),
       shortDaysOfWeek: momentLocaleData.weekdaysShort(),
       narrowDaysOfWeek: momentLocaleData.weekdaysMin(),
@@ -115,27 +118,29 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
     return this.clone(date).day();
   }
 
-  getMonthNames(style: 'long' | 'short' | 'narrow'): string[] {
+  getMonthNames(style: "long" | "short" | "narrow"): string[] {
     // Moment.js doesn't support narrow month names, so we just use short if narrow is requested.
-    return style == 'long' ? this._localeData.longMonths : this._localeData.shortMonths;
+    return style == "long"
+      ? this._localeData.longMonths
+      : this._localeData.shortMonths;
   }
 
   getDateNames(): string[] {
     return this._localeData.dates;
   }
 
-  getDayOfWeekNames(style: 'long' | 'short' | 'narrow'): string[] {
-    if (style == 'long') {
+  getDayOfWeekNames(style: "long" | "short" | "narrow"): string[] {
+    if (style == "long") {
       return this._localeData.longDaysOfWeek;
     }
-    if (style == 'short') {
+    if (style == "short") {
       return this._localeData.shortDaysOfWeek;
     }
     return this._localeData.narrowDaysOfWeek;
   }
 
   getYearName(date: Moment): string {
-    return this.clone(date).format('YYYY');
+    return this.clone(date).format("YYYY");
   }
 
   getFirstDayOfWeek(): number {
@@ -147,21 +152,25 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
   }
 
   clone(date: Moment): Moment {
-    return date.clone().locale(this.locale);
+    return date.clone().locale(this.dateLocale);
   }
 
   createDate(year: number, month: number, date: number): Moment {
     // Moment.js will create an invalid date if any of the components are out of bounds, but we
     // explicitly check each case so we can throw more descriptive errors.
     if (month < 0 || month > 11) {
-      throw Error(`Invalid month index "${month}". Month index has to be between 0 and 11.`);
+      throw Error(
+        `Invalid month index "${month}". Month index has to be between 0 and 11.`
+      );
     }
 
     if (date < 1) {
       throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
     }
 
-    const result = this._createMoment({ year, month, date }).locale(this.locale);
+    const result = this._createMoment({ year, month, date }).locale(
+      this.dateLocale
+    );
 
     // If the result isn't valid, the date must have been out of bounds for this month.
     if (!result.isValid()) {
@@ -172,20 +181,20 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
   }
 
   today(): Moment {
-    return this._createMoment().locale(this.locale);
+    return this._createMoment().locale(this.dateLocale);
   }
 
   parse(value: any, parseFormat: string | string[]): Moment | null {
-    if (value && typeof value == 'string') {
-      return this._createMoment(value, parseFormat, this.locale);
+    if (value && typeof value == "string") {
+      return this._createMoment(value, parseFormat, this.dateLocale);
     }
-    return value ? this._createMoment(value).locale(this.locale) : null;
+    return value ? this._createMoment(value).locale(this.dateLocale) : null;
   }
 
   format(date: Moment, displayFormat: string): string {
     date = this.clone(date);
     if (!this.isValid(date)) {
-      throw Error('MomentDateAdapter: Cannot format invalid date.');
+      throw Error("MomentDateAdapter: Cannot format invalid date.");
     }
     return date.format(displayFormat);
   }
@@ -214,19 +223,19 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
   deserialize(value: any): Moment | null {
     let date;
     if (value instanceof Date) {
-      date = this._createMoment(value).locale(this.locale);
+      date = this._createMoment(value).locale(this.dateLocale);
     } else if (this.isDateInstance(value)) {
       // Note: assumes that cloning also sets the correct locale.
       return this.clone(value);
     }
-    if (typeof value === 'string') {
+    if (typeof value === "string") {
       if (!value) {
         return null;
       }
-      date = this._createMoment(value, moment.ISO_8601).locale(this.locale);
+      date = this._createMoment(value, moment.ISO_8601).locale(this.dateLocale);
     }
     if (date && this.isValid(date)) {
-      return this._createMoment(date).locale(this.locale);
+      return this._createMoment(date).locale(this.dateLocale);
     }
     return super.deserialize(value);
   }
@@ -256,7 +265,7 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
     date.hours(value);
   }
   setMinute(date: _moment.Moment, value: number): void {
-    date.minutes(value)
+    date.minutes(value);
   }
   setSecond(date: _moment.Moment, value: number): void {
     date.seconds(value);
@@ -266,9 +275,10 @@ export class NgxMatMomentAdapter extends NgxMatDateAdapter<Moment> {
   private _createMoment(
     date?: MomentInput,
     format?: MomentFormatSpecification,
-    locale?: string,
+    locale?: string
   ): Moment {
-    const { strict, useUtc }: NgxMatMomentDateAdapterOptions = this._options || {};
+    const { strict, useUtc }: NgxMatMomentDateAdapterOptions =
+      this._options || {};
 
     return useUtc
       ? moment.utc(date, format, locale, strict)
