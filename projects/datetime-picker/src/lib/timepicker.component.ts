@@ -113,7 +113,7 @@ export class NgxMatTimepickerComponent<D>
   constructor(
     @Optional() public _dateAdapter: NgxMatDateAdapter<D>,
     private cd: ChangeDetectorRef,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
   ) {
     if (!this._dateAdapter) {
       throw createMissingDateImplError("NgxMatDateAdapter");
@@ -233,7 +233,7 @@ export class NgxMatTimepickerComponent<D>
       },
       {
         emitEvent: false,
-      }
+      },
     );
   }
 

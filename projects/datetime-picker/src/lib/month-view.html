@@ -1,11 +1,11 @@
 <table class="mat-calendar-table" role="grid">
   <thead class="mat-calendar-table-header">
     <tr>
-      @for (day of _weekdays; track day) {
-      <th scope="col">
-        <span class="cdk-visually-hidden">{{day.long}}</span>
-        <span aria-hidden="true">{{day.narrow}}</span>
-      </th>
+      @for (day of _weekdays; track $index) {
+        <th scope="col">
+          <span class="cdk-visually-hidden">{{ day.long }}</span>
+          <span aria-hidden="true">{{ day.narrow }}</span>
+        </th>
       }
     </tr>
     <tr>

@@ -115,6 +115,12 @@ devDependencies:
   ng-packagr:
     specifier: ^18.0.0
     version: 18.0.0(@angular/compiler-cli@18.0.1)(tslib@2.6.2)(typescript@5.4.5)
+  prettier:
+    specifier: ^3.3.0
+    version: 3.3.0
+  prettier-plugin-organize-attributes:
+    specifier: ^1.0.0
+    version: 1.0.0(prettier@3.3.0)
   protractor:
     specifier: ~7.0.0
     version: 7.0.0
@@ -8422,6 +8428,21 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.1
       source-map-js: 1.2.0
+    dev: true
+
+  /prettier-plugin-organize-attributes@1.0.0(prettier@3.3.0):
+    resolution: {integrity: sha512-+NmameaLxbCcylEXsKPmawtzla5EE6ECqvGkpfQz4KM847fXDifB1gFnPQEpoADAq6IXg+cMI8Z0ISJEXa6fhg==}
+    engines: {node: '>=14.0.0'}
+    peerDependencies:
+      prettier: ^3.0.0
+    dependencies:
+      prettier: 3.3.0
+    dev: true
+
+  /prettier@3.3.0:
+    resolution: {integrity: sha512-J9odKxERhCQ10OC2yb93583f6UnYutOeiV5i0zEDS7UGTdUt0u+y8erxl3lBKvwo/JHyyoEdXjwp4dke9oyZ/g==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /pretty-format@29.7.0:

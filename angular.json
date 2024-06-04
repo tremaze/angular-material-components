@@ -68,18 +68,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-material-components:build"
+            "buildTarget": "angular-material-components:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-material-components:build:production"
+              "buildTarget": "angular-material-components:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-material-components:build"
+            "buildTarget": "angular-material-components:build"
           }
         },
         "test": {
@@ -214,13 +214,12 @@
     }
   },
   "schematics": {
-    "@schematics/angular:module": {
-      "prefix": "ngx-mat"
-    },
     "@schematics/angular:component": {
       "prefix": "ngx-mat",
       "style": "scss",
-      "skipTests": true
+      "skipTests": true,
+      "standalone": true,
+      "changeDetection": "OnPush"
     },
     "@schematics/angular:directive": {
       "prefix": "ngx-mat",

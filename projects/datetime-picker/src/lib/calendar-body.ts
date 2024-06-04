@@ -4,14 +4,13 @@ import {
   AfterViewChecked,
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   inject,
   input,
   NgZone,
-  OnChanges,
   OnDestroy,
   output,
-  SimpleChanges,
   ViewEncapsulation,
 } from "@angular/core";
 import { take } from "rxjs/operators";
@@ -26,7 +25,7 @@ export type NgxMatCalendarCellCssClasses =
 /** Function that can generate the extra classes that should be added to a calendar cell. */
 export type NgxMatCalendarCellClassFunction<D> = (
   date: D,
-  view: "month" | "year" | "multi-year"
+  view: "month" | "year" | "multi-year",
 ) => NgxMatCalendarCellCssClasses;
 
 /**
@@ -41,7 +40,7 @@ export class NgxMatCalendarCell<D = any> {
     public enabled: boolean,
     public cssClasses: NgxMatCalendarCellCssClasses = {},
     public compareValue = value,
-    public rawValue?: D
+    public rawValue?: D,
   ) {}
 }
 
@@ -67,7 +66,7 @@ let calendarBodyId = 1;
   imports: [NgClass],
 })
 export class NgxMatCalendarBody<D = any>
-  implements OnChanges, OnDestroy, AfterViewChecked
+  implements OnDestroy, AfterViewChecked
 {
   private _platform = inject(Platform);
 
@@ -156,19 +155,31 @@ export class NgxMatCalendarBody<D = any>
   readonly dragEnded = output<NgxMatCalendarUserEvent<D | null>>();
 
   /** The number of blank cells to put at the beginning for the first row. */
-  _firstRowOffset: number;
+  _firstRowOffset = computed(() => {
+    const rows = this.rows();
+    const numCols = this.numCols();
+
+    return rows && rows.length && rows[0].length ? numCols - rows[0].length : 0;
+  });
 
   /** Padding for the individual date cells. */
-  _cellPadding: string;
+  _cellPadding = computed(() => {
+    const numCols = this.numCols();
+    const cellAspectRatio = this.cellAspectRatio();
+
+    return `${(50 * cellAspectRatio) / numCols}%`;
+  });
 
   /** Width of an individual cell. */
-  _cellWidth: string;
+  _cellWidth = computed(() => {
+    return `${100 / this.numCols()}%`;
+  });
 
   private _didDragSinceMouseDown = false;
 
   constructor(
     private _elementRef: ElementRef<HTMLElement>,
-    private _ngZone: NgZone
+    private _ngZone: NgZone,
   ) {
     _ngZone.runOutsideAngular(() => {
       const element = _elementRef.nativeElement;
@@ -211,24 +222,6 @@ export class NgxMatCalendarBody<D = any>
     return this.startValue() === value || this.endValue() === value;
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    const columnChanges = changes["numCols"];
-    const { rows, numCols } = this;
-
-    if (changes["rows"] || columnChanges) {
-      this._firstRowOffset =
-        rows && rows.length && rows[0].length ? numCols() - rows[0].length : 0;
-    }
-
-    if (changes["cellAspectRatio"] || columnChanges || !this._cellPadding) {
-      this._cellPadding = `${(50 * this.cellAspectRatio()) / numCols()}%`;
-    }
-
-    if (columnChanges || !this._cellWidth) {
-      this._cellWidth = `${100 / numCols()}%`;
-    }
-  }
-
   ngOnDestroy() {
     const element = this._elementRef.nativeElement;
     element.removeEventListener("mouseenter", this._enterHandler, true);
@@ -251,7 +244,7 @@ export class NgxMatCalendarBody<D = any>
 
     // Account for the fact that the first row may not have as many cells.
     if (rowIndex) {
-      cellNumber -= this._firstRowOffset;
+      cellNumber -= this._firstRowOffset();
     }
 
     return cellNumber == this.activeCell();
@@ -263,7 +256,7 @@ export class NgxMatCalendarBody<D = any>
         setTimeout(() => {
           const activeCell: HTMLElement | null =
             this._elementRef.nativeElement.querySelector(
-              ".mat-calendar-body-active"
+              ".mat-calendar-body-active",
             );
 
           if (activeCell) {
@@ -356,7 +349,7 @@ export class NgxMatCalendarBody<D = any>
       value,
       this.comparisonStart(),
       this.comparisonEnd(),
-      this.isRange()
+      this.isRange(),
     );
   }
 
@@ -385,7 +378,7 @@ export class NgxMatCalendarBody<D = any>
       value,
       this.previewStart(),
       this.previewEnd(),
-      this.isRange()
+      this.isRange(),
     );
   }
 
@@ -421,7 +414,7 @@ export class NgxMatCalendarBody<D = any>
 
       if (cell) {
         this._ngZone.run(() =>
-          this.previewChange.emit({ value: cell.enabled ? cell : null, event })
+          this.previewChange.emit({ value: cell.enabled ? cell : null, event }),
         );
       }
     }
@@ -446,7 +439,7 @@ export class NgxMatCalendarBody<D = any>
     }
 
     this._ngZone.run(() =>
-      this.previewChange.emit({ value: cell?.enabled ? cell : null, event })
+      this.previewChange.emit({ value: cell?.enabled ? cell : null, event }),
     );
   };
 
@@ -470,7 +463,7 @@ export class NgxMatCalendarBody<D = any>
         !(
           (event as MouseEvent).relatedTarget &&
           this._getCellFromElement(
-            (event as MouseEvent).relatedTarget as HTMLElement
+            (event as MouseEvent).relatedTarget as HTMLElement,
           )
         )
       ) {
@@ -564,7 +557,7 @@ export class NgxMatCalendarBody<D = any>
 
 /** Checks whether a node is a table cell element. */
 function isTableCell(
-  node: Node | undefined | null
+  node: Node | undefined | null,
 ): node is HTMLTableCellElement {
   return node?.nodeName === "TD";
 }
@@ -590,7 +583,7 @@ function getCellElement(element: HTMLElement): HTMLElement | null {
 function isStart(
   value: number,
   start: number | null,
-  end: number | null
+  end: number | null,
 ): boolean {
   return end !== null && start !== end && value < end && value === start;
 }
@@ -599,7 +592,7 @@ function isStart(
 function isEnd(
   value: number,
   start: number | null,
-  end: number | null
+  end: number | null,
 ): boolean {
   return start !== null && start !== end && value >= start && value === end;
 }
@@ -609,7 +602,7 @@ function isInRange(
   value: number,
   start: number | null,
   end: number | null,
-  rangeEnabled: boolean
+  rangeEnabled: boolean,
 ): boolean {
   return (
     rangeEnabled &&
@@ -629,6 +622,6 @@ function getActualTouchTarget(event: TouchEvent): Element | null {
   const touchLocation = event.changedTouches[0];
   return document.elementFromPoint(
     touchLocation.clientX,
-    touchLocation.clientY
+    touchLocation.clientY,
   );
 }

@@ -95,6 +95,8 @@
     "ts-node": "~10.9.2",
     "tsickle": "^0.46.3",
     "tslint": "~6.1.0",
+    "prettier": "^3.3.0",
+    "prettier-plugin-organize-attributes": "^1.0.0",
     "typescript": "~5.4.5"
   },
   "browserslist": [

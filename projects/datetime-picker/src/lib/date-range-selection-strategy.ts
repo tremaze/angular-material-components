@@ -25,7 +25,7 @@ export interface NgxMatDateRangeSelectionStrategy<D> {
   selectionFinished(
     date: D | null,
     currentRange: NgxDateRange<D>,
-    event: Event
+    event: Event,
   ): NgxDateRange<D>;
 
   /**
@@ -41,7 +41,7 @@ export interface NgxMatDateRangeSelectionStrategy<D> {
   createPreview(
     activeDate: D | null,
     currentRange: NgxDateRange<D>,
-    event: Event
+    event: Event,
   ): NgxDateRange<D>;
 
   /**
@@ -58,7 +58,7 @@ export interface NgxMatDateRangeSelectionStrategy<D> {
     dragOrigin: D,
     originalRange: NgxDateRange<D>,
     newDate: D,
-    event: Event
+    event: Event,
   ): NgxDateRange<D> | null;
 }
 
@@ -146,7 +146,7 @@ export class DefaultNgxMatCalendarRangeStrategy<D>
 /** @docs-private */
 export function NGX_MAT_CALENDAR_RANGE_STRATEGY_PROVIDER_FACTORY(
   parent: NgxMatDateRangeSelectionStrategy<unknown>,
-  adapter: NgxMatDateAdapter<unknown>
+  adapter: NgxMatDateAdapter<unknown>,
 ) {
   return parent || new DefaultNgxMatCalendarRangeStrategy(adapter);
 }

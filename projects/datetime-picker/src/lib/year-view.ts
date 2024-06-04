@@ -66,12 +66,12 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
     let oldActiveDate = this._activeDate;
     const validDate =
       this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value)
+        this._dateAdapter.deserialize(value),
       ) || this._dateAdapter.today();
     this._activeDate = this._dateAdapter.clampDate(
       validDate,
       this.minDate,
-      this.maxDate
+      this.maxDate,
     );
     if (
       this._dateAdapter.getYear(oldActiveDate) !==
@@ -92,7 +92,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
       this._selected = value;
     } else {
       this._selected = this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value)
+        this._dateAdapter.deserialize(value),
       );
     }
 
@@ -107,7 +107,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
   }
   set minDate(value: D | null) {
     this._minDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _minDate: D | null;
@@ -119,7 +119,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
   }
   set maxDate(value: D | null) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _maxDate: D | null;
@@ -163,7 +163,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
     @Inject(NGX_MAT_DATE_FORMATS)
     private _dateFormats: NgxMatDateFormats,
     @Optional() public _dateAdapter: NgxMatDateAdapter<D>,
-    @Optional() private _dir?: Directionality
+    @Optional() private _dir?: Directionality,
   ) {
     if (!this._dateAdapter) {
       throw createMissingDateImplError("NgxMatDateAdapter");
@@ -192,7 +192,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
     const selectedMonth = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       month,
-      1
+      1,
     );
     this.monthSelected.emit(selectedMonth);
 
@@ -234,49 +234,49 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
       case LEFT_ARROW:
         this.activeDate = this._dateAdapter.addCalendarMonths(
           this._activeDate,
-          isRtl ? 1 : -1
+          isRtl ? 1 : -1,
         );
         break;
       case RIGHT_ARROW:
         this.activeDate = this._dateAdapter.addCalendarMonths(
           this._activeDate,
-          isRtl ? -1 : 1
+          isRtl ? -1 : 1,
         );
         break;
       case UP_ARROW:
         this.activeDate = this._dateAdapter.addCalendarMonths(
           this._activeDate,
-          -4
+          -4,
         );
         break;
       case DOWN_ARROW:
         this.activeDate = this._dateAdapter.addCalendarMonths(
           this._activeDate,
-          4
+          4,
         );
         break;
       case HOME:
         this.activeDate = this._dateAdapter.addCalendarMonths(
           this._activeDate,
-          -this._dateAdapter.getMonth(this._activeDate)
+          -this._dateAdapter.getMonth(this._activeDate),
         );
         break;
       case END:
         this.activeDate = this._dateAdapter.addCalendarMonths(
           this._activeDate,
-          11 - this._dateAdapter.getMonth(this._activeDate)
+          11 - this._dateAdapter.getMonth(this._activeDate),
         );
         break;
       case PAGE_UP:
         this.activeDate = this._dateAdapter.addCalendarYears(
           this._activeDate,
-          event.altKey ? -10 : -1
+          event.altKey ? -10 : -1,
         );
         break;
       case PAGE_DOWN:
         this.activeDate = this._dateAdapter.addCalendarYears(
           this._activeDate,
-          event.altKey ? 10 : 1
+          event.altKey ? 10 : 1,
         );
         break;
       case ENTER:
@@ -328,7 +328,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
       [4, 5, 6, 7],
       [8, 9, 10, 11],
     ].map((row) =>
-      row.map((month) => this._createCellForMonth(month, monthNames[month]))
+      row.map((month) => this._createCellForMonth(month, monthNames[month])),
     );
     this._changeDetectorRef.markForCheck();
   }
@@ -363,7 +363,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
     const normalizedDate = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       month,
-      1
+      1,
     );
 
     const daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
@@ -371,7 +371,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
     return this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       month,
-      Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)
+      Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth),
     );
   }
 
@@ -380,11 +380,11 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
     const date = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       month,
-      1
+      1,
     );
     const ariaLabel = this._dateAdapter.format(
       date,
-      this._dateFormats.display.monthYearA11yLabel
+      this._dateFormats.display.monthYearA11yLabel,
     );
     const cellClasses = this.dateClass()
       ? this.dateClass()!(date, "year")
@@ -395,7 +395,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
       monthName.toLocaleUpperCase(),
       ariaLabel,
       this._shouldEnableMonth(month),
-      cellClasses
+      cellClasses,
     );
   }
 

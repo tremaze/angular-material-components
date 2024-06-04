@@ -11,8 +11,11 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTabsModule } from "@angular/material/tabs";
 import {
+  NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
+  NgxMatDatepickerActions,
+  NgxMatDatepickerInput,
+  NgxMatDatepickerToggle,
   NgxMatDatetimepicker,
-  NgxMatDatetimePickerModule,
   NgxMatNativeDateModule,
 } from "projects/datetime-picker/src";
 import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
@@ -24,7 +27,6 @@ import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
   standalone: true,
   imports: [
     MatInputModule,
-    NgxMatDatetimePickerModule,
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
@@ -37,8 +39,13 @@ import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
     MatTabsModule,
     DemoDatetimeComponent,
     NgxMatHighlightDirective,
+    NgxMatDatepickerToggle,
+    NgxMatDatetimepicker,
+    NgxMatDatepickerInput,
+    NgxMatDatepickerActions,
   ],
   providers: [
+    NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: "fill" },

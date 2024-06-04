@@ -127,7 +127,7 @@ export class NgxMatDateRangeInput<D>
       NgxMatDatepickerControl<D>,
       NgxDateRange<D>,
       D
-    >
+    >,
   ) {
     if (rangePicker) {
       this._model = rangePicker.registerInput(this);
@@ -191,7 +191,7 @@ export class NgxMatDateRangeInput<D>
   }
   set min(value: D | null) {
     const validValue = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
 
     if (!this._dateAdapter.sameDate(validValue, this._min)) {
@@ -208,7 +208,7 @@ export class NgxMatDateRangeInput<D>
   }
   set max(value: D | null) {
     const validValue = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
 
     if (!this._dateAdapter.sameDate(validValue, this._max)) {
@@ -285,7 +285,7 @@ export class NgxMatDateRangeInput<D>
     @Optional() private _dateAdapter: NgxMatDateAdapter<D>,
     @Optional()
     @Inject(MAT_FORM_FIELD)
-    private _formField?: _NgxMatFormFieldPartial
+    private _formField?: _NgxMatFormFieldPartial,
   ) {
     if (!_dateAdapter) {
       throw createMissingDateImplError("NgxMatDateAdapter");
@@ -295,13 +295,13 @@ export class NgxMatDateRangeInput<D>
     // to conditionally add the MDC input class so that the range picker looks correctly.
     if (
       _formField?._elementRef.nativeElement.classList.contains(
-        "mat-mdc-form-field"
+        "mat-mdc-form-field",
       )
     ) {
       _elementRef.nativeElement.classList.add(
         "mat-mdc-input-element",
         "mat-mdc-form-field-input-control",
-        "mdc-text-field__input"
+        "mdc-text-field__input",
       );
     }
 
@@ -349,7 +349,7 @@ export class NgxMatDateRangeInput<D>
     merge(this._startInput.stateChanges, this._endInput.stateChanges).subscribe(
       () => {
         this.stateChanges.next(undefined);
-      }
+      },
     );
   }
 
@@ -465,7 +465,7 @@ export class NgxMatDateRangeInput<D>
 
   /** Checks whether a specific range input directive is required. */
   private _isTargetRequired(
-    target: { ngControl: NgControl | null } | null
+    target: { ngControl: NgControl | null } | null,
   ): boolean | undefined {
     return target?.ngControl?.control?.hasValidator(Validators.required);
   }

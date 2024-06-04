@@ -75,10 +75,10 @@ export class NgxMatCalendarHeader<D> {
     @Optional()
     @Inject(NGX_MAT_DATE_FORMATS)
     private _dateFormats: NgxMatDateFormats,
-    changeDetectorRef: ChangeDetectorRef
+    changeDetectorRef: ChangeDetectorRef,
   ) {
     this.calendar.stateChanges.subscribe(() =>
-      changeDetectorRef.markForCheck()
+      changeDetectorRef.markForCheck(),
     );
   }
 
@@ -88,7 +88,7 @@ export class NgxMatCalendarHeader<D> {
       return this._dateAdapter
         .format(
           this.calendar.activeDate,
-          this._dateFormats.display.monthYearLabel
+          this._dateFormats.display.monthYearLabel,
         )
         .toLocaleUpperCase();
     }
@@ -105,7 +105,7 @@ export class NgxMatCalendarHeader<D> {
       return this._dateAdapter
         .format(
           this.calendar.activeDate,
-          this._dateFormats.display.monthYearLabel
+          this._dateFormats.display.monthYearLabel,
         )
         .toLocaleUpperCase();
     }
@@ -116,7 +116,7 @@ export class NgxMatCalendarHeader<D> {
     // Format a label for the window of years displayed in the multi-year calendar view. Use
     // `formatYearRangeLabel` because it is TTS friendly.
     return this._intl.formatYearRangeLabel(
-      ...this._formatMinAndMaxYearLabels()
+      ...this._formatMinAndMaxYearLabels(),
     );
   }
 
@@ -158,7 +158,7 @@ export class NgxMatCalendarHeader<D> {
         ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, -1)
         : this._dateAdapter.addCalendarYears(
             this.calendar.activeDate,
-            this.calendar.currentView == "year" ? -1 : -yearsPerPage
+            this.calendar.currentView == "year" ? -1 : -yearsPerPage,
           );
   }
 
@@ -169,7 +169,7 @@ export class NgxMatCalendarHeader<D> {
         ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, 1)
         : this._dateAdapter.addCalendarYears(
             this.calendar.activeDate,
-            this.calendar.currentView == "year" ? 1 : yearsPerPage
+            this.calendar.currentView == "year" ? 1 : yearsPerPage,
           );
   }
 
@@ -211,7 +211,7 @@ export class NgxMatCalendarHeader<D> {
       date1,
       date2,
       this.calendar.minDate,
-      this.calendar.maxDate
+      this.calendar.maxDate,
     );
   }
 
@@ -222,7 +222,7 @@ export class NgxMatCalendarHeader<D> {
    */
   private _formatMinAndMaxYearLabels(): [
     minYearLabel: string,
-    maxYearLabel: string
+    maxYearLabel: string,
   ] {
     // The offset from the active year to the "slot" for the starting year is the
     // *actual* first rendered year in the multi-year view, and the last year is
@@ -234,14 +234,14 @@ export class NgxMatCalendarHeader<D> {
         this._dateAdapter,
         this.calendar.activeDate,
         this.calendar.minDate,
-        this.calendar.maxDate
+        this.calendar.maxDate,
       );
     const maxYearOfPage = minYearOfPage + yearsPerPage - 1;
     const minYearLabel = this._dateAdapter.getYearName(
-      this._dateAdapter.createDate(minYearOfPage, 0, 1)
+      this._dateAdapter.createDate(minYearOfPage, 0, 1),
     );
     const maxYearLabel = this._dateAdapter.getYearName(
-      this._dateAdapter.createDate(maxYearOfPage, 0, 1)
+      this._dateAdapter.createDate(maxYearOfPage, 0, 1),
     );
 
     return [minYearLabel, maxYearLabel];
@@ -298,7 +298,7 @@ export class NgxMatCalendar<D>
   }
   set startAt(value: D | null) {
     this._startAt = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _startAt: D | null;
@@ -316,7 +316,7 @@ export class NgxMatCalendar<D>
       this._selected = value;
     } else {
       this._selected = this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value)
+        this._dateAdapter.deserialize(value),
       );
     }
   }
@@ -329,7 +329,7 @@ export class NgxMatCalendar<D>
   }
   set minDate(value: D | null) {
     this._minDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _minDate: D | null;
@@ -341,7 +341,7 @@ export class NgxMatCalendar<D>
   }
   set maxDate(value: D | null) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _maxDate: D | null;
@@ -410,7 +410,7 @@ export class NgxMatCalendar<D>
     this._clampedActiveDate = this._dateAdapter.clampDate(
       value,
       this.minDate,
-      this.maxDate
+      this.maxDate,
     );
     this.stateChanges.next();
     this._changeDetectorRef.markForCheck();
@@ -446,7 +446,7 @@ export class NgxMatCalendar<D>
     @Optional()
     @Inject(NGX_MAT_DATE_FORMATS)
     private _dateFormats: NgxMatDateFormats,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
   ) {
     if (!this._dateAdapter) {
       throw createMissingDateImplError("NgxMatDateAdapter");
@@ -464,7 +464,7 @@ export class NgxMatCalendar<D>
 
   ngAfterContentInit() {
     this._calendarHeaderPortal = new ComponentPortal(
-      this.headerComponent() || NgxMatCalendarHeader
+      this.headerComponent() || NgxMatCalendarHeader,
     );
     this.activeDate = this.startAt || this._dateAdapter.today();
 
@@ -492,7 +492,7 @@ export class NgxMatCalendar<D>
       changes["minDate"] &&
       !this._dateAdapter.sameDate(
         changes["minDate"].previousValue,
-        changes["minDate"].currentValue
+        changes["minDate"].currentValue,
       )
         ? changes["minDate"]
         : undefined;
@@ -500,7 +500,7 @@ export class NgxMatCalendar<D>
       changes["maxDate"] &&
       !this._dateAdapter.sameDate(
         changes["maxDate"].previousValue,
-        changes["maxDate"].currentValue
+        changes["maxDate"].currentValue,
       )
         ? changes["maxDate"]
         : undefined;
@@ -580,7 +580,7 @@ export class NgxMatCalendar<D>
 
     if (event.value) {
       this._userDragDrop.emit(
-        event as NgxMatCalendarUserEvent<NgxDateRange<D>>
+        event as NgxMatCalendarUserEvent<NgxDateRange<D>>,
       );
     }
 

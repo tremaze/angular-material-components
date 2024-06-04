@@ -80,12 +80,12 @@ export class NgxMatMonthView<D>
     const oldActiveDate = this._activeDate;
     const validDate =
       this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value)
+        this._dateAdapter.deserialize(value),
       ) || this._dateAdapter.today();
     this._activeDate = this._dateAdapter.clampDate(
       validDate,
       this.minDate,
-      this.maxDate
+      this.maxDate,
     );
     if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
       this._init();
@@ -103,7 +103,7 @@ export class NgxMatMonthView<D>
       this._selected = value;
     } else {
       this._selected = this._dateAdapter.getValidDateOrNull(
-        this._dateAdapter.deserialize(value)
+        this._dateAdapter.deserialize(value),
       );
     }
 
@@ -118,7 +118,7 @@ export class NgxMatMonthView<D>
   }
   set minDate(value: D | null) {
     this._minDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _minDate: D | null;
@@ -130,7 +130,7 @@ export class NgxMatMonthView<D>
   }
   set maxDate(value: D | null) {
     this._maxDate = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _maxDate: D | null;
@@ -223,7 +223,7 @@ export class NgxMatMonthView<D>
     @Optional() private _dir?: Directionality,
     @Inject(NGX_MAT_DATE_RANGE_SELECTION_STRATEGY)
     @Optional()
-    private _rangeStrategy?: NgxMatDateRangeSelectionStrategy<D>
+    private _rangeStrategy?: NgxMatDateRangeSelectionStrategy<D>,
   ) {
     if (!this._dateAdapter) {
       throw createMissingDateImplError("NgxMatDateAdapter");
@@ -270,7 +270,7 @@ export class NgxMatMonthView<D>
       rangeEndDate = this._getDateInCurrentMonth(this._selected.end);
     } else {
       rangeStartDate = rangeEndDate = this._getDateInCurrentMonth(
-        this._selected
+        this._selected,
       );
     }
 
@@ -316,38 +316,38 @@ export class NgxMatMonthView<D>
       case LEFT_ARROW:
         this.activeDate = this._dateAdapter.addCalendarDays(
           this._activeDate,
-          isRtl ? 1 : -1
+          isRtl ? 1 : -1,
         );
         break;
       case RIGHT_ARROW:
         this.activeDate = this._dateAdapter.addCalendarDays(
           this._activeDate,
-          isRtl ? -1 : 1
+          isRtl ? -1 : 1,
         );
         break;
       case UP_ARROW:
         this.activeDate = this._dateAdapter.addCalendarDays(
           this._activeDate,
-          -7
+          -7,
         );
         break;
       case DOWN_ARROW:
         this.activeDate = this._dateAdapter.addCalendarDays(
           this._activeDate,
-          7
+          7,
         );
         break;
       case HOME:
         this.activeDate = this._dateAdapter.addCalendarDays(
           this._activeDate,
-          1 - this._dateAdapter.getDate(this._activeDate)
+          1 - this._dateAdapter.getDate(this._activeDate),
         );
         break;
       case END:
         this.activeDate = this._dateAdapter.addCalendarDays(
           this._activeDate,
           this._dateAdapter.getNumDaysInMonth(this._activeDate) -
-            this._dateAdapter.getDate(this._activeDate)
+            this._dateAdapter.getDate(this._activeDate),
         );
         break;
       case PAGE_UP:
@@ -425,7 +425,7 @@ export class NgxMatMonthView<D>
     this._monthLabel = this._dateFormats.display.monthLabel
       ? this._dateAdapter.format(
           this.activeDate,
-          this._dateFormats.display.monthLabel
+          this._dateFormats.display.monthLabel,
         )
       : this._dateAdapter
           .getMonthNames("short")
@@ -434,7 +434,7 @@ export class NgxMatMonthView<D>
     let firstOfMonth = this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       this._dateAdapter.getMonth(this.activeDate),
-      1
+      1,
     );
     this._firstWeekOffset =
       (DAYS_PER_WEEK +
@@ -469,7 +469,7 @@ export class NgxMatMonthView<D>
       const previewRange = this._rangeStrategy.createPreview(
         value,
         this.selected as NgxDateRange<D>,
-        event
+        event,
       );
       this._previewStart = this._getCellCompareValue(previewRange.start);
       this._previewEnd = this._getCellCompareValue(previewRange.end);
@@ -479,7 +479,7 @@ export class NgxMatMonthView<D>
           this.activeDrag()!.value,
           this.selected as NgxDateRange<D>,
           value,
-          event
+          event,
         );
 
         if (dragRange) {
@@ -509,7 +509,7 @@ export class NgxMatMonthView<D>
         this.activeDrag()!.value,
         this.selected as NgxDateRange<D>,
         event.value,
-        event.event
+        event.event,
       );
 
       this.dragEnded.emit({
@@ -529,7 +529,7 @@ export class NgxMatMonthView<D>
     return this._dateAdapter.createDate(
       this._dateAdapter.getYear(this.activeDate),
       this._dateAdapter.getMonth(this.activeDate),
-      dayOfMonth
+      dayOfMonth,
     );
   }
 
@@ -565,12 +565,12 @@ export class NgxMatMonthView<D>
       const date = this._dateAdapter.createDate(
         this._dateAdapter.getYear(this.activeDate),
         this._dateAdapter.getMonth(this.activeDate),
-        i + 1
+        i + 1,
       );
       const enabled = this._shouldEnableDate(date);
       const ariaLabel = this._dateAdapter.format(
         date,
-        this._dateFormats.display.dateA11yLabel
+        this._dateFormats.display.dateA11yLabel,
       );
       const cellClasses = this.dateClass()
         ? this.dateClass()!(date, "month")
@@ -584,8 +584,8 @@ export class NgxMatMonthView<D>
           enabled,
           cellClasses,
           this._getCellCompareValue(date)!,
-          date
-        )
+          date,
+        ),
       );
     }
   }
@@ -654,7 +654,7 @@ export class NgxMatMonthView<D>
     }
 
     this._comparisonRangeStart = this._getCellCompareValue(
-      this.comparisonStart()
+      this.comparisonStart(),
     );
     this._comparisonRangeEnd = this._getCellCompareValue(this.comparisonEnd());
   }

@@ -79,12 +79,12 @@ export class NgxMatDatepickerInput<D>
   /** The datepicker that this input is associated with. */
   @Input()
   set ngxMatDatetimePicker(
-    datepicker: NgxMatDatepickerPanel<NgxMatDatepickerControl<D>, D | null, D>
+    datepicker: NgxMatDatepickerPanel<NgxMatDatepickerControl<D>, D | null, D>,
   ) {
     if (datepicker) {
       this._datepicker = datepicker;
       this._closedSubscription = datepicker.closedStream.subscribe(() =>
-        this._onTouched()
+        this._onTouched(),
       );
       this._registerModel(datepicker.registerInput(this));
     }
@@ -98,7 +98,7 @@ export class NgxMatDatepickerInput<D>
   }
   set min(value: D | null) {
     const validValue = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
 
     if (!this._dateAdapter.sameDate(validValue, this._min)) {
@@ -115,7 +115,7 @@ export class NgxMatDatepickerInput<D>
   }
   set max(value: D | null) {
     const validValue = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
 
     if (!this._dateAdapter.sameDate(validValue, this._max)) {
@@ -149,7 +149,7 @@ export class NgxMatDatepickerInput<D>
     @Optional() @Inject(NGX_MAT_DATE_FORMATS) dateFormats: NgxMatDateFormats,
     @Optional()
     @Inject(MAT_FORM_FIELD)
-    private _formField?: _NgxMatFormFieldPartial
+    private _formField?: _NgxMatFormFieldPartial,
   ) {
     super(elementRef, dateAdapter, dateFormats);
     this._validator = Validators.compose(super._getValidators());

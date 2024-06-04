@@ -95,7 +95,7 @@ export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<
 
 /** @docs-private */
 export function NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(
-  overlay: Overlay
+  overlay: Overlay,
 ): () => ScrollStrategy {
   return () => overlay.scrollStrategies.reposition();
 }
@@ -118,7 +118,7 @@ export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 const _NgxMatDatepickerContentBase = mixinColor(
   class {
     constructor(public _elementRef: ElementRef) {}
-  }
+  },
 );
 
 /**
@@ -223,7 +223,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
     @Optional()
     @Inject(NGX_MAT_DATE_RANGE_SELECTION_STRATEGY)
     private _rangeSelectionStrategy: NgxMatDateRangeSelectionStrategy<D>,
-    intl: NgxMatDatepickerIntl
+    intl: NgxMatDatepickerIntl,
   ) {
     super(elementRef);
     this._closeButtonText = intl.closeCalendarLabel;
@@ -246,7 +246,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
     this._subscriptions.add(
       this.datepicker.stateChanges.subscribe(() => {
         this._changeDetectorRef.markForCheck();
-      })
+      }),
     );
   }
 
@@ -276,7 +276,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   }
 
   private _updateUserSelectionWithCalendarUserEvent(
-    event: NgxMatCalendarUserEvent<D | null>
+    event: NgxMatCalendarUserEvent<D | null>,
   ) {
     const selection = this._model.selection;
     const value = event.value;
@@ -291,17 +291,17 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
       const newSelection = this._rangeSelectionStrategy.selectionFinished(
         value,
         selection as unknown as NgxDateRange<D>,
-        event.event
+        event.event,
       );
       this._model.updateSelection(newSelection as unknown as S, this);
     } else {
       const isSameTime = this._dateAdapter.isSameTime(
         selection as unknown as D,
-        value
+        value,
       );
       const isSameDate = this._dateAdapter.sameDate(
         value,
-        selection as unknown as D
+        selection as unknown as D,
       );
       const isSame = isSameDate && isSameTime;
 
@@ -377,7 +377,7 @@ export interface NgxMatDatepickerControl<D> {
 export interface NgxMatDatepickerPanel<
   C extends NgxMatDatepickerControl<D>,
   S,
-  D = NgxExtractDateTypeFromSelection<S>
+  D = NgxExtractDateTypeFromSelection<S>,
 > {
   /** Stream that emits whenever the date picker is closed. */
   closedStream: EventEmitter<void>;
@@ -404,10 +404,11 @@ export interface NgxMatDatepickerPanel<
 /** Base class for a datepicker. */
 @Directive()
 export abstract class NgxMatDatepickerBase<
-  C extends NgxMatDatepickerControl<D>,
-  S,
-  D = NgxExtractDateTypeFromSelection<S>
-> implements NgxMatDatepickerPanel<C, S, D>, OnDestroy, OnChanges
+    C extends NgxMatDatepickerControl<D>,
+    S,
+    D = NgxExtractDateTypeFromSelection<S>,
+  >
+  implements NgxMatDatepickerPanel<C, S, D>, OnDestroy, OnChanges
 {
   private _scrollStrategy: () => ScrollStrategy;
   private _inputStateChanges = Subscription.EMPTY;
@@ -428,7 +429,7 @@ export abstract class NgxMatDatepickerBase<
   }
   set startAt(value: D | null) {
     this._startAt = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value)
+      this._dateAdapter.deserialize(value),
     );
   }
   private _startAt: D | null;
@@ -491,10 +492,10 @@ export abstract class NgxMatDatepickerBase<
   public _disabled: boolean;
 
   /** Preferred position of the datepicker in the X axis. */
-  xPosition = input<NgxDatepickerDropdownPositionX>("start");
+  readonly xPosition = input<NgxDatepickerDropdownPositionX>("start");
 
   /** Preferred position of the datepicker in the Y axis. */
-  yPosition = input<NgxDatepickerDropdownPositionY>("below");
+  readonly yPosition = input<NgxDatepickerDropdownPositionY>("below");
 
   /**
    * Whether to restore focus to the previously-focused element when the calendar is closed.
@@ -528,7 +529,7 @@ export abstract class NgxMatDatepickerBase<
   readonly viewChanged = output<NgxMatCalendarView>();
 
   /** Function that can be used to add custom CSS classes to dates. */
-  dateClass = input<NgxMatCalendarCellClassFunction<D>>();
+  readonly dateClass = input<NgxMatCalendarCellClassFunction<D>>();
 
   /** Emits when the datepicker has been opened. */
   @Output("opened") readonly openedStream = new EventEmitter<void>();
@@ -684,7 +685,7 @@ export abstract class NgxMatDatepickerBase<
     @Inject(NGX_MAT_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
     @Optional() private _dateAdapter: NgxMatDateAdapter<D>,
     @Optional() private _dir: Directionality,
-    private _model: NgxMatDateSelectionModel<S, D>
+    private _model: NgxMatDateSelectionModel<S, D>,
   ) {
     if (!this._dateAdapter) {
       throw createMissingDateImplError("NgxMatDateAdapter");
@@ -746,13 +747,13 @@ export abstract class NgxMatDatepickerBase<
   registerInput(input: C): NgxMatDateSelectionModel<S, D> {
     if (this.datepickerInput) {
       throw Error(
-        "A MatDatepicker can only be associated with a single input."
+        "A MatDatepicker can only be associated with a single input.",
       );
     }
     this._inputStateChanges.unsubscribe();
     this.datepickerInput = input;
     this._inputStateChanges = input.stateChanges.subscribe(() =>
-      this.stateChanges.next(undefined)
+      this.stateChanges.next(undefined),
     );
     return this._model;
   }
@@ -764,7 +765,7 @@ export abstract class NgxMatDatepickerBase<
   registerActions(portal: TemplatePortal): void {
     if (this._actionsPortal) {
       throw Error(
-        "A MatDatepicker can only be associated with a single actions row."
+        "A MatDatepicker can only be associated with a single actions row.",
       );
     }
     this._actionsPortal = portal;
@@ -796,7 +797,7 @@ export abstract class NgxMatDatepickerBase<
 
     if (!this.datepickerInput) {
       throw Error(
-        "Attempted to open an MatDatepicker with no associated input."
+        "Attempted to open an MatDatepicker with no associated input.",
       );
     }
 
@@ -882,7 +883,7 @@ export abstract class NgxMatDatepickerBase<
     const isDialog = this.touchUi;
     const portal = new ComponentPortal<NgxMatDatepickerContent<S, D>>(
       NgxMatDatepickerContent,
-      this._viewContainerRef
+      this._viewContainerRef,
     );
     const overlayRef = (this._overlayRef = this._overlay.create(
       new OverlayConfig({
@@ -901,7 +902,7 @@ export abstract class NgxMatDatepickerBase<
           ? this._overlay.scrollStrategies.block()
           : this._scrollStrategy(),
         panelClass: `mat-datepicker-${isDialog ? "dialog" : "popup"}`,
-      })
+      }),
     ));
 
     this._getCloseStream(overlayRef).subscribe((event) => {
@@ -1026,11 +1027,11 @@ export abstract class NgxMatDatepickerBase<
               event.keyCode === UP_ARROW &&
               ctrlShiftMetaModifiers.every(
                 (modifier: ListKeyManagerModifierKey) =>
-                  !hasModifierKey(event, modifier)
+                  !hasModifierKey(event, modifier),
               ))
           );
-        })
-      )
+        }),
+      ),
     );
   }
 }

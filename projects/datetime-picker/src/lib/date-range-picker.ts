@@ -49,7 +49,7 @@ export class NgxMatDateRangePicker<D> extends NgxMatDatepickerBase<
   D
 > {
   protected override _forwardContentValues(
-    instance: NgxMatDatepickerContent<NgxDateRange<D>, D>
+    instance: NgxMatDatepickerContent<NgxDateRange<D>, D>,
   ) {
     super._forwardContentValues(instance);
 

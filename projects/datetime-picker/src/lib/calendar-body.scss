@@ -59,6 +59,11 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
   position: relative;
   height: 0;
   line-height: 0;
+
+  .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    background-color: var(--mat-datepicker-calendar-date-hover-state-background-color);
+  }
+
 }
 
 .mat-calendar-body-cell {
@@ -220,6 +225,17 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
 
   // Choosing a value clearly larger than the height ensures we get the correct capsule shape.
   border-radius: $calendar-body-cell-radius;
+
+  border-color: var(--mat-datepicker-calendar-date-outline-color);
+
+  &.mat-calendar-body-selected {
+    background-color: var(--mat-datepicker-calendar-date-selected-state-background-color);
+    color: var(--mat-datepicker-calendar-date-selected-state-text-color);
+  }
+
+  &.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    border-color: var(--mat-datepicker-calendar-date-today-outline-color);
+  }
 
   // Increase specificity because focus indicator styles are part of the `mat-core` mixin and can
   // potentially overwrite the absolute position of the container.

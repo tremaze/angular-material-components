@@ -7,11 +7,11 @@ import {
   Component,
   Directive,
   Input,
-  OnChanges,
   OnDestroy,
-  SimpleChanges,
   ViewEncapsulation,
+  effect,
   input,
+  untracked,
   viewChild,
 } from "@angular/core";
 import { MatButton, MatIconButton } from "@angular/material/button";
@@ -52,9 +52,7 @@ export class NgxMatDatepickerToggleIcon {}
   standalone: true,
   imports: [MatIconButton],
 })
-export class NgxMatDatepickerToggle<D>
-  implements AfterContentInit, OnChanges, OnDestroy
-{
+export class NgxMatDatepickerToggle<D> implements AfterContentInit, OnDestroy {
   private _stateChanges = Subscription.EMPTY;
 
   /** Datepicker instance that the button will toggle. */
@@ -92,17 +90,16 @@ export class NgxMatDatepickerToggle<D>
   constructor(
     public _intl: NgxMatDatepickerIntl,
     private _changeDetectorRef: ChangeDetectorRef,
-    @Attribute("tabindex") defaultTabIndex: string
+    @Attribute("tabindex") defaultTabIndex: string,
   ) {
     const parsedTabIndex = Number(defaultTabIndex);
     this.tabIndex =
       parsedTabIndex || parsedTabIndex === 0 ? parsedTabIndex : null;
-  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes["datepicker"]) {
-      this._watchStateChanges();
-    }
+    effect(() => {
+      this.datepicker();
+      untracked(() => this._watchStateChanges());
+    });
   }
 
   ngOnDestroy() {
@@ -137,7 +134,7 @@ export class NgxMatDatepickerToggle<D>
       this._intl.changes,
       datepickerStateChanged as Observable<void>,
       inputStateChanged,
-      datepickerToggled
+      datepickerToggled,
     ).subscribe(() => this._changeDetectorRef.markForCheck());
   }
 }
