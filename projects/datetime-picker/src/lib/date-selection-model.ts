@@ -1,12 +1,6 @@
-import {
-  FactoryProvider,
-  Injectable,
-  OnDestroy,
-  Optional,
-  SkipSelf,
-} from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { NgxMatDateAdapter } from "./core/date-adapter";
+import { FactoryProvider, Injectable, OnDestroy, Optional, SkipSelf } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { NgxMatDateAdapter } from './core/date-adapter';
 
 /** A class representing a range of dates. */
 export class NgxDateRange<D> {
@@ -21,7 +15,7 @@ export class NgxDateRange<D> {
     /** The start date of the range. */
     readonly start: D | null,
     /** The end date of the range. */
-    readonly end: D | null
+    readonly end: D | null,
   ) {}
 }
 
@@ -29,9 +23,8 @@ export class NgxDateRange<D> {
  * Conditionally picks the date type, if a DateRange is passed in.
  * @docs-private
  */
-export type NgxExtractDateTypeFromSelection<T> = T extends NgxDateRange<infer D>
-  ? D
-  : NonNullable<T>;
+export type NgxExtractDateTypeFromSelection<T> =
+  T extends NgxDateRange<infer D> ? D : NonNullable<T>;
 
 /**
  * Event emitted by the date selection model when its selection changes.
@@ -53,23 +46,18 @@ export interface NgxDateSelectionModelChange<S> {
  * @docs-private
  */
 @Injectable()
-export abstract class NgxMatDateSelectionModel<
-  S,
-  D = NgxExtractDateTypeFromSelection<S>
-> implements OnDestroy
+export abstract class NgxMatDateSelectionModel<S, D = NgxExtractDateTypeFromSelection<S>>
+  implements OnDestroy
 {
-  private readonly _selectionChanged = new Subject<
-    NgxDateSelectionModelChange<S>
-  >();
+  private readonly _selectionChanged = new Subject<NgxDateSelectionModelChange<S>>();
 
   /** Emits when the selection has changed. */
-  selectionChanged: Observable<NgxDateSelectionModelChange<S>> =
-    this._selectionChanged;
+  selectionChanged: Observable<NgxDateSelectionModelChange<S>> = this._selectionChanged;
 
   protected constructor(
     /** The current selection. */
     readonly selection: S,
-    protected _adapter: NgxMatDateAdapter<D>
+    protected _adapter: NgxMatDateAdapter<D>,
   ) {
     this.selection = selection;
   }
@@ -111,10 +99,7 @@ export abstract class NgxMatDateSelectionModel<
  * @docs-private
  */
 @Injectable()
-export class NgxMatSingleDateSelectionModel<D> extends NgxMatDateSelectionModel<
-  D | null,
-  D
-> {
+export class NgxMatSingleDateSelectionModel<D> extends NgxMatDateSelectionModel<D | null, D> {
   constructor(adapter: NgxMatDateAdapter<D>) {
     super(null, adapter);
   }
@@ -153,10 +138,7 @@ export class NgxMatSingleDateSelectionModel<D> extends NgxMatDateSelectionModel<
  * @docs-private
  */
 @Injectable()
-export class NgxMatRangeDateSelectionModel<D> extends NgxMatDateSelectionModel<
-  NgxDateRange<D>,
-  D
-> {
+export class NgxMatRangeDateSelectionModel<D> extends NgxMatDateSelectionModel<NgxDateRange<D>, D> {
   constructor(adapter: NgxMatDateAdapter<D>) {
     super(new NgxDateRange<D>(null, null), adapter);
   }
@@ -225,7 +207,7 @@ export class NgxMatRangeDateSelectionModel<D> extends NgxMatDateSelectionModel<
 /** @docs-private */
 export function NGX_MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(
   parent: NgxMatSingleDateSelectionModel<unknown>,
-  adapter: NgxMatDateAdapter<unknown>
+  adapter: NgxMatDateAdapter<unknown>,
 ) {
   return parent || new NgxMatSingleDateSelectionModel(adapter);
 }
@@ -236,17 +218,14 @@ export function NGX_MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY(
  */
 export const NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider = {
   provide: NgxMatDateSelectionModel,
-  deps: [
-    [new Optional(), new SkipSelf(), NgxMatDateSelectionModel],
-    NgxMatDateAdapter,
-  ],
+  deps: [[new Optional(), new SkipSelf(), NgxMatDateSelectionModel], NgxMatDateAdapter],
   useFactory: NGX_MAT_SINGLE_DATE_SELECTION_MODEL_FACTORY,
 };
 
 /** @docs-private */
 export function NGX_MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(
   parent: NgxMatSingleDateSelectionModel<unknown>,
-  adapter: NgxMatDateAdapter<unknown>
+  adapter: NgxMatDateAdapter<unknown>,
 ) {
   return parent || new NgxMatRangeDateSelectionModel(adapter);
 }
@@ -257,9 +236,6 @@ export function NGX_MAT_RANGE_DATE_SELECTION_MODEL_FACTORY(
  */
 export const NGX_MAT_RANGE_DATE_SELECTION_MODEL_PROVIDER: FactoryProvider = {
   provide: NgxMatDateSelectionModel,
-  deps: [
-    [new Optional(), new SkipSelf(), NgxMatDateSelectionModel],
-    NgxMatDateAdapter,
-  ],
+  deps: [[new Optional(), new SkipSelf(), NgxMatDateSelectionModel], NgxMatDateAdapter],
   useFactory: NGX_MAT_RANGE_DATE_SELECTION_MODEL_FACTORY,
 };

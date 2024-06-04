@@ -1,11 +1,7 @@
-import { AnimationEvent } from "@angular/animations";
-import { CdkTrapFocus, ListKeyManagerModifierKey } from "@angular/cdk/a11y";
-import { Directionality } from "@angular/cdk/bidi";
-import {
-  BooleanInput,
-  coerceBooleanProperty,
-  coerceStringArray,
-} from "@angular/cdk/coercion";
+import { AnimationEvent } from '@angular/animations';
+import { CdkTrapFocus, ListKeyManagerModifierKey } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput, coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import {
   DOWN_ARROW,
   ESCAPE,
@@ -15,22 +11,22 @@ import {
   RIGHT_ARROW,
   UP_ARROW,
   hasModifierKey,
-} from "@angular/cdk/keycodes";
+} from '@angular/cdk/keycodes';
 import {
   FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayConfig,
   OverlayRef,
   ScrollStrategy,
-} from "@angular/cdk/overlay";
-import { _getFocusedElementPierceShadowDom } from "@angular/cdk/platform";
+} from '@angular/cdk/overlay';
+import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import {
   CdkPortalOutlet,
   ComponentPortal,
   ComponentType,
   TemplatePortal,
-} from "@angular/cdk/portal";
-import { DOCUMENT, NgClass } from "@angular/common";
+} from '@angular/cdk/portal';
+import { DOCUMENT, NgClass } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -57,54 +53,49 @@ import {
   input,
   output,
   viewChild,
-} from "@angular/core";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatButton } from "@angular/material/button";
-import { CanColor, ThemePalette, mixinColor } from "@angular/material/core";
-import { Observable, Subject, Subscription, merge } from "rxjs";
-import { filter, take } from "rxjs/operators";
-import { NgxMatCalendar, NgxMatCalendarView } from "./calendar";
-import {
-  NgxMatCalendarCellClassFunction,
-  NgxMatCalendarUserEvent,
-} from "./calendar-body";
-import { NgxMatDateAdapter } from "./core/date-adapter";
+} from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { CanColor, ThemePalette, mixinColor } from '@angular/material/core';
+import { Observable, Subject, Subscription, merge } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+import { NgxMatCalendar, NgxMatCalendarView } from './calendar';
+import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
+import { NgxMatDateAdapter } from './core/date-adapter';
 import {
   NGX_MAT_DATE_RANGE_SELECTION_STRATEGY,
   NgxMatDateRangeSelectionStrategy,
-} from "./date-range-selection-strategy";
+} from './date-range-selection-strategy';
 import {
   NgxDateRange,
   NgxExtractDateTypeFromSelection,
   NgxMatDateSelectionModel,
-} from "./date-selection-model";
-import { ngxMatDatepickerAnimations } from "./datepicker-animations";
-import { createMissingDateImplError } from "./datepicker-errors";
-import { NgxDateFilterFn } from "./datepicker-input-base";
-import { NgxMatDatepickerIntl } from "./datepicker-intl";
-import { NgxMatTimepickerComponent } from "./timepicker.component";
-import { DEFAULT_STEP } from "./utils/date-utils";
+} from './date-selection-model';
+import { ngxMatDatepickerAnimations } from './datepicker-animations';
+import { createMissingDateImplError } from './datepicker-errors';
+import { NgxDateFilterFn } from './datepicker-input-base';
+import { NgxMatDatepickerIntl } from './datepicker-intl';
+import { NgxMatTimepickerComponent } from './timepicker.component';
+import { DEFAULT_STEP } from './utils/date-utils';
 
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;
 
 /** Injection token that determines the scroll handling while the calendar is open. */
-export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<
-  () => ScrollStrategy
->("ngx-mat-datepicker-scroll-strategy");
+export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>(
+  'ngx-mat-datepicker-scroll-strategy',
+);
 
 /** @docs-private */
-export function NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(
-  overlay: Overlay,
-): () => ScrollStrategy {
+export function NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy {
   return () => overlay.scrollStrategies.reposition();
 }
 
 /** Possible positions for the datepicker dropdown along the X axis. */
-export type NgxDatepickerDropdownPositionX = "start" | "end";
+export type NgxDatepickerDropdownPositionX = 'start' | 'end';
 
 /** Possible positions for the datepicker dropdown along the Y axis. */
-export type NgxDatepickerDropdownPositionY = "above" | "below";
+export type NgxDatepickerDropdownPositionY = 'above' | 'below';
 
 /** @docs-private */
 export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
@@ -129,25 +120,25 @@ const _NgxMatDatepickerContentBase = mixinColor(
  * @docs-private
  */
 @Component({
-  selector: "ngx-mat-datepicker-content",
-  templateUrl: "datepicker-content.html",
-  styleUrls: ["datepicker-content.scss"],
+  selector: 'ngx-mat-datepicker-content',
+  templateUrl: 'datepicker-content.html',
+  styleUrls: ['datepicker-content.scss'],
   host: {
-    class: "mat-datepicker-content",
-    "[@transformPanel]": "_animationState",
-    "(@transformPanel.start)": "_handleAnimationEvent($event)",
-    "(@transformPanel.done)": "_handleAnimationEvent($event)",
-    "[class.mat-datepicker-content-touch]": "datepicker.touchUi",
-    "[class.mat-datepicker-content-touch-with-time]": "!datepicker.hideTime",
+    class: 'mat-datepicker-content',
+    '[@transformPanel]': '_animationState',
+    '(@transformPanel.start)': '_handleAnimationEvent($event)',
+    '(@transformPanel.done)': '_handleAnimationEvent($event)',
+    '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
+    '[class.mat-datepicker-content-touch-with-time]': '!datepicker.hideTime',
   },
   animations: [
     ngxMatDatepickerAnimations.transformPanel,
     ngxMatDatepickerAnimations.fadeInCalendar,
   ],
-  exportAs: "ngxMatDatepickerContent",
+  exportAs: 'ngxMatDatepickerContent',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ["color"],
+  inputs: ['color'],
   standalone: true,
   imports: [
     CdkTrapFocus,
@@ -188,7 +179,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   _isAbove: boolean;
 
   /** Current state of the animation. */
-  _animationState: "enter-dropdown" | "enter-dialog" | "void";
+  _animationState: 'enter-dropdown' | 'enter-dialog' | 'void';
 
   /** Emits when an animation has finished. */
   readonly _animationDone = new Subject<void>();
@@ -210,7 +201,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
 
   get isViewMonth(): boolean {
     if (!this._calendar() || this._calendar().currentView == null) return true;
-    return this._calendar().currentView == "month";
+    return this._calendar().currentView == 'month';
   }
 
   _modelTime: D | null;
@@ -237,9 +228,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   }
 
   ngOnInit() {
-    this._animationState = this.datepicker.touchUi
-      ? "enter-dialog"
-      : "enter-dropdown";
+    this._animationState = this.datepicker.touchUi ? 'enter-dialog' : 'enter-dropdown';
   }
 
   ngAfterViewInit() {
@@ -275,9 +264,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
     }
   }
 
-  private _updateUserSelectionWithCalendarUserEvent(
-    event: NgxMatCalendarUserEvent<D | null>,
-  ) {
+  private _updateUserSelectionWithCalendarUserEvent(event: NgxMatCalendarUserEvent<D | null>) {
     const selection = this._model.selection;
     const value = event.value;
     const isRange = selection instanceof NgxDateRange;
@@ -295,14 +282,8 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
       );
       this._model.updateSelection(newSelection as unknown as S, this);
     } else {
-      const isSameTime = this._dateAdapter.isSameTime(
-        selection as unknown as D,
-        value,
-      );
-      const isSameDate = this._dateAdapter.sameDate(
-        value,
-        selection as unknown as D,
-      );
+      const isSameTime = this._dateAdapter.isSameTime(selection as unknown as D, value);
+      const isSameDate = this._dateAdapter.sameDate(value, selection as unknown as D);
       const isSame = isSameDate && isSameTime;
 
       if (value && (isRange || !isSame)) {
@@ -316,12 +297,12 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   }
 
   _startExitAnimation() {
-    this._animationState = "void";
+    this._animationState = 'void';
     this._changeDetectorRef.markForCheck();
   }
 
   _handleAnimationEvent(event: AnimationEvent) {
-    this._isAnimating = event.phaseName === "start";
+    this._isAnimating = event.phaseName === 'start';
 
     if (!this._isAnimating) {
       this._animationDone.next();
@@ -422,29 +403,21 @@ export abstract class NgxMatDatepickerBase<
   get startAt(): D | null {
     // If an explicit startAt is set we start there, otherwise we start at whatever the currently
     // selected value is.
-    return (
-      this._startAt ||
-      (this.datepickerInput ? this.datepickerInput.getStartValue() : null)
-    );
+    return this._startAt || (this.datepickerInput ? this.datepickerInput.getStartValue() : null);
   }
   set startAt(value: D | null) {
-    this._startAt = this._dateAdapter.getValidDateOrNull(
-      this._dateAdapter.deserialize(value),
-    );
+    this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
   private _startAt: D | null;
 
   /** The view that the calendar should start in. */
-  startView = input<"month" | "year" | "multi-year">("month");
+  startView = input<'month' | 'year' | 'multi-year'>('month');
 
   /** Color palette to use on the datepicker's calendar. */
   @Input()
   get color(): ThemePalette {
     return (
-      this._color ||
-      (this.datepickerInput
-        ? this.datepickerInput.getThemePalette()
-        : undefined)
+      this._color || (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined)
     );
   }
   set color(value: ThemePalette) {
@@ -492,10 +465,10 @@ export abstract class NgxMatDatepickerBase<
   public _disabled: boolean;
 
   /** Preferred position of the datepicker in the X axis. */
-  readonly xPosition = input<NgxDatepickerDropdownPositionX>("start");
+  readonly xPosition = input<NgxDatepickerDropdownPositionX>('start');
 
   /** Preferred position of the datepicker in the Y axis. */
-  readonly yPosition = input<NgxDatepickerDropdownPositionY>("below");
+  readonly yPosition = input<NgxDatepickerDropdownPositionY>('below');
 
   /**
    * Whether to restore focus to the previously-focused element when the calendar is closed.
@@ -532,10 +505,10 @@ export abstract class NgxMatDatepickerBase<
   readonly dateClass = input<NgxMatCalendarCellClassFunction<D>>();
 
   /** Emits when the datepicker has been opened. */
-  @Output("opened") readonly openedStream = new EventEmitter<void>();
+  @Output('opened') readonly openedStream = new EventEmitter<void>();
 
   /** Emits when the datepicker has been closed. */
-  @Output("closed") readonly closedStream = new EventEmitter<void>();
+  @Output('closed') readonly closedStream = new EventEmitter<void>();
 
   /**
    * Classes to be passed to the date picker panel.
@@ -688,14 +661,14 @@ export abstract class NgxMatDatepickerBase<
     private _model: NgxMatDateSelectionModel<S, D>,
   ) {
     if (!this._dateAdapter) {
-      throw createMissingDateImplError("NgxMatDateAdapter");
+      throw createMissingDateImplError('NgxMatDateAdapter');
     }
 
     this._scrollStrategy = scrollStrategy;
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    const positionChange = changes["xPosition"] || changes["yPosition"];
+    const positionChange = changes['xPosition'] || changes['yPosition'];
 
     if (positionChange && !positionChange.firstChange && this._overlayRef) {
       const positionStrategy = this._overlayRef.getConfig().positionStrategy;
@@ -746,15 +719,11 @@ export abstract class NgxMatDatepickerBase<
    */
   registerInput(input: C): NgxMatDateSelectionModel<S, D> {
     if (this.datepickerInput) {
-      throw Error(
-        "A MatDatepicker can only be associated with a single input.",
-      );
+      throw Error('A MatDatepicker can only be associated with a single input.');
     }
     this._inputStateChanges.unsubscribe();
     this.datepickerInput = input;
-    this._inputStateChanges = input.stateChanges.subscribe(() =>
-      this.stateChanges.next(undefined),
-    );
+    this._inputStateChanges = input.stateChanges.subscribe(() => this.stateChanges.next(undefined));
     return this._model;
   }
 
@@ -764,9 +733,7 @@ export abstract class NgxMatDatepickerBase<
    */
   registerActions(portal: TemplatePortal): void {
     if (this._actionsPortal) {
-      throw Error(
-        "A MatDatepicker can only be associated with a single actions row.",
-      );
+      throw Error('A MatDatepicker can only be associated with a single actions row.');
     }
     this._actionsPortal = portal;
     this._componentRef?.instance._assignActions(portal, true);
@@ -787,18 +754,12 @@ export abstract class NgxMatDatepickerBase<
   open(): void {
     // Skip reopening if there's an in-progress animation to avoid overlapping
     // sequences which can cause "changed after checked" errors. See #25837.
-    if (
-      this._opened ||
-      this.disabled ||
-      this._componentRef?.instance._isAnimating
-    ) {
+    if (this._opened || this.disabled || this._componentRef?.instance._isAnimating) {
       return;
     }
 
     if (!this.datepickerInput) {
-      throw Error(
-        "Attempted to open an MatDatepicker with no associated input.",
-      );
+      throw Error('Attempted to open an MatDatepicker with no associated input.');
     }
 
     this._focusedElementBeforeOpen = _getFocusedElementPierceShadowDom();
@@ -818,7 +779,7 @@ export abstract class NgxMatDatepickerBase<
     const canRestoreFocus =
       this._restoreFocus &&
       this._focusedElementBeforeOpen &&
-      typeof this._focusedElementBeforeOpen.focus === "function";
+      typeof this._focusedElementBeforeOpen.focus === 'function';
 
     const completeClose = () => {
       // The `_opened` could've been reset already if
@@ -887,21 +848,15 @@ export abstract class NgxMatDatepickerBase<
     );
     const overlayRef = (this._overlayRef = this._overlay.create(
       new OverlayConfig({
-        positionStrategy: isDialog
-          ? this._getDialogStrategy()
-          : this._getDropdownStrategy(),
+        positionStrategy: isDialog ? this._getDialogStrategy() : this._getDropdownStrategy(),
         hasBackdrop: true,
         backdropClass: [
-          isDialog
-            ? "cdk-overlay-dark-backdrop"
-            : "mat-overlay-transparent-backdrop",
+          isDialog ? 'cdk-overlay-dark-backdrop' : 'mat-overlay-transparent-backdrop',
           this._backdropHarnessClass,
         ],
         direction: this._dir,
-        scrollStrategy: isDialog
-          ? this._overlay.scrollStrategies.block()
-          : this._scrollStrategy(),
-        panelClass: `mat-datepicker-${isDialog ? "dialog" : "popup"}`,
+        scrollStrategy: isDialog ? this._overlay.scrollStrategies.block() : this._scrollStrategy(),
+        panelClass: `mat-datepicker-${isDialog ? 'dialog' : 'popup'}`,
       }),
     ));
 
@@ -936,9 +891,7 @@ export abstract class NgxMatDatepickerBase<
 
     // Update the position once the calendar has rendered. Only relevant in dropdown mode.
     if (!isDialog) {
-      this._ngZone.onStable
-        .pipe(take(1))
-        .subscribe(() => overlayRef.updatePosition());
+      this._ngZone.onStable.pipe(take(1)).subscribe(() => overlayRef.updatePosition());
     }
   }
 
@@ -952,11 +905,7 @@ export abstract class NgxMatDatepickerBase<
 
   /** Gets a position strategy that will open the calendar as a dropdown. */
   private _getDialogStrategy() {
-    return this._overlay
-      .position()
-      .global()
-      .centerHorizontally()
-      .centerVertically();
+    return this._overlay.position().global().centerHorizontally().centerVertically();
   }
 
   /** Gets a position strategy that will open the calendar as a dropdown. */
@@ -964,7 +913,7 @@ export abstract class NgxMatDatepickerBase<
     const strategy = this._overlay
       .position()
       .flexibleConnectedTo(this.datepickerInput.getConnectedOverlayOrigin())
-      .withTransformOriginOn(".mat-datepicker-content")
+      .withTransformOriginOn('.mat-datepicker-content')
       .withFlexibleDimensions(false)
       .withViewportMargin(8)
       .withLockedPosition();
@@ -974,10 +923,10 @@ export abstract class NgxMatDatepickerBase<
 
   /** Sets the positions of the datepicker in dropdown mode based on the current configuration. */
   private _setConnectedPositions(strategy: FlexibleConnectedPositionStrategy) {
-    const primaryX = this.xPosition() === "end" ? "end" : "start";
-    const secondaryX = primaryX === "start" ? "end" : "start";
-    const primaryY = this.yPosition() === "above" ? "bottom" : "top";
-    const secondaryY = primaryY === "top" ? "bottom" : "top";
+    const primaryX = this.xPosition() === 'end' ? 'end' : 'start';
+    const secondaryX = primaryX === 'start' ? 'end' : 'start';
+    const primaryY = this.yPosition() === 'above' ? 'bottom' : 'top';
+    const secondaryY = primaryY === 'top' ? 'bottom' : 'top';
 
     return strategy.withPositions([
       {
@@ -1009,11 +958,7 @@ export abstract class NgxMatDatepickerBase<
 
   /** Gets an observable that will emit when the overlay is supposed to be closed. */
   private _getCloseStream(overlayRef: OverlayRef) {
-    const ctrlShiftMetaModifiers: ListKeyManagerModifierKey[] = [
-      "ctrlKey",
-      "shiftKey",
-      "metaKey",
-    ];
+    const ctrlShiftMetaModifiers: ListKeyManagerModifierKey[] = ['ctrlKey', 'shiftKey', 'metaKey'];
     return merge(
       overlayRef.backdropClick(),
       overlayRef.detachments(),
@@ -1023,11 +968,10 @@ export abstract class NgxMatDatepickerBase<
           return (
             (event.keyCode === ESCAPE && !hasModifierKey(event)) ||
             (this.datepickerInput &&
-              hasModifierKey(event, "altKey") &&
+              hasModifierKey(event, 'altKey') &&
               event.keyCode === UP_ARROW &&
               ctrlShiftMetaModifiers.every(
-                (modifier: ListKeyManagerModifierKey) =>
-                  !hasModifierKey(event, modifier),
+                (modifier: ListKeyManagerModifierKey) => !hasModifierKey(event, modifier),
               ))
           );
         }),

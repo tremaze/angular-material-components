@@ -37,6 +37,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build -c=production",
+    "prettier:fix": "prettier --write projects/**/*.ts",
+    "prepare": "prettier:fix",
     "build:datetime-picker": "ng build NgxMatDatetimePicker",
     "build:moment-adapter": "ng build NgxMatMomentAdapter",
     "build:color-picker": "ng build NgxMatColorPicker",

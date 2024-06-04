@@ -9,8 +9,8 @@ export const LIMIT_TIMES = {
 };
 
 export const MERIDIANS = {
-  AM: "AM",
-  PM: "PM",
+  AM: 'AM',
+  PM: 'PM',
 };
 
 export const DEFAULT_STEP = 1;
@@ -29,7 +29,7 @@ export function createMissingDateImplError(provider: string) {
   return Error(
     `NgxMatDatetimePicker: No provider found for ${provider}. You must import one of the following ` +
       `modules at your application root: NgxMatNativeDateModule, NgxMatMomentModule, or provide a ` +
-      `custom implementation.`
+      `custom implementation.`,
   );
 }
 

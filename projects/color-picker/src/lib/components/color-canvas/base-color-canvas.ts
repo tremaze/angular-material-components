@@ -7,23 +7,21 @@ import {
   OnDestroy,
   output,
   signal,
-} from "@angular/core";
-import { ThemePalette } from "@angular/material/core";
-import { Subject } from "rxjs";
-import { Color } from "../../models";
+} from '@angular/core';
+import { ThemePalette } from '@angular/material/core';
+import { Subject } from 'rxjs';
+import { Color } from '../../models';
 
 @Directive({
   standalone: true,
 })
-export abstract class NgxMatBaseColorCanvas
-  implements OnDestroy, AfterViewInit
-{
+export abstract class NgxMatBaseColorCanvas implements OnDestroy, AfterViewInit {
   readonly colorChanged = output<Color>();
   readonly theme = input<ThemePalette>();
   readonly color = signal<Color>(null);
 
   @Input({
-    alias: "color",
+    alias: 'color',
   })
   set setColor(color: Color) {
     this.color.set(color);
@@ -44,7 +42,10 @@ export abstract class NgxMatBaseColorCanvas
 
   protected _destroyed: Subject<void> = new Subject<void>();
 
-  constructor(protected zone: NgZone, elementId: string) {
+  constructor(
+    protected zone: NgZone,
+    elementId: string,
+  ) {
     this.elementId = elementId;
   }
 
@@ -55,7 +56,7 @@ export abstract class NgxMatBaseColorCanvas
 
   ngAfterViewInit(): void {
     this.canvas = <HTMLCanvasElement>document.getElementById(this.elementId);
-    this.ctx = this.canvas.getContext("2d");
+    this.ctx = this.canvas.getContext('2d');
     this.width = this.canvas.width;
     this.height = this.canvas.height;
     this.draw();
@@ -75,7 +76,7 @@ export abstract class NgxMatBaseColorCanvas
     this.changeColor(e);
 
     this.zone.runOutsideAngular(() => {
-      this.canvas.addEventListener("mousemove", this.onMousemove.bind(this));
+      this.canvas.addEventListener('mousemove', this.onMousemove.bind(this));
     });
   }
 
@@ -89,7 +90,7 @@ export abstract class NgxMatBaseColorCanvas
 
   public onMouseup(e: MouseEvent) {
     this.drag = false;
-    this.canvas.removeEventListener("mousemove", this.onMousemove);
+    this.canvas.removeEventListener('mousemove', this.onMousemove);
   }
 
   public emitChange(color: Color) {
