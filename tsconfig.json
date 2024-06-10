@@ -23,26 +23,26 @@
       "node"
     ],
     "paths": {
-      "@amc/*": [
-        "dist/@amc/*"
+      "@ngxmc/*": [
+        "dist/@ngxmc/*"
       ],
-      "@amc/color-picker": [
-        "dist/@amc/color-picker"
+      "@ngxmc/color-picker": [
+        "dist/@ngxmc/color-picker"
       ],
-      "@amc/color-picker/*": [
-        "dist/@amc/color-picker/*"
+      "@ngxmc/color-picker/*": [
+        "dist/@ngxmc/color-picker/*"
       ],
-      "@amc/datetime-picker": [
-        "dist/@amc/datetime-picker"
+      "@ngxmc/datetime-picker": [
+        "dist/@ngxmc/datetime-picker"
       ],
-      "@amc/datetime-picker/*": [
-        "dist/@amc/datetime-picker/*"
+      "@ngxmc/datetime-picker/*": [
+        "dist/@ngxmc/datetime-picker/*"
       ],
       "file-input": [
-        "dist/@amc/file-input"
+        "dist/@ngxmc/file-input"
       ],
       "file-input/*": [
-        "dist/@amc/file-input/*"
+        "dist/@ngxmc/file-input/*"
       ]
     },
     "useDefineForClassFields": false,

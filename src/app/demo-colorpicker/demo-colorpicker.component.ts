@@ -74,13 +74,13 @@ export class DemoColorpickerComponent {
 </mat-form-field>`;
 
   public code6 = `
-import { Color } from '@amc/color-picker';
+import { Color } from '@ngxmc/color-picker';
 colorCtr: AbstractControl = new FormControl(new Color(255, 243, 0), [Validators.required]);`;
 
-  public code1 = 'npm install --save @amc/color-picker';
+  public code1 = 'npm install --save @ngxmc/color-picker';
 
   public code2 = `import { MAT_COLOR_FORMATS, NgxMatColorPickerComponent, NGX_MAT_COLOR_FORMATS }
-  from '@amc/color-picker'
+  from '@ngxmc/color-picker'
 
   @Component({
     ...

@@ -1,5 +1,5 @@
 {
-  "name": "@amc/datetime-picker",
+  "name": "@ngxmc/datetime-picker",
   "version": "18.0.0",
   "description": "Angular Material Datetime Picker",
   "author": "HO Hong Quan",

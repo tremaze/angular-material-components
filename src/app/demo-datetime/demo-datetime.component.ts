@@ -82,7 +82,7 @@ export class DemoDatetimeComponent {
   public stepMinutes = [1, 5, 10, 15, 20, 25];
   public stepSeconds = [1, 5, 10, 15, 20, 25];
 
-  public code1 = 'npm install --save @amc/datetime-picker';
+  public code1 = 'npm install --save @ngxmc/datetime-picker';
 
   public code3 = `<mat-form-field>
   <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
@@ -98,7 +98,7 @@ export class DemoDatetimeComponent {
            NgxMatDatetimePickerComponent,
            NgxMatNativeDateComponent,
            NgxMatTimepickerComponent
-  } from '@amc/datetime-picker';
+  } from '@ngxmc/datetime-picker';
 
 @Component({
   imports: [
@@ -110,7 +110,7 @@ export class DemoDatetimeComponent {
   ]
 })
 export class AppComponent { }`;
-  public code4 = 'npm install --save  @amc/moment-adapter';
+  public code4 = 'npm install --save  @ngxmc/moment-adapter';
   public code5 = `@Injectable()
 export class CustomDateAdapter extends NgxMatDateAdapter<D> {...}
 // D can be Date, Moment or customized type`;
