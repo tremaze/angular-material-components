@@ -1,29 +1,28 @@
-import { Component, viewChild } from "@angular/core";
-import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { ThemePalette } from "@angular/material/core";
-import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatRadioModule } from "@angular/material/radio";
-import { MatSelectModule } from "@angular/material/select";
-import { MatTabsModule } from "@angular/material/tabs";
+import { Component, viewChild } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ThemePalette } from '@angular/material/core';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import {
-  NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
   NgxMatDatepickerActions,
   NgxMatDatepickerInput,
   NgxMatDatepickerToggle,
   NgxMatDatetimepicker,
   NgxMatNativeDateModule,
-} from "projects/datetime-picker/src";
-import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
+} from 'projects/datetime-picker/src';
+import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
 
 @Component({
-  selector: "app-demo-datetime",
-  templateUrl: "./demo-datetime.component.html",
-  styleUrls: ["./demo-datetime.component.scss"],
+  selector: 'app-demo-datetime',
+  templateUrl: './demo-datetime.component.html',
+  styleUrls: ['./demo-datetime.component.scss'],
   standalone: true,
   imports: [
     DemoDatetimeComponent,
@@ -45,10 +44,9 @@ import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
     ReactiveFormsModule,
   ],
   providers: [
-    NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: "fill" },
+      useValue: { appearance: 'fill' },
     },
   ],
 })
@@ -65,25 +63,24 @@ export class DemoDatetimeComponent {
   public stepHour = 1;
   public stepMinute = 1;
   public stepSecond = 1;
-  public color: ThemePalette = "primary";
+  public color: ThemePalette = 'primary';
   public disableMinute = false;
   public hideTime = false;
 
   public dateControl = new FormControl(new Date());
 
   public options = [
-    { value: true, label: "True" },
-    { value: false, label: "False" },
+    { value: true, label: 'True' },
+    { value: false, label: 'False' },
   ];
 
-  public listColors = ["primary", "accent", "warn"];
+  public listColors = ['primary', 'accent', 'warn'];
 
   public stepHours = [1, 2, 3, 4, 5];
   public stepMinutes = [1, 5, 10, 15, 20, 25];
   public stepSeconds = [1, 5, 10, 15, 20, 25];
 
-  public code1 =
-    "npm install --save @angular-material-components/datetime-picker";
+  public code1 = 'npm install --save @angular-material-components/datetime-picker';
 
   public code3 = `<mat-form-field>
   <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
@@ -111,8 +108,7 @@ export class DemoDatetimeComponent {
   ]
 })
 export class AppComponent { }`;
-  public code4 =
-    "npm install --save  @angular-material-components/moment-adapter";
+  public code4 = 'npm install --save  @angular-material-components/moment-adapter';
   public code5 = `@Injectable()
 export class CustomDateAdapter extends NgxMatDateAdapter<D> {...}
 // D can be Date, Moment or customized type`;
