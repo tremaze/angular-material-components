@@ -1,5 +1,5 @@
 {
-  "name": "@angular-material-components/color-picker",
+  "name": "@amc/color-picker",
   "version": "18.0.0",
   "description": "Angular Material Color Picker",
   "author": "HO Hong Quan",

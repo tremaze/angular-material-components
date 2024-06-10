@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/h2qutc/angular-material-components.svg?branch=master)](https://travis-ci.com/h2qutc/angular-material-components)
 [![License](https://img.shields.io/npm/l/angular-material-components.svg)](https://www.npmjs.com/package/angular-material-components)
-[![npm version](https://badge.fury.io/js/%40angular-material-components%2Ffile-input.svg)](https://www.npmjs.com/package/@angular-material-components/file-input)
+[![npm version](https://badge.fury.io/js/%40angular-material-components%2Ffile-input.svg)](https://www.npmjs.com/package/@amc/file-input)
 
 ## Description
 
@@ -20,29 +20,29 @@ An Angular Material File Input.
 
 Choose the version corresponding to your Angular version:
 
- Angular     | @angular-material-components/file-input
- ----------- | -------------------
- 16          | 16.x+
- 15          | 15.x+ OR 9.x+ for legacy import
- 14          | 8.x+
- 13          | 7.x+
- 12          | 6.x+
- 11          | 5.x+
- 10          | 4.x+
- 9           | 2.x+
- 8           | 2.x+
- 7           | 2.x+
+| Angular | @amc/file-input                 |
+| ------- | ------------------------------- |
+| 16      | 16.x+                           |
+| 15      | 15.x+ OR 9.x+ for legacy import |
+| 14      | 8.x+                            |
+| 13      | 7.x+                            |
+| 12      | 6.x+                            |
+| 11      | 5.x+                            |
+| 10      | 4.x+                            |
+| 9       | 2.x+                            |
+| 8       | 2.x+                            |
+| 7       | 2.x+                            |
 
 ## Getting started
 
 ```
-npm install --save @angular-material-components/file-input
+npm install --save @amc/file-input
 ```
 
 ## Setup
 
 ```
-import { NgxMatFileInputModule } from '@angular-material-components/file-input';
+import { NgxMatFileInputModule } from '@amc/file-input';
 
 @NgModule({
    ...
@@ -55,7 +55,8 @@ import { NgxMatFileInputModule } from '@angular-material-components/file-input';
 export class AppModule { }
 ```
 
-@see [src/app/demo-fileinput/demo-fileinput.module.ts](src/app/demo-fileinput/demo-fileinput.module.ts)
+@see
+[src/app/demo-fileinput/demo-fileinput.module.ts](src/app/demo-fileinput/demo-fileinput.module.ts)
 
 ## Using the component
 
@@ -68,7 +69,7 @@ export class AppModule { }
 </mat-form-field>
 ```
 
-#### You can provide a custom icon by using the directive *ngxMatFileInputIcon*
+#### You can provide a custom icon by using the directive _ngxMatFileInputIcon_
 
 ```
 <mat-form-field>
@@ -91,19 +92,23 @@ export class AppModule { }
 
 #### List of @Input
 
-| @Input        	| Type     	| Default value 	| Description                                                          	|
-|---------------	|----------	|---------------	|----------------------------------------------------------------------	|
-| **disabled**      	| boolean  	| null          	| If true, the file input is readonly.                	|
-| **multiple**      	| boolean  	| false          	| If true, the file input allows the user to select more than one file.                	|
-| **accept**    	   | string   | null           | Limiting accepted file types (For example: accept="image/png, image/jpeg" or accept=".png, .jpg, .jpeg" — Accept PNG or JPEG files.) 	|
-| **color**      	| ThemePalette  	| null          	| Theme color palette for the component.                	|
+| @Input       | Type         | Default value | Description                                                                                                                          |
+| ------------ | ------------ | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| **disabled** | boolean      | null          | If true, the file input is readonly.                                                                                                 |
+| **multiple** | boolean      | false         | If true, the file input allows the user to select more than one file.                                                                |
+| **accept**   | string       | null          | Limiting accepted file types (For example: accept="image/png, image/jpeg" or accept=".png, .jpg, .jpeg" — Accept PNG or JPEG files.) |
+| **color**    | ThemePalette | null          | Theme color palette for the component.                                                                                               |
 
 ## Theming
-- @see @angular/material [Using a pre-built theme](https://material.angular.io/guide/theming#using-a-pre-built-theme)
+
+- @see @angular/material
+  [Using a pre-built theme](https://material.angular.io/guide/theming#using-a-pre-built-theme)
 - Add the Material Design icon font to your index.html
+
 ```
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
 ```
 
 ## License
+
 MIT

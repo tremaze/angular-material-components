@@ -1,5 +1,5 @@
 {
-  "name": "@angular-material-components/moment-adapter",
+  "name": "@amc/moment-adapter",
   "version": "18.0.0",
   "description": "Angular Material Moment Adapter",
   "author": "HO Hong Quan",

@@ -1,7 +1,4 @@
-import {
-  NGX_MAT_DATE_FORMATS,
-  NgxMatDateAdapter,
-} from '@angular-material-components/datetime-picker';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateAdapter } from '@amc/datetime-picker';
 import { NgModule } from '@angular/core';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS, NgxMatMomentAdapter } from './moment-adapter';

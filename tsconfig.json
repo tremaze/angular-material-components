@@ -23,26 +23,26 @@
       "node"
     ],
     "paths": {
-      "@angular-material-components/*": [
-        "dist/@angular-material-components/*"
+      "@amc/*": [
+        "dist/@amc/*"
       ],
-      "@angular-material-components/color-picker": [
-        "dist/@angular-material-components/color-picker"
+      "@amc/color-picker": [
+        "dist/@amc/color-picker"
       ],
-      "@angular-material-components/color-picker/*": [
-        "dist/@angular-material-components/color-picker/*"
+      "@amc/color-picker/*": [
+        "dist/@amc/color-picker/*"
       ],
-      "@angular-material-components/datetime-picker": [
-        "dist/@angular-material-components/datetime-picker"
+      "@amc/datetime-picker": [
+        "dist/@amc/datetime-picker"
       ],
-      "@angular-material-components/datetime-picker/*": [
-        "dist/@angular-material-components/datetime-picker/*"
+      "@amc/datetime-picker/*": [
+        "dist/@amc/datetime-picker/*"
       ],
       "file-input": [
-        "dist/file-input"
+        "dist/@amc/file-input"
       ],
       "file-input/*": [
-        "dist/file-input/*"
+        "dist/@amc/file-input/*"
       ]
     },
     "useDefineForClassFields": false,

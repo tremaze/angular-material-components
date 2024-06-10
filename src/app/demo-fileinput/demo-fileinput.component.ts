@@ -1,32 +1,24 @@
-import { JsonPipe } from "@angular/common";
-import { Component, OnInit } from "@angular/core";
-import {
-  FormControl,
-  FormsModule,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from "@angular/material/card";
-import { MatCheckboxModule } from "@angular/material/checkbox";
-import { ThemePalette } from "@angular/material/core";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
-import { MatInputModule } from "@angular/material/input";
-import { MatRadioModule } from "@angular/material/radio";
-import { MatSelectModule } from "@angular/material/select";
-import { MatTabsModule } from "@angular/material/tabs";
-import { NgxMatNativeDateModule } from "projects/datetime-picker/src";
-import {
-  MaxSizeValidator,
-  NgxMatFileInputComponent,
-} from "../../../projects/file-input/src";
-import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
+import { JsonPipe } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { ThemePalette } from '@angular/material/core';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
+import { NgxMatNativeDateModule } from 'projects/datetime-picker/src';
+import { MaxSizeValidator, NgxMatFileInputComponent } from '../../../projects/file-input/src';
+import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
 
 @Component({
-  selector: "app-demo-fileinput",
-  templateUrl: "./demo-fileinput.component.html",
-  styleUrls: ["./demo-fileinput.component.scss"],
+  selector: 'app-demo-fileinput',
+  templateUrl: './demo-fileinput.component.html',
+  styleUrls: ['./demo-fileinput.component.scss'],
   standalone: true,
   imports: [
     DemoFileInputComponent,
@@ -48,7 +40,7 @@ import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
   ],
 })
 export class DemoFileInputComponent implements OnInit {
-  color: ThemePalette = "primary";
+  color: ThemePalette = 'primary';
   disabled: boolean = false;
   multiple: boolean = false;
   accept: string;
@@ -58,16 +50,16 @@ export class DemoFileInputComponent implements OnInit {
   file3Control: FormControl;
 
   public options = [
-    { value: true, label: "True" },
-    { value: false, label: "False" },
+    { value: true, label: 'True' },
+    { value: false, label: 'False' },
   ];
 
-  public listColors = ["primary", "accent", "warn"];
+  public listColors = ['primary', 'accent', 'warn'];
   public listAccepts = [
     null,
-    ".png",
-    "image/*",
-    ".doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    '.png',
+    'image/*',
+    '.doc,.docx,.xml,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   ];
 
   public files;
@@ -89,9 +81,9 @@ export class DemoFileInputComponent implements OnInit {
   <mat-hint>Hint</mat-hint>
 </mat-form-field>`;
 
-  code1 = `npm install --save @angular-material-components/file-input`;
+  code1 = `npm install --save @amc/file-input`;
 
-  code2 = `import { NgxMatFileInputComponent } from '@angular-material-components/file-input';
+  code2 = `import { NgxMatFileInputComponent } from '@amc/file-input';
 
   @Component({
      ...

@@ -5,20 +5,14 @@
       <img
         src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
         alt="Buy Me A Coffee"
-        style="height: 35px !important; width: 150px !important"
-      />
+        style="height: 35px !important; width: 150px !important" />
     </a>
 
     <h1>API reference for &#64;angular-material-components/datetime-picker</h1>
     <h2>Getting started</h2>
 
-    <a
-      href="https://www.npmjs.com/package/@angular-material-components/datetime-picker"
-      target="_blank"
-    >
-      <img
-        src="https://badge.fury.io/js/%40angular-material-components%2Fdatetime-picker.svg"
-      />
+    <a href="https://www.npmjs.com/package/@amc/datetime-picker" target="_blank">
+      <img src="https://badge.fury.io/js/%40angular-material-components%2Fdatetime-picker.svg" />
     </a>
 
     <pre><code ngxMatHighlight>{{code1}}</code></pre>
@@ -90,10 +84,7 @@
           <td>Array</td>
           <td>undefined</td>
           <td>
-            <p>
-              An array [hour, minute, second] for default time when the date is
-              not yet defined
-            </p>
+            <p>An array [hour, minute, second] for default time when the date is not yet defined</p>
           </td>
         </tr>
 
@@ -104,9 +95,7 @@
           <td>number</td>
           <td>1</td>
           <td>
-            <p>
-              The number of hours to add/substract when clicking hour spinners
-            </p>
+            <p>The number of hours to add/substract when clicking hour spinners</p>
           </td>
         </tr>
 
@@ -117,10 +106,7 @@
           <td>number</td>
           <td>1</td>
           <td>
-            <p>
-              The number of minutes to add/substract when clicking minute
-              spinners
-            </p>
+            <p>The number of minutes to add/substract when clicking minute spinners</p>
           </td>
         </tr>
 
@@ -131,10 +117,7 @@
           <td>number</td>
           <td>1</td>
           <td>
-            <p>
-              The number of seconds to add/substract when clicking second
-              spinners
-            </p>
+            <p>The number of seconds to add/substract when clicking second spinners</p>
           </td>
         </tr>
 
@@ -179,9 +162,8 @@
           <td>false</td>
           <td>
             <p>
-              Whether the calendar UI is in touch mode. In touch mode the
-              calendar opens in a dialog rather than a popup and elements have
-              more padding to allow for bigger touch targets.
+              Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog
+              rather than a popup and elements have more padding to allow for bigger touch targets.
             </p>
           </td>
         </tr>
@@ -191,16 +173,12 @@
     <h2>Choosing a date implementation and date format settings</h2>
 
     <p>
-      The datepicker was built to be date implementation agnostic. This means
-      that it can be made to work with a variety of different date
-      implementations. However it also means that developers need to make sure
-      to provide the appropriate pieces for the datepicker to work with their
+      The datepicker was built to be date implementation agnostic. This means that it can be made to
+      work with a variety of different date implementations. However it also means that developers
+      need to make sure to provide the appropriate pieces for the datepicker to work with their
       chosen implementation.
     </p>
-    <p>
-      The easiest way to ensure this is to import one of the provided date
-      modules:
-    </p>
+    <p>The easiest way to ensure this is to import one of the provided date modules:</p>
 
     <table class="api-table-properties">
       <tbody>
@@ -223,8 +201,7 @@
           <td>Import from</td>
           <td>&#64;angular-material-components/datetime-picker</td>
           <td>
-            <a
-              href="https://www.npmjs.com/package/@angular-material-components/moment-adapter"
+            <a href="https://www.npmjs.com/package/@amc/moment-adapter"
               >&#64;angular-material-components/moment-adapter</a
             >
           </td>
@@ -236,15 +213,14 @@
     <pre><code ngxMatHighlight>{{code4}}</code></pre>
 
     <p>
-      Please note: <strong>NgxMatNativeDateModule</strong> is based off the
-      functionality available in JavaScript's native Date object. Thus it is not
-      suitable for many locales. One of the biggest shortcomings of the native
-      Date object is the inability to set the parse format.
+      Please note: <strong>NgxMatNativeDateModule</strong> is based off the functionality available
+      in JavaScript's native Date object. Thus it is not suitable for many locales. One of the
+      biggest shortcomings of the native Date object is the inability to set the parse format.
     </p>
     <p>
-      We highly recommend using the <strong>NgxMatMomentModule</strong> or a
-      custom <strong>NgxMatDateAdapter</strong> that works with the
-      formatting/parsing library of your choice.
+      We highly recommend using the <strong>NgxMatMomentModule</strong> or a custom
+      <strong>NgxMatDateAdapter</strong> that works with the formatting/parsing library of your
+      choice.
     </p>
     For example: Creating a custom date adapter
     <pre><code ngxMatHighlight class="language-typescript">{{code5}}</code></pre>
@@ -265,8 +241,7 @@
     <h2>Theming</h2>
     <p>
       &#64;see &#64;angular/material
-      <a
-        href="https://material.angular.io/guide/theming#using-a-pre-built-theme"
+      <a href="https://material.angular.io/guide/theming#using-a-pre-built-theme"
         >Using a pre-built theme</a
       >
     </p>
@@ -285,12 +260,8 @@
               [formControl]="dateControl"
               [min]="minDate"
               [max]="maxDate"
-              [disabled]="disabled"
-            />
-            <ngx-mat-datepicker-toggle
-              matSuffix
-              [for]="picker"
-            ></ngx-mat-datepicker-toggle>
+              [disabled]="disabled" />
+            <ngx-mat-datepicker-toggle matSuffix [for]="picker"></ngx-mat-datepicker-toggle>
             <ngx-mat-datetime-picker
               #picker
               [showSpinners]="showSpinners"
@@ -302,8 +273,7 @@
               [color]="color"
               [enableMeridian]="enableMeridian"
               [disableMinute]="disableMinute"
-              [hideTime]="hideTime"
-            >
+              [hideTime]="hideTime">
             </ngx-mat-datetime-picker>
           </mat-form-field>
         </div>
@@ -315,16 +285,9 @@
       <mat-card-content>
         <div class="config-wrapper">
           <span class="label">disabled (Default: false) </span>
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="disabled"
-            [color]="color"
-          >
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="disabled" [color]="color">
             @for (option of options; track option.value) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -333,16 +296,9 @@
 
         <div class="config-wrapper">
           <span class="label">showSpinners (Default: true) </span>
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="showSpinners"
-            [color]="color"
-          >
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="showSpinners" [color]="color">
             @for (option of options; track option) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -351,16 +307,9 @@
 
         <div class="config-wrapper">
           <span class="label">showSeconds (Default: false) </span>
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="showSeconds"
-            [color]="color"
-          >
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="showSeconds" [color]="color">
             @for (option of options; track option) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -372,13 +321,9 @@
           <mat-radio-group
             aria-label="Select an option"
             [(ngModel)]="disableMinute"
-            [color]="color"
-          >
+            [color]="color">
             @for (option of options; track option) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -387,16 +332,9 @@
 
         <div class="config-wrapper">
           <span class="label">touchUi (Default: false) </span>
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="touchUi"
-            [color]="color"
-          >
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="touchUi" [color]="color">
             @for (option of options; track option) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -405,16 +343,9 @@
 
         <div class="config-wrapper">
           <span class="label">hideTime (Default: false) </span>
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="hideTime"
-            [color]="color"
-          >
+          <mat-radio-group aria-label="Select an option" [(ngModel)]="hideTime" [color]="color">
             @for (option of options; track option) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -426,13 +357,9 @@
           <mat-radio-group
             aria-label="Select an option"
             [(ngModel)]="enableMeridian"
-            [color]="color"
-          >
+            [color]="color">
             @for (option of options; track option) {
-              <mat-radio-button
-                class="example-radio-button"
-                [value]="option.value"
-              >
+              <mat-radio-button class="example-radio-button" [value]="option.value">
                 {{ option.label }}</mat-radio-button
               >
             }
@@ -520,12 +447,10 @@
             [formControl]="dateControl"
             [min]="minDate"
             [max]="maxDate"
-            [disabled]="disabled"
-          />
+            [disabled]="disabled" />
           <ngx-mat-datepicker-toggle
             matSuffix
-            [for]="pickerWithActions"
-          ></ngx-mat-datepicker-toggle>
+            [for]="pickerWithActions"></ngx-mat-datepicker-toggle>
           <ngx-mat-datetime-picker
             #pickerWithActions
             [showSpinners]="showSpinners"
@@ -537,16 +462,10 @@
             [color]="color"
             [enableMeridian]="enableMeridian"
             [disableMinute]="disableMinute"
-            [hideTime]="hideTime"
-          >
+            [hideTime]="hideTime">
             <ngx-mat-datepicker-actions>
               <button mat-button ngxMatDatepickerCancel>Cancel</button>
-              <button
-                mat-raised-button
-                color="primary"
-                ngxMatDatepickerApply
-                [color]="color"
-              >
+              <button mat-raised-button color="primary" ngxMatDatepickerApply [color]="color">
                 Apply
               </button>
             </ngx-mat-datepicker-actions>
@@ -568,8 +487,7 @@
             [formControl]="dateControl"
             [min]="minDate"
             [max]="maxDate"
-            [disabled]="disabled"
-          />
+            [disabled]="disabled" />
           <ngx-mat-datepicker-toggle matSuffix [for]="pickerCustomIcon">
             <mat-icon ngxMatDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
           </ngx-mat-datepicker-toggle>
@@ -584,8 +502,7 @@
             [color]="color"
             [enableMeridian]="enableMeridian"
             [disableMinute]="disableMinute"
-            [hideTime]="hideTime"
-          >
+            [hideTime]="hideTime">
           </ngx-mat-datetime-picker>
         </mat-form-field>
       </mat-card-content>
