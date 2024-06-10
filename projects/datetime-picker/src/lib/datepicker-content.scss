@@ -124,6 +124,7 @@ $touch-max-height: 815px;
 
     &.mat-datepicker-content-container-with-time {
       height: auto;
+      max-height: none;
     }
   }
 }

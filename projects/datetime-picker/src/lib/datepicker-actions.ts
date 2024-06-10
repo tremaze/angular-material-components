@@ -19,7 +19,9 @@ import { NgxMatDatepickerBase, NgxMatDatepickerControl } from './datepicker-base
   standalone: true,
 })
 export class NgxMatDatepickerApply {
-  constructor(private _datepicker: NgxMatDatepickerBase<NgxMatDatepickerControl<any>, unknown>) {}
+  constructor(
+    public readonly _datepicker: NgxMatDatepickerBase<NgxMatDatepickerControl<any>, unknown>,
+  ) {}
 
   _applySelection() {
     this._datepicker._applyPendingSelection();
@@ -34,7 +36,9 @@ export class NgxMatDatepickerApply {
   standalone: true,
 })
 export class NgxMatDatepickerCancel {
-  constructor(public _datepicker: NgxMatDatepickerBase<NgxMatDatepickerControl<any>, unknown>) {}
+  constructor(
+    public readonly _datepicker: NgxMatDatepickerBase<NgxMatDatepickerControl<any>, unknown>,
+  ) {}
 }
 
 /**

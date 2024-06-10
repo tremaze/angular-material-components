@@ -12,6 +12,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
   NgxMatDatepickerActions,
+  NgxMatDatepickerApply,
+  NgxMatDatepickerCancel,
   NgxMatDatepickerInput,
   NgxMatDatepickerToggle,
   NgxMatDatetimepicker,
@@ -36,6 +38,8 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
     MatSelectModule,
     MatTabsModule,
     NgxMatDatepickerActions,
+    NgxMatDatepickerApply,
+    NgxMatDatepickerCancel,
     NgxMatDatepickerInput,
     NgxMatDatepickerToggle,
     NgxMatDatetimepicker,
