@@ -11,7 +11,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
-  NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
   NgxMatDatepickerActions,
   NgxMatDatepickerInput,
   NgxMatDatepickerToggle,
@@ -45,7 +44,6 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
     ReactiveFormsModule,
   ],
   providers: [
-    NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'fill' },
