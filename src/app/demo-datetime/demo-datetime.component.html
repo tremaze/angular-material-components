@@ -464,10 +464,16 @@
             [disableMinute]="disableMinute"
             [hideTime]="hideTime">
             <ngx-mat-datepicker-actions>
-              <button mat-button ngxMatDatepickerCancel>Cancel</button>
-              <button mat-raised-button color="primary" ngxMatDatepickerApply [color]="color">
-                Apply
-              </button>
+              <div class="datepicker-acctions">
+                <button mat-button ngxMatDatepickerClear close="true">Clear</button>
+
+                <div>
+                  <button mat-button ngxMatDatepickerCancel>Cancel</button>
+                  <button mat-raised-button color="primary" ngxMatDatepickerApply [color]="color">
+                    Apply
+                  </button>
+                </div>
+              </div>
             </ngx-mat-datepicker-actions>
           </ngx-mat-datetime-picker>
         </mat-form-field>

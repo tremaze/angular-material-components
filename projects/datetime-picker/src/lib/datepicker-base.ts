@@ -321,6 +321,10 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
     }
   }
 
+  _clearSelection() {
+    this._globalModel.updateSelection(null, this);
+  }
+
   /**
    * Assigns a new portal containing the datepicker actions.
    * @param portal Portal with the actions to be assigned.
@@ -827,6 +831,10 @@ export abstract class NgxMatDatepickerBase<
   /** Applies the current pending selection on the overlay to the model. */
   _applyPendingSelection() {
     this._componentRef?.instance?._applyPendingSelection();
+  }
+
+  _clearSelection() {
+    this._componentRef?.instance?._clearSelection();
   }
 
   /** Forwards relevant values from the datepicker to the datepicker content inside the overlay. */
