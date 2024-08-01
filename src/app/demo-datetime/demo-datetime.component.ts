@@ -17,7 +17,6 @@ import {
   NgxMatDatepickerInput,
   NgxMatDatepickerToggle,
   NgxMatDatetimepicker,
-  NgxMatNativeDateModule,
 } from 'projects/datetime-picker/src';
 import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
 
@@ -44,7 +43,6 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
     NgxMatDatepickerToggle,
     NgxMatDatetimepicker,
     NgxMatHighlightDirective,
-    NgxMatNativeDateModule,
     ReactiveFormsModule,
   ],
   providers: [
@@ -71,7 +69,7 @@ export class DemoDatetimeComponent {
   public disableMinute = false;
   public hideTime = false;
 
-  public dateControl = new FormControl(new Date());
+  public dateControl = new FormControl<Date>(null);
 
   public options = [
     { value: true, label: 'True' },
