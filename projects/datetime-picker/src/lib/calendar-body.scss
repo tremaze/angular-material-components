@@ -45,9 +45,12 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
 .mat-calendar-body-label {
   height: 0;
   line-height: 0;
-  text-align: left;
   padding-left: $calendar-body-label-side-padding;
   padding-right: $calendar-body-label-side-padding;
+  text-align: start;
+  font-size: var(--mat-datepicker-calendar-body-label-text-size);
+  font-weight: var(--mat-datepicker-calendar-body-label-text-weight);
+  color: var(--mat-datepicker-calendar-body-label-text-color);
 }
 
 // Label that is not rendered and removed from the accessibility tree.

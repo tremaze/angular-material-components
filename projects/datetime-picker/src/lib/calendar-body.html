@@ -7,8 +7,8 @@ aria-hidden because we don't want it to be read out as one of the weeks in the m
     <td
       class="mat-calendar-body-label"
       [attr.colspan]="numCols()"
-      [style.paddingTop]="_cellPadding"
-      [style.paddingBottom]="_cellPadding">
+      [style.paddingTop]="_cellPadding()"
+      [style.paddingBottom]="_cellPadding()">
       {{ label() }}
     </td>
   </tr>
