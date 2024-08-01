@@ -23,14 +23,14 @@ import {
 } from './datepicker-input-base';
 
 /** @docs-private */
-export const NGX_MAT_DATEPICKER_VALUE_ACCESSOR: any = {
+export const NGX_MAT_DATEPICKER_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => NgxMatDatepickerInput),
   multi: true,
 };
 
 /** @docs-private */
-export const NGX_MAT_DATEPICKER_VALIDATORS: any = {
+export const NGX_MAT_DATEPICKER_VALIDATORS = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => NgxMatDatepickerInput),
   multi: true,
