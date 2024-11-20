@@ -1,6 +1,6 @@
 {
   "name": "@ngxmc/color-picker",
-  "version": "18.0.0",
+  "version": "19.0.0",
   "description": "Angular Material Color Picker",
   "author": "HO Hong Quan",
   "repository": {
@@ -21,6 +21,7 @@
     "angular 16",
     "angular 17",
     "angular 18",
+    "angular 19",
     "angular-material",
     "angular material color picker",
     "color-picker",
@@ -31,11 +32,11 @@
   ],
   "license": "MIT",
   "peerDependencies": {
-    "@angular/platform-browser": "^18.0.0",
-    "@angular/common": "^18.0.0",
-    "@angular/core": "^18.0.0",
-    "@angular/forms": "^18.0.0",
+    "@angular/platform-browser": "^19.0.0",
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0",
+    "@angular/forms": "^19.0.0",
     "@angular/material": "^18.0.0",
-    "@angular/cdk": "^18.0.0"
+    "@angular/cdk": "^19.0.0"
   }
 }

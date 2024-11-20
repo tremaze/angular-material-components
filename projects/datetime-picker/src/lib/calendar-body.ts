@@ -58,7 +58,6 @@ let calendarBodyId = 1;
   exportAs: 'matCalendarBody',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [NgClass],
 })
 export class NgxMatCalendarBody<D = any> implements OnDestroy, AfterViewChecked {

@@ -139,7 +139,6 @@ const _NgxMatDatepickerContentBase = mixinColor(
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['color'],
-  standalone: true,
   imports: [
     CdkTrapFocus,
     NgxMatCalendar,
@@ -201,7 +200,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
 
   get isViewMonth(): boolean {
     if (!this._calendar() || this._calendar().currentView == null) return true;
-    return this._calendar().currentView == 'month';
+    return this._calendar().currentView() == 'month';
   }
 
   _modelTime: D | null;

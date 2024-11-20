@@ -65,7 +65,6 @@ let nextUniqueId = 0;
       useExisting: NgxMatDateRangeInput,
     },
   ],
-  standalone: true,
   imports: [CdkMonitorFocus],
 })
 export class NgxMatDateRangeInput<D>

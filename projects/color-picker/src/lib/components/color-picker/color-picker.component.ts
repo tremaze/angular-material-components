@@ -74,7 +74,6 @@ const _MatColorpickerContentBase = mixinColor(
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   inputs: ['color'],
-  standalone: true,
   imports: [NgxMatColorPaletteComponent],
 })
 export class NgxMatColorPickerContentComponent

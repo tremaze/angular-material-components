@@ -53,7 +53,6 @@ import {
   ],
   exportAs: 'ngxMatTimepicker',
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,

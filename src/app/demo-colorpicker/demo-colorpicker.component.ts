@@ -34,7 +34,6 @@ const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
   selector: 'ngx-mat-demo-colorpicker',
   templateUrl: './demo-colorpicker.component.html',
   styleUrls: ['./demo-colorpicker.component.scss'],
-  standalone: true,
   imports: [
     FormsModule,
     MatCardModule,

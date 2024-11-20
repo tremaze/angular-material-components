@@ -12,7 +12,6 @@ import { Color } from '../../models';
   host: {
     class: 'ngx-mat-color-collection',
   },
-  standalone: true,
   imports: [MatButtonModule, NgClass],
 })
 export class NgxMatColorCollectionComponent {

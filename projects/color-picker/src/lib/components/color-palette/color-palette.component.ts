@@ -12,7 +12,6 @@ import { NgxMatColorCollectionComponent } from '../color-collection/color-collec
   host: {
     class: 'ngx-mat-color-palette',
   },
-  standalone: true,
   imports: [NgxMatColorCollectionComponent, NgxMatColorCanvasComponent],
 })
 export class NgxMatColorPaletteComponent {

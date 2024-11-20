@@ -39,7 +39,6 @@ export class NgxMatColorpickerToggleIcon {}
   },
   exportAs: 'ngxMatColorPickerToggle',
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   imports: [MatButtonModule, MatIconModule],
 })
 export class NgxMatColorToggleComponent implements AfterContentInit, OnDestroy {

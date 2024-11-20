@@ -34,7 +34,6 @@ const RADIUS_NOB = 5;
   host: {
     class: 'ngx-mat-color-canvas',
   },
-  standalone: true,
   imports: [MatFormFieldModule, MatInputModule, NgxMatColorSliderComponent, ReactiveFormsModule],
 })
 export class NgxMatColorCanvasComponent

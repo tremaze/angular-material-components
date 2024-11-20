@@ -19,9 +19,7 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
   selector: 'app-demo-fileinput',
   templateUrl: './demo-fileinput.component.html',
   styleUrls: ['./demo-fileinput.component.scss'],
-  standalone: true,
   imports: [
-    DemoFileInputComponent,
     FormsModule,
     JsonPipe,
     MatButtonModule,

@@ -48,7 +48,6 @@ import { createMissingDateImplError } from './datepicker-errors';
   exportAs: 'ngxMatYearView',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [NgxMatCalendarBody],
 })
 export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {

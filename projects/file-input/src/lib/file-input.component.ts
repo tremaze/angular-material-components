@@ -66,7 +66,6 @@ export class NgxMatFileInputIcon {}
     },
   ],
   exportAs: 'ngx-mat-file-input',
-  standalone: true,
   imports: [MatIconModule, MatButtonModule],
 })
 export class NgxMatFileInputComponent

@@ -25,9 +25,7 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
   selector: 'app-demo-datetime',
   templateUrl: './demo-datetime.component.html',
   styleUrls: ['./demo-datetime.component.scss'],
-  standalone: true,
   imports: [
-    DemoDatetimeComponent,
     FormsModule,
     MatButtonModule,
     MatCardModule,

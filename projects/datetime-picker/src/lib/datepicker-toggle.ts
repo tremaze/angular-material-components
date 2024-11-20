@@ -46,7 +46,6 @@ export class NgxMatDatepickerToggleIcon {}
   exportAs: 'ngxMatDatepickerToggle',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [MatIconButton],
 })
 export class NgxMatDatepickerToggle<D> implements AfterContentInit, OnDestroy {

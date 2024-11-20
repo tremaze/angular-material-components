@@ -1,8 +1,9 @@
-@import '../shared/_common';
+@use '../shared/_common';
 
 .zone-value {
   display: flex;
   flex-direction: column;
+
   .row {
     display: block;
     padding: 5px;
