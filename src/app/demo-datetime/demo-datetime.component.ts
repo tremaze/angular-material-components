@@ -21,36 +21,35 @@ import {
 import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
 
 @Component({
-  selector: 'app-demo-datetime',
-  templateUrl: './demo-datetime.component.html',
-  styleUrls: ['./demo-datetime.component.scss'],
-  standalone: true,
-  imports: [
-    DemoDatetimeComponent,
-    FormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatTabsModule,
-    NgxMatDatepickerActions,
-    NgxMatDatepickerApply,
-    NgxMatDatepickerCancel,
-    NgxMatDatepickerInput,
-    NgxMatDatepickerToggle,
-    NgxMatDatetimepicker,
-    NgxMatHighlightDirective,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    {
-      provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
-      useValue: { appearance: 'fill' },
-    },
-  ],
+    selector: 'app-demo-datetime',
+    templateUrl: './demo-datetime.component.html',
+    styleUrls: ['./demo-datetime.component.scss'],
+    imports: [
+        DemoDatetimeComponent,
+        FormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatIconModule,
+        MatInputModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatTabsModule,
+        NgxMatDatepickerActions,
+        NgxMatDatepickerApply,
+        NgxMatDatepickerCancel,
+        NgxMatDatepickerInput,
+        NgxMatDatepickerToggle,
+        NgxMatDatetimepicker,
+        NgxMatHighlightDirective,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        {
+            provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
+            useValue: { appearance: 'fill' },
+        },
+    ]
 })
 export class DemoDatetimeComponent {
   pickerElement = viewChild(NgxMatDatetimepicker);

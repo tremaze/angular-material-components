@@ -38,29 +38,28 @@ import {
 } from './utils/date-utils';
 
 @Component({
-  selector: 'ngx-mat-timepicker',
-  templateUrl: './timepicker.component.html',
-  styleUrls: ['./timepicker.component.scss'],
-  host: {
-    class: 'ngx-mat-timepicker',
-  },
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => NgxMatTimepickerComponent),
-      multi: true,
+    selector: 'ngx-mat-timepicker',
+    templateUrl: './timepicker.component.html',
+    styleUrls: ['./timepicker.component.scss'],
+    host: {
+        class: 'ngx-mat-timepicker',
     },
-  ],
-  exportAs: 'ngxMatTimepicker',
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => NgxMatTimepickerComponent),
+            multi: true,
+        },
+    ],
+    exportAs: 'ngxMatTimepicker',
+    encapsulation: ViewEncapsulation.None,
+    imports: [
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+    ]
 })
 export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnInit, OnChanges {
   public form: FormGroup;

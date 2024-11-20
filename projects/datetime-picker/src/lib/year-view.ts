@@ -43,13 +43,12 @@ import { createMissingDateImplError } from './datepicker-errors';
  * @docs-private
  */
 @Component({
-  selector: 'ngx-mat-year-view',
-  templateUrl: 'year-view.html',
-  exportAs: 'ngxMatYearView',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
-  imports: [NgxMatCalendarBody],
+    selector: 'ngx-mat-year-view',
+    templateUrl: 'year-view.html',
+    exportAs: 'ngxMatYearView',
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgxMatCalendarBody]
 })
 export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
   private _rerenderSubscription = Subscription.EMPTY;

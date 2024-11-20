@@ -5,15 +5,14 @@ import { BASIC_COLORS, stringInputToObject } from '../../helpers';
 import { Color } from '../../models';
 
 @Component({
-  selector: 'ngx-mat-color-collection',
-  templateUrl: './color-collection.component.html',
-  styleUrls: ['./color-collection.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    class: 'ngx-mat-color-collection',
-  },
-  standalone: true,
-  imports: [MatButtonModule, NgClass],
+    selector: 'ngx-mat-color-collection',
+    templateUrl: './color-collection.component.html',
+    styleUrls: ['./color-collection.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'ngx-mat-color-collection',
+    },
+    imports: [MatButtonModule, NgClass]
 })
 export class NgxMatColorCollectionComponent {
   readonly colorChanged = output<Color>();

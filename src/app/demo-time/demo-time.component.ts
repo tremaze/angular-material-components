@@ -19,28 +19,27 @@ import { NgxMatTimepickerComponent } from "../../../projects/datetime-picker/src
 import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
 
 @Component({
-  selector: "app-demo-time",
-  templateUrl: "./demo-time.component.html",
-  styleUrls: ["./demo-time.component.scss"],
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    NgxMatDatepickerInput,
-    NgxMatHighlightDirective,
-    NgxMatNativeDateModule,
-    NgxMatTimepickerComponent,
-    ReactiveFormsModule,
-    RouterLink,
-  ],
+    selector: "app-demo-time",
+    templateUrl: "./demo-time.component.html",
+    styleUrls: ["./demo-time.component.scss"],
+    imports: [
+        FormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatDatepickerModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatRadioModule,
+        MatSelectModule,
+        NgxMatDatepickerInput,
+        NgxMatHighlightDirective,
+        NgxMatNativeDateModule,
+        NgxMatTimepickerComponent,
+        ReactiveFormsModule,
+        RouterLink,
+    ]
 })
 export class DemoTimeComponent {
   public disabled = false;

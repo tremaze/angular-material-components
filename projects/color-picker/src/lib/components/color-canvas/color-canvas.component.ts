@@ -27,15 +27,14 @@ import { NgxMatColorSliderComponent } from './color-slider/color-slider.componen
 const RADIUS_NOB = 5;
 
 @Component({
-  selector: 'ngx-mat-color-canvas',
-  templateUrl: './color-canvas.component.html',
-  styleUrls: ['./color-canvas.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    class: 'ngx-mat-color-canvas',
-  },
-  standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, NgxMatColorSliderComponent, ReactiveFormsModule],
+    selector: 'ngx-mat-color-canvas',
+    templateUrl: './color-canvas.component.html',
+    styleUrls: ['./color-canvas.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'ngx-mat-color-canvas',
+    },
+    imports: [MatFormFieldModule, MatInputModule, NgxMatColorSliderComponent, ReactiveFormsModule]
 })
 export class NgxMatColorCanvasComponent
   extends NgxMatBaseColorCanvas

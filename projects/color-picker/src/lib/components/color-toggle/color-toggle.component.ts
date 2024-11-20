@@ -24,23 +24,22 @@ import { NgxMatColorPickerComponent } from '../color-picker/color-picker.compone
 export class NgxMatColorpickerToggleIcon {}
 
 @Component({
-  selector: 'ngx-mat-color-toggle',
-  templateUrl: './color-toggle.component.html',
-  styleUrls: ['./color-toggle.component.scss'],
-  host: {
-    class: 'ngx-mat-color-toggle',
-    // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
-    // consumer may have provided, while still being able to receive focus.
-    '[attr.tabindex]': '-1',
-    '[class.ngx-mat-color-toggle-active]': 'picker && picker.opened',
-    '[class.mat-accent]': 'picker && picker.color === "accent"',
-    '[class.mat-warn]': 'picker && picker.color === "warn"',
-    '(focus)': '_button.focus()',
-  },
-  exportAs: 'ngxMatColorPickerToggle',
-  encapsulation: ViewEncapsulation.None,
-  standalone: true,
-  imports: [MatButtonModule, MatIconModule],
+    selector: 'ngx-mat-color-toggle',
+    templateUrl: './color-toggle.component.html',
+    styleUrls: ['./color-toggle.component.scss'],
+    host: {
+        class: 'ngx-mat-color-toggle',
+        // Always set the tabindex to -1 so that it doesn't overlap with any custom tabindex the
+        // consumer may have provided, while still being able to receive focus.
+        '[attr.tabindex]': '-1',
+        '[class.ngx-mat-color-toggle-active]': 'picker && picker.opened',
+        '[class.mat-accent]': 'picker && picker.color === "accent"',
+        '[class.mat-warn]': 'picker && picker.color === "warn"',
+        '(focus)': '_button.focus()',
+    },
+    exportAs: 'ngxMatColorPickerToggle',
+    encapsulation: ViewEncapsulation.None,
+    imports: [MatButtonModule, MatIconModule]
 })
 export class NgxMatColorToggleComponent implements AfterContentInit, OnDestroy {
   private _stateChanges = Subscription.EMPTY;

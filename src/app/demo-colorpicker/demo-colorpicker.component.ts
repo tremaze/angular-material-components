@@ -31,29 +31,28 @@ const CUSTOM_MAT_COLOR_FORMATS: MatColorFormats = {
 };
 
 @Component({
-  selector: "ngx-mat-demo-colorpicker",
-  templateUrl: "./demo-colorpicker.component.html",
-  styleUrls: ["./demo-colorpicker.component.scss"],
-  standalone: true,
-  imports: [
-    FormsModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatTabsModule,
-    NgxMatColorPickerComponent,
-    NgxMatColorPickerComponent,
-    NgxMatColorPickerInput,
-    NgxMatColorToggleComponent,
-    NgxMatHighlightDirective,
-    ReactiveFormsModule,
-  ],
-  providers: [
-    { provide: MAT_COLOR_FORMATS, useValue: CUSTOM_MAT_COLOR_FORMATS },
-  ],
+    selector: "ngx-mat-demo-colorpicker",
+    templateUrl: "./demo-colorpicker.component.html",
+    styleUrls: ["./demo-colorpicker.component.scss"],
+    imports: [
+        FormsModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatTabsModule,
+        NgxMatColorPickerComponent,
+        NgxMatColorPickerComponent,
+        NgxMatColorPickerInput,
+        NgxMatColorToggleComponent,
+        NgxMatHighlightDirective,
+        ReactiveFormsModule,
+    ],
+    providers: [
+        { provide: MAT_COLOR_FORMATS, useValue: CUSTOM_MAT_COLOR_FORMATS },
+    ]
 })
 export class DemoColorpickerComponent {
   public disabled = false;

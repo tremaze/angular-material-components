@@ -24,28 +24,27 @@ import {
 import { NgxMatHighlightDirective } from "../shared/NgxMatHighlightDirective";
 
 @Component({
-  selector: "app-demo-fileinput",
-  templateUrl: "./demo-fileinput.component.html",
-  styleUrls: ["./demo-fileinput.component.scss"],
-  standalone: true,
-  imports: [
-    DemoFileInputComponent,
-    FormsModule,
-    JsonPipe,
-    MatButtonModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatTabsModule,
-    NgxMatFileInputComponent,
-    NgxMatHighlightDirective,
-    NgxMatNativeDateModule,
-    ReactiveFormsModule,
-  ],
+    selector: "app-demo-fileinput",
+    templateUrl: "./demo-fileinput.component.html",
+    styleUrls: ["./demo-fileinput.component.scss"],
+    imports: [
+        DemoFileInputComponent,
+        FormsModule,
+        JsonPipe,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatTabsModule,
+        NgxMatFileInputComponent,
+        NgxMatHighlightDirective,
+        NgxMatNativeDateModule,
+        ReactiveFormsModule,
+    ]
 })
 export class DemoFileInputComponent implements OnInit {
   color: ThemePalette = "primary";

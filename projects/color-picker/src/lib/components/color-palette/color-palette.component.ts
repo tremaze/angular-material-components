@@ -5,15 +5,14 @@ import { NgxMatColorCanvasComponent } from '../color-canvas/color-canvas.compone
 import { NgxMatColorCollectionComponent } from '../color-collection/color-collection.component';
 
 @Component({
-  selector: 'ngx-mat-color-palette',
-  templateUrl: 'color-palette.component.html',
-  styleUrls: ['color-palette.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    class: 'ngx-mat-color-palette',
-  },
-  standalone: true,
-  imports: [NgxMatColorCollectionComponent, NgxMatColorCanvasComponent],
+    selector: 'ngx-mat-color-palette',
+    templateUrl: 'color-palette.component.html',
+    styleUrls: ['color-palette.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'ngx-mat-color-palette',
+    },
+    imports: [NgxMatColorCollectionComponent, NgxMatColorCanvasComponent]
 })
 export class NgxMatColorPaletteComponent {
   readonly colorChanged = output<Color>();
