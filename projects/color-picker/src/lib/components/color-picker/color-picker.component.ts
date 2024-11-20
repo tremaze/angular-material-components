@@ -61,20 +61,20 @@ const _MatColorpickerContentBase = mixinColor(
 );
 
 @Component({
-    selector: 'ngx-mat-color-picker-content',
-    templateUrl: './color-picker-content.component.html',
-    styleUrls: ['color-picker-content.component.scss'],
-    host: {
-        class: 'ngx-mat-colorpicker-content',
-        '[@transformPanel]': '"enter"',
-        '[class.ngx-mat-colorpicker-content-touch]': 'picker.touchUi',
-    },
-    animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar],
-    exportAs: 'ngxMatColorPickerContent',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    inputs: ['color'],
-    imports: [NgxMatColorPaletteComponent]
+  selector: 'ngx-mat-color-picker-content',
+  templateUrl: './color-picker-content.component.html',
+  styleUrls: ['color-picker-content.component.scss'],
+  host: {
+    class: 'ngx-mat-colorpicker-content',
+    '[@transformPanel]': '"enter"',
+    '[class.ngx-mat-colorpicker-content-touch]': 'picker.touchUi',
+  },
+  animations: [matDatepickerAnimations.transformPanel, matDatepickerAnimations.fadeInCalendar],
+  exportAs: 'ngxMatColorPickerContent',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  inputs: ['color'],
+  imports: [NgxMatColorPaletteComponent],
 })
 export class NgxMatColorPickerContentComponent
   extends _MatColorpickerContentBase

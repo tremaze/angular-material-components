@@ -52,21 +52,21 @@ const _NgxMatInputMixinBase = mixinErrorState(
 export class NgxMatFileInputIcon {}
 
 @Component({
-    selector: 'ngx-mat-file-input',
-    templateUrl: 'file-input.component.html',
-    styleUrls: ['file-input.component.scss'],
-    encapsulation: ViewEncapsulation.None,
-    host: {
-        class: 'ngx-mat-file-input',
+  selector: 'ngx-mat-file-input',
+  templateUrl: 'file-input.component.html',
+  styleUrls: ['file-input.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  host: {
+    class: 'ngx-mat-file-input',
+  },
+  providers: [
+    {
+      provide: MatFormFieldControl,
+      useExisting: forwardRef(() => NgxMatFileInputComponent),
     },
-    providers: [
-        {
-            provide: MatFormFieldControl,
-            useExisting: forwardRef(() => NgxMatFileInputComponent),
-        },
-    ],
-    exportAs: 'ngx-mat-file-input',
-    imports: [MatIconModule, MatButtonModule]
+  ],
+  exportAs: 'ngx-mat-file-input',
+  imports: [MatIconModule, MatButtonModule],
 })
 export class NgxMatFileInputComponent
   extends _NgxMatInputMixinBase
