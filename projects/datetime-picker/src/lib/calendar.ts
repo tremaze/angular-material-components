@@ -1,3 +1,4 @@
+import { CdkMonitorFocus } from '@angular/cdk/a11y';
 import { CdkPortalOutlet, ComponentPortal, ComponentType, Portal } from '@angular/cdk/portal';
 import {
   AfterContentInit,
@@ -15,9 +16,11 @@ import {
   ViewEncapsulation,
   forwardRef,
   input,
+  linkedSignal,
   output,
   viewChild,
 } from '@angular/core';
+import { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { Subject, Subscription } from 'rxjs';
 import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
@@ -34,8 +37,6 @@ import {
   yearsPerPage,
 } from './multi-year-view';
 import { NgxMatYearView } from './year-view';
-
-import { CdkMonitorFocus } from '@angular/cdk/a11y';
 
 let calendarHeaderId = 1;
 
@@ -70,12 +71,12 @@ export class NgxMatCalendarHeader<D> {
 
   /** The display text for the current calendar view. */
   get periodButtonText(): string {
-    if (this.calendar.currentView == 'month') {
+    if (this.calendar.currentView() == 'month') {
       return this._dateAdapter
         .format(this.calendar.activeDate, this._dateFormats.display.monthYearLabel)
         .toLocaleUpperCase();
     }
-    if (this.calendar.currentView == 'year') {
+    if (this.calendar.currentView() == 'year') {
       return this._dateAdapter.getYearName(this.calendar.activeDate);
     }
 
@@ -84,12 +85,12 @@ export class NgxMatCalendarHeader<D> {
 
   /** The aria description for the current calendar view. */
   get periodButtonDescription(): string {
-    if (this.calendar.currentView == 'month') {
+    if (this.calendar.currentView() == 'month') {
       return this._dateAdapter
         .format(this.calendar.activeDate, this._dateFormats.display.monthYearLabel)
         .toLocaleUpperCase();
     }
-    if (this.calendar.currentView == 'year') {
+    if (this.calendar.currentView() == 'year') {
       return this._dateAdapter.getYearName(this.calendar.activeDate);
     }
 
@@ -100,7 +101,7 @@ export class NgxMatCalendarHeader<D> {
 
   /** The `aria-label` for changing the calendar view. */
   get periodButtonLabel(): string {
-    return this.calendar.currentView == 'month'
+    return this.calendar.currentView() == 'month'
       ? this._intl.switchToMultiYearViewLabel
       : this._intl.switchToMonthViewLabel;
   }
@@ -111,7 +112,7 @@ export class NgxMatCalendarHeader<D> {
       month: this._intl.prevMonthLabel,
       year: this._intl.prevYearLabel,
       'multi-year': this._intl.prevMultiYearLabel,
-    }[this.calendar.currentView];
+    }[this.calendar.currentView()];
   }
 
   /** The label for the next button. */
@@ -120,33 +121,33 @@ export class NgxMatCalendarHeader<D> {
       month: this._intl.nextMonthLabel,
       year: this._intl.nextYearLabel,
       'multi-year': this._intl.nextMultiYearLabel,
-    }[this.calendar.currentView];
+    }[this.calendar.currentView()];
   }
 
   /** Handles user clicks on the period label. */
   currentPeriodClicked(): void {
-    this.calendar.currentView = this.calendar.currentView == 'month' ? 'multi-year' : 'month';
+    this.calendar.currentView.set(this.calendar.currentView() == 'month' ? 'multi-year' : 'month');
   }
 
   /** Handles user clicks on the previous button. */
   previousClicked(): void {
     this.calendar.activeDate =
-      this.calendar.currentView == 'month'
+      this.calendar.currentView() == 'month'
         ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, -1)
         : this._dateAdapter.addCalendarYears(
             this.calendar.activeDate,
-            this.calendar.currentView == 'year' ? -1 : -yearsPerPage,
+            this.calendar.currentView() == 'year' ? -1 : -yearsPerPage,
           );
   }
 
   /** Handles user clicks on the next button. */
   nextClicked(): void {
     this.calendar.activeDate =
-      this.calendar.currentView == 'month'
+      this.calendar.currentView() == 'month'
         ? this._dateAdapter.addCalendarMonths(this.calendar.activeDate, 1)
         : this._dateAdapter.addCalendarYears(
             this.calendar.activeDate,
-            this.calendar.currentView == 'year' ? 1 : yearsPerPage,
+            this.calendar.currentView() == 'year' ? 1 : yearsPerPage,
           );
   }
 
@@ -169,13 +170,13 @@ export class NgxMatCalendarHeader<D> {
 
   /** Whether the two dates represent the same view in the current view mode (month or year). */
   private _isSameView(date1: D, date2: D): boolean {
-    if (this.calendar.currentView == 'month') {
+    if (this.calendar.currentView() == 'month') {
       return (
         this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2) &&
         this._dateAdapter.getMonth(date1) == this._dateAdapter.getMonth(date2)
       );
     }
-    if (this.calendar.currentView == 'year') {
+    if (this.calendar.currentView() == 'year') {
       return this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2);
     }
     // Otherwise we are in 'multi-year' view.
@@ -250,7 +251,7 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
    * We need to schedule it, rather than do it immediately, because we have to wait
    * for Angular to re-evaluate the view children.
    */
-  private _moveFocusOnNextTick = false;
+  private readonly _moveFocusOnNextTick = linkedSignal(() => !!this.currentView());
 
   /** A date representing the period (month or year) to start the calendar in. */
   @Input()
@@ -263,7 +264,7 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   private _startAt: D | null;
 
   /** Whether the calendar should be started in month or year view. */
-  startView = input<NgxMatCalendarView>('month');
+  readonly startView = input<NgxMatCalendarView>('month');
 
   /** The currently selected date. */
   @Input()
@@ -317,6 +318,8 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   /** ARIA Accessible name of the `<input matEndDate/>` */
   endDateAccessibleName = input<string | null>();
 
+  readonly currentView = linkedSignal(() => this.startView());
+
   /** Emits when the currently selected date changes. */
   readonly selectedChange = output<D | null>();
 
@@ -335,7 +338,7 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   /**
    * Emits when the current view changes.
    */
-  readonly viewChanged = output<NgxMatCalendarView>();
+  readonly viewChanged = outputFromObservable<NgxMatCalendarView>(toObservable(this.currentView));
 
   /** Emits when any date is selected. */
   readonly _userSelection = output<NgxMatCalendarUserEvent<D | null>>();
@@ -365,21 +368,6 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
     this._changeDetectorRef.markForCheck();
   }
   private _clampedActiveDate: D;
-
-  /** Whether the calendar is in month view. */
-  get currentView(): NgxMatCalendarView {
-    return this._currentView;
-  }
-  set currentView(value: NgxMatCalendarView) {
-    const viewChangedResult = this._currentView !== value ? value : null;
-    this._currentView = value;
-    this._moveFocusOnNextTick = true;
-    this._changeDetectorRef.markForCheck();
-    if (viewChangedResult) {
-      this.viewChanged.emit(viewChangedResult);
-    }
-  }
-  private _currentView: NgxMatCalendarView;
 
   /** Origin of active drag, or null when dragging is not active. */
   protected _activeDrag: NgxMatCalendarUserEvent<D> | null = null;
@@ -415,15 +403,13 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
     this._calendarHeaderPortal = new ComponentPortal(
       this.headerComponent() || NgxMatCalendarHeader,
     );
-    this.activeDate = this.startAt || this._dateAdapter.today();
 
-    // Assign to the private property since we don't want to move focus on init.
-    this._currentView = this.startView();
+    this.activeDate = this.startAt || this._dateAdapter.today();
   }
 
   ngAfterViewChecked() {
-    if (this._moveFocusOnNextTick) {
-      this._moveFocusOnNextTick = false;
+    if (this._moveFocusOnNextTick()) {
+      this._moveFocusOnNextTick.set(false);
       this.focusActiveCell();
     }
   }
@@ -467,7 +453,7 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   /** Focuses the active date. */
   focusActiveCell() {
     const view = this._getCurrentViewComponent();
-    view._focusActiveCell(false);
+    view?._focusActiveCell(false);
   }
 
   /** Updates today's date after an update of the active date */
@@ -504,9 +490,9 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   }
 
   /** Handles year/month selection in the multi-year/year views. */
-  _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void {
+  _goToDateInView(date: D, view: NgxMatCalendarView): void {
     this.activeDate = date;
-    this.currentView = view;
+    this.currentView.set(view);
   }
 
   /** Called when the user starts dragging to change a date range. */
