@@ -52,7 +52,7 @@ import {
   inject,
   input,
   output,
-  viewChild,
+  viewChild, HostBinding
 } from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
@@ -189,7 +189,18 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   /** Id of the label for the `role="dialog"` element. */
   _dialogLabelId: string | null;
 
-  color: ThemePalette;
+  @Input()
+  color: ThemePalette = 'primary';
+
+  @HostBinding('class.mat-primary') get isPrimary() {
+    return this.color === 'primary';
+  }
+  @HostBinding('class.mat-accent') get isAccent() {
+    return this.color === 'accent';
+  }
+  @HostBinding('class.mat-warn') get isWarn() {
+    return this.color === 'warn';
+  }
 
   get isViewMonth(): boolean {
     if (!this._calendar() || this._calendar().currentView == null) return true;

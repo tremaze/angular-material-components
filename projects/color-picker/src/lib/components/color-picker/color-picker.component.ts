@@ -25,7 +25,7 @@ import {
   Output,
   ViewContainerRef,
   ViewEncapsulation,
-  viewChild,
+  viewChild, HostBinding,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { matDatepickerAnimations } from '@angular/material/datepicker';
@@ -154,6 +154,16 @@ export class NgxMatColorPickerComponent implements OnDestroy {
     this._color = value;
   }
   _color: ThemePalette;
+
+  @HostBinding('class.mat-primary') get isPrimary() {
+    return this.color === 'primary';
+  }
+  @HostBinding('class.mat-accent') get isAccent() {
+    return this.color === 'accent';
+  }
+  @HostBinding('class.mat-warn') get isWarn() {
+    return this.color === 'warn';
+  }
 
   /** The currently selected date. */
   get _selected(): Color {
