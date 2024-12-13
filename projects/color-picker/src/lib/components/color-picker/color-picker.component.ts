@@ -25,7 +25,8 @@ import {
   Output,
   ViewContainerRef,
   ViewEncapsulation,
-  viewChild, HostBinding,
+  viewChild,
+  HostBinding,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { matDatepickerAnimations } from '@angular/material/datepicker';
@@ -70,8 +71,7 @@ export const NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   inputs: ['color'],
   imports: [NgxMatColorPaletteComponent],
 })
-export class NgxMatColorPickerContentComponent
-{
+export class NgxMatColorPickerContentComponent {
   /** Reference to the internal calendar component. */
   _palette = viewChild(NgxMatColorPaletteComponent);
 
@@ -79,8 +79,7 @@ export class NgxMatColorPickerContentComponent
   _isAbove: boolean;
   color: ThemePalette;
 
-  constructor() {
-  }
+  constructor() {}
 }
 
 @Component({

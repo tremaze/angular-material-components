@@ -18,10 +18,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import {
-  ErrorStateMatcher,
-  ThemePalette,
-} from '@angular/material/core';
+import { ErrorStateMatcher, ThemePalette } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { Subject } from 'rxjs';
@@ -30,16 +27,16 @@ import { FileOrArrayFile } from './file-input-type';
 let nextUniqueId = 0;
 
 class NgxMatInputMixinBase {
-    readonly stateChanges = new Subject<void>();
+  readonly stateChanges = new Subject<void>();
 
-    constructor(
-      public _defaultErrorStateMatcher: ErrorStateMatcher,
-      public _parentForm: NgForm,
-      public _parentFormGroup: FormGroupDirective,
-      /** @docs-private */
-      public ngControl: NgControl,
-    ) {}
-  }
+  constructor(
+    public _defaultErrorStateMatcher: ErrorStateMatcher,
+    public _parentForm: NgForm,
+    public _parentFormGroup: FormGroupDirective,
+    /** @docs-private */
+    public ngControl: NgControl,
+  ) {}
+}
 
 @Directive({
   selector: '[ngxMatFileInputIcon]',
@@ -66,11 +63,7 @@ export class NgxMatFileInputIcon {}
 })
 export class NgxMatFileInputComponent
   extends NgxMatInputMixinBase
-  implements
-    MatFormFieldControl<FileOrArrayFile>,
-    OnDestroy,
-    DoCheck,
-    ControlValueAccessor
+  implements MatFormFieldControl<FileOrArrayFile>, OnDestroy, DoCheck, ControlValueAccessor
 {
   private _inputFileRef = viewChild<ElementRef>('inputFile');
   private _inputValueRef = viewChild<ElementRef>('inputValue');
@@ -210,7 +203,10 @@ export class NgxMatFileInputComponent
   updateErrorState() {
     const control = this.ngControl ? this.ngControl.control : null;
 
-    this.errorState = (this.errorStateMatcher ?? this._defaultErrorStateMatcher).isErrorState(control, this._parentForm);
+    this.errorState = (this.errorStateMatcher ?? this._defaultErrorStateMatcher).isErrorState(
+      control,
+      this._parentForm,
+    );
   }
 
   // Implemented as part of ControlValueAccessor.

@@ -23,7 +23,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ErrorStateMatcher} from '@angular/material/core';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { _computeAriaAccessibleName } from './aria-accessible-name';
 import { NgxMatDateAdapter } from './core/date-adapter';
 import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
@@ -71,7 +71,7 @@ abstract class NgxMatDateRangeInputPartBase<D>
    */
   ngControl: NgControl;
 
-  errorState = false
+  errorState = false;
 
   protected abstract override _validator: ValidatorFn | null;
   protected abstract override _assignValueToModel(value: D | null): void;
@@ -123,9 +123,11 @@ abstract class NgxMatDateRangeInputPartBase<D>
   updateErrorState() {
     const control = this.ngControl ? this.ngControl.control : null;
 
-    this.errorState = (this.errorStateMatcher ?? this._defaultErrorStateMatcher).isErrorState(control, this._parentForm);
+    this.errorState = (this.errorStateMatcher ?? this._defaultErrorStateMatcher).isErrorState(
+      control,
+      this._parentForm,
+    );
   }
-
 
   /** Gets whether the input is empty. */
   isEmpty(): boolean {
@@ -227,9 +229,7 @@ abstract class NgxMatDateRangeInputPartBase<D>
   inputs: ['errorStateMatcher'],
   standalone: true,
 })
-export class NgxMatStartDate<D>
-  extends NgxMatDateRangeInputPartBase<D>
-{
+export class NgxMatStartDate<D> extends NgxMatDateRangeInputPartBase<D> {
   /** Validator that checks that the start date isn't after the end date. */
   private _startValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
     const start = this._dateAdapter.getValidDateOrNull(

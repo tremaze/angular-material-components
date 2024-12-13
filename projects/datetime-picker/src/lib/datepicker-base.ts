@@ -1,7 +1,7 @@
-import {AnimationEvent} from '@angular/animations';
-import {CdkTrapFocus, ListKeyManagerModifierKey} from '@angular/cdk/a11y';
-import {Directionality} from '@angular/cdk/bidi';
-import {BooleanInput, coerceBooleanProperty, coerceStringArray} from '@angular/cdk/coercion';
+import { AnimationEvent } from '@angular/animations';
+import { CdkTrapFocus, ListKeyManagerModifierKey } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
+import { BooleanInput, coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
 import {
   DOWN_ARROW,
   ESCAPE,
@@ -19,14 +19,14 @@ import {
   OverlayRef,
   ScrollStrategy,
 } from '@angular/cdk/overlay';
-import {_getFocusedElementPierceShadowDom} from '@angular/cdk/platform';
+import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
 import {
   CdkPortalOutlet,
   ComponentPortal,
   ComponentType,
   TemplatePortal,
 } from '@angular/cdk/portal';
-import {DOCUMENT, NgClass} from '@angular/common';
+import { DOCUMENT, NgClass } from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -52,16 +52,17 @@ import {
   inject,
   input,
   output,
-  viewChild, HostBinding
+  viewChild,
+  HostBinding,
 } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {MatButton} from '@angular/material/button';
-import {ThemePalette} from '@angular/material/core';
-import {Observable, Subject, Subscription, merge} from 'rxjs';
-import {filter, take} from 'rxjs/operators';
-import {NgxMatCalendar, NgxMatCalendarView} from './calendar';
-import {NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent} from './calendar-body';
-import {NgxMatDateAdapter} from './core/date-adapter';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButton } from '@angular/material/button';
+import { ThemePalette } from '@angular/material/core';
+import { Observable, Subject, Subscription, merge } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
+import { NgxMatCalendar, NgxMatCalendarView } from './calendar';
+import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
+import { NgxMatDateAdapter } from './core/date-adapter';
 import {
   NGX_MAT_DATE_RANGE_SELECTION_STRATEGY,
   NgxMatDateRangeSelectionStrategy,
@@ -71,12 +72,12 @@ import {
   NgxExtractDateTypeFromSelection,
   NgxMatDateSelectionModel,
 } from './date-selection-model';
-import {ngxMatDatepickerAnimations} from './datepicker-animations';
-import {createMissingDateImplError} from './datepicker-errors';
-import {NgxDateFilterFn} from './datepicker-input-base';
-import {NgxMatDatepickerIntl} from './datepicker-intl';
-import {NgxMatTimepickerComponent} from './timepicker.component';
-import {DEFAULT_STEP} from './utils/date-utils';
+import { ngxMatDatepickerAnimations } from './datepicker-animations';
+import { createMissingDateImplError } from './datepicker-errors';
+import { NgxDateFilterFn } from './datepicker-input-base';
+import { NgxMatDatepickerIntl } from './datepicker-intl';
+import { NgxMatTimepickerComponent } from './timepicker.component';
+import { DEFAULT_STEP } from './utils/date-utils';
 
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;
@@ -144,7 +145,8 @@ export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
   ],
 })
 export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
-  implements OnInit, AfterViewInit, OnDestroy {
+  implements OnInit, AfterViewInit, OnDestroy
+{
   private _subscriptions = new Subscription();
   private _model: NgxMatDateSelectionModel<S, D>;
   /** Reference to the internal calendar component. */
@@ -397,11 +399,12 @@ export interface NgxMatDatepickerPanel<
 /** Base class for a datepicker. */
 @Directive()
 export abstract class NgxMatDatepickerBase<
-  C extends NgxMatDatepickerControl<D>,
-  S,
-  D = NgxExtractDateTypeFromSelection<S>,
->
-  implements NgxMatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
+    C extends NgxMatDatepickerControl<D>,
+    S,
+    D = NgxExtractDateTypeFromSelection<S>,
+  >
+  implements NgxMatDatepickerPanel<C, S, D>, OnDestroy, OnChanges
+{
   private _scrollStrategy: () => ScrollStrategy;
   private _inputStateChanges = Subscription.EMPTY;
   private _document = inject(DOCUMENT);
@@ -834,7 +837,7 @@ export abstract class NgxMatDatepickerBase<
     };
 
     if (this._componentRef) {
-      const {instance, location} = this._componentRef;
+      const { instance, location } = this._componentRef;
       instance._startExitAnimation();
       instance._animationDone.pipe(take(1)).subscribe(() => {
         const activeElement = this._document.activeElement;
