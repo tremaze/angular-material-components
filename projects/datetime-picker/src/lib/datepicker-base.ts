@@ -1,7 +1,7 @@
-import { AnimationEvent } from '@angular/animations';
-import { CdkTrapFocus, ListKeyManagerModifierKey } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
-import { BooleanInput, coerceBooleanProperty, coerceStringArray } from '@angular/cdk/coercion';
+import {AnimationEvent} from '@angular/animations';
+import {CdkTrapFocus, ListKeyManagerModifierKey} from '@angular/cdk/a11y';
+import {Directionality} from '@angular/cdk/bidi';
+import {BooleanInput, coerceBooleanProperty, coerceStringArray} from '@angular/cdk/coercion';
 import {
   DOWN_ARROW,
   ESCAPE,
@@ -19,14 +19,14 @@ import {
   OverlayRef,
   ScrollStrategy,
 } from '@angular/cdk/overlay';
-import { _getFocusedElementPierceShadowDom } from '@angular/cdk/platform';
+import {_getFocusedElementPierceShadowDom} from '@angular/cdk/platform';
 import {
   CdkPortalOutlet,
   ComponentPortal,
   ComponentType,
   TemplatePortal,
 } from '@angular/cdk/portal';
-import { DOCUMENT, NgClass } from '@angular/common';
+import {DOCUMENT, NgClass} from '@angular/common';
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
@@ -52,16 +52,16 @@ import {
   inject,
   input,
   output,
-  viewChild,
+  viewChild, HostBinding
 } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
-import { CanColor, ThemePalette, mixinColor } from '@angular/material/core';
-import { Observable, Subject, Subscription, merge } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { NgxMatCalendar, NgxMatCalendarView } from './calendar';
-import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
-import { NgxMatDateAdapter } from './core/date-adapter';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatButton} from '@angular/material/button';
+import {ThemePalette} from '@angular/material/core';
+import {Observable, Subject, Subscription, merge} from 'rxjs';
+import {filter, take} from 'rxjs/operators';
+import {NgxMatCalendar, NgxMatCalendarView} from './calendar';
+import {NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent} from './calendar-body';
+import {NgxMatDateAdapter} from './core/date-adapter';
 import {
   NGX_MAT_DATE_RANGE_SELECTION_STRATEGY,
   NgxMatDateRangeSelectionStrategy,
@@ -71,12 +71,12 @@ import {
   NgxExtractDateTypeFromSelection,
   NgxMatDateSelectionModel,
 } from './date-selection-model';
-import { ngxMatDatepickerAnimations } from './datepicker-animations';
-import { createMissingDateImplError } from './datepicker-errors';
-import { NgxDateFilterFn } from './datepicker-input-base';
-import { NgxMatDatepickerIntl } from './datepicker-intl';
-import { NgxMatTimepickerComponent } from './timepicker.component';
-import { DEFAULT_STEP } from './utils/date-utils';
+import {ngxMatDatepickerAnimations} from './datepicker-animations';
+import {createMissingDateImplError} from './datepicker-errors';
+import {NgxDateFilterFn} from './datepicker-input-base';
+import {NgxMatDatepickerIntl} from './datepicker-intl';
+import {NgxMatTimepickerComponent} from './timepicker.component';
+import {DEFAULT_STEP} from './utils/date-utils';
 
 /** Used to generate a unique ID for each datepicker instance. */
 let datepickerUid = 0;
@@ -105,13 +105,6 @@ export const NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
 };
 
 // Boilerplate for applying mixins to MatDatepickerContent.
-/** @docs-private */
-const _NgxMatDatepickerContentBase = mixinColor(
-  class {
-    constructor(public _elementRef: ElementRef) {}
-  },
-);
-
 /**
  * Component used as the content for the datepicker overlay. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -151,9 +144,7 @@ const _NgxMatDatepickerContentBase = mixinColor(
   ],
 })
 export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
-  extends _NgxMatDatepickerContentBase
-  implements OnInit, AfterViewInit, OnDestroy, CanColor
-{
+  implements OnInit, AfterViewInit, OnDestroy {
   private _subscriptions = new Subscription();
   private _model: NgxMatDateSelectionModel<S, D>;
   /** Reference to the internal calendar component. */
@@ -198,6 +189,19 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   /** Id of the label for the `role="dialog"` element. */
   _dialogLabelId: string | null;
 
+  @Input()
+  color: ThemePalette = 'primary';
+
+  @HostBinding('class.mat-primary') get isPrimary() {
+    return this.color === 'primary';
+  }
+  @HostBinding('class.mat-accent') get isAccent() {
+    return this.color === 'accent';
+  }
+  @HostBinding('class.mat-warn') get isWarn() {
+    return this.color === 'warn';
+  }
+
   get isViewMonth(): boolean {
     if (!this._calendar() || this._calendar().currentView == null) return true;
     return this._calendar().currentView() == 'month';
@@ -206,7 +210,6 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   _modelTime: D | null;
 
   constructor(
-    elementRef: ElementRef,
     private _changeDetectorRef: ChangeDetectorRef,
     private _globalModel: NgxMatDateSelectionModel<S, D>,
     private _dateAdapter: NgxMatDateAdapter<D>,
@@ -215,7 +218,6 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
     private _rangeSelectionStrategy: NgxMatDateRangeSelectionStrategy<D>,
     intl: NgxMatDatepickerIntl,
   ) {
-    super(elementRef);
     this._closeButtonText = intl.closeCalendarLabel;
 
     effect(() => {
@@ -347,13 +349,18 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
 /** Form control that can be associated with a datepicker. */
 export interface NgxMatDatepickerControl<D> {
   getStartValue(): D | null;
+
   getThemePalette(): ThemePalette;
+
   min: D | null;
   max: D | null;
   disabled: boolean;
   dateFilter: NgxDateFilterFn<D>;
+
   getConnectedOverlayOrigin(): ElementRef;
+
   getOverlayLabelId(): string | null;
+
   stateChanges: Observable<void>;
 }
 
@@ -379,8 +386,10 @@ export interface NgxMatDatepickerPanel<
   openedStream: EventEmitter<void>;
   /** Emits when the datepicker's state changes. */
   stateChanges: Subject<void>;
+
   /** Opens the datepicker. */
   open(): void;
+
   /** Register an input with the datepicker. */
   registerInput(input: C): NgxMatDateSelectionModel<S, D>;
 }
@@ -388,12 +397,11 @@ export interface NgxMatDatepickerPanel<
 /** Base class for a datepicker. */
 @Directive()
 export abstract class NgxMatDatepickerBase<
-    C extends NgxMatDatepickerControl<D>,
-    S,
-    D = NgxExtractDateTypeFromSelection<S>,
-  >
-  implements NgxMatDatepickerPanel<C, S, D>, OnDestroy, OnChanges
-{
+  C extends NgxMatDatepickerControl<D>,
+  S,
+  D = NgxExtractDateTypeFromSelection<S>,
+>
+  implements NgxMatDatepickerPanel<C, S, D>, OnDestroy, OnChanges {
   private _scrollStrategy: () => ScrollStrategy;
   private _inputStateChanges = Subscription.EMPTY;
   private _document = inject(DOCUMENT);
@@ -408,9 +416,11 @@ export abstract class NgxMatDatepickerBase<
     // selected value is.
     return this._startAt || (this.datepickerInput ? this.datepickerInput.getStartValue() : null);
   }
+
   set startAt(value: D | null) {
     this._startAt = this._dateAdapter.getValidDateOrNull(this._dateAdapter.deserialize(value));
   }
+
   private _startAt: D | null;
 
   /** The view that the calendar should start in. */
@@ -423,9 +433,11 @@ export abstract class NgxMatDatepickerBase<
       this._color || (this.datepickerInput ? this.datepickerInput.getThemePalette() : undefined)
     );
   }
+
   set color(value: ThemePalette) {
     this._color = value;
   }
+
   _color: ThemePalette;
 
   /**
@@ -436,18 +448,22 @@ export abstract class NgxMatDatepickerBase<
   get touchUi(): boolean {
     return this._touchUi;
   }
+
   set touchUi(value: BooleanInput) {
     this._touchUi = coerceBooleanProperty(value);
   }
+
   private _touchUi = false;
 
   @Input()
   get hideTime(): boolean {
     return this._hideTime;
   }
+
   set hideTime(value: boolean) {
     this._hideTime = coerceBooleanProperty(value);
   }
+
   public _hideTime = false;
 
   /** Whether the datepicker pop-up should be disabled. */
@@ -457,6 +473,7 @@ export abstract class NgxMatDatepickerBase<
       ? this.datepickerInput.disabled
       : !!this._disabled;
   }
+
   set disabled(value: BooleanInput) {
     const newValue = coerceBooleanProperty(value);
 
@@ -465,6 +482,7 @@ export abstract class NgxMatDatepickerBase<
       this.stateChanges.next(undefined);
     }
   }
+
   public _disabled: boolean;
 
   /** Preferred position of the datepicker in the X axis. */
@@ -482,9 +500,11 @@ export abstract class NgxMatDatepickerBase<
   get restoreFocus(): boolean {
     return this._restoreFocus;
   }
+
   set restoreFocus(value: BooleanInput) {
     this._restoreFocus = coerceBooleanProperty(value);
   }
+
   private _restoreFocus = true;
 
   /**
@@ -521,9 +541,11 @@ export abstract class NgxMatDatepickerBase<
   get panelClass(): string | string[] {
     return this._panelClass;
   }
+
   set panelClass(value: string | string[]) {
     this._panelClass = coerceStringArray(value);
   }
+
   private _panelClass: string[];
 
   /** Whether the calendar is open. */
@@ -531,9 +553,11 @@ export abstract class NgxMatDatepickerBase<
   get opened(): boolean {
     return this._opened;
   }
+
   set opened(value: BooleanInput) {
     coerceBooleanProperty(value) ? this.open() : this.close();
   }
+
   private _opened = false;
 
   /** Whether the timepicker'spinners is shown. */
@@ -541,9 +565,11 @@ export abstract class NgxMatDatepickerBase<
   get showSpinners(): boolean {
     return this._showSpinners;
   }
+
   set showSpinners(value: boolean) {
     this._showSpinners = value;
   }
+
   public _showSpinners = true;
 
   /** Whether the second part is disabled. */
@@ -551,9 +577,11 @@ export abstract class NgxMatDatepickerBase<
   get showSeconds(): boolean {
     return this._showSeconds;
   }
+
   set showSeconds(value: boolean) {
     this._showSeconds = value;
   }
+
   public _showSeconds = false;
 
   /** Step hour */
@@ -561,9 +589,11 @@ export abstract class NgxMatDatepickerBase<
   get stepHour(): number {
     return this._stepHour;
   }
+
   set stepHour(value: number) {
     this._stepHour = value;
   }
+
   public _stepHour: number = DEFAULT_STEP;
 
   /** Step minute */
@@ -571,9 +601,11 @@ export abstract class NgxMatDatepickerBase<
   get stepMinute(): number {
     return this._stepMinute;
   }
+
   set stepMinute(value: number) {
     this._stepMinute = value;
   }
+
   public _stepMinute: number = DEFAULT_STEP;
 
   /** Step second */
@@ -581,9 +613,11 @@ export abstract class NgxMatDatepickerBase<
   get stepSecond(): number {
     return this._stepSecond;
   }
+
   set stepSecond(value: number) {
     this._stepSecond = value;
   }
+
   public _stepSecond: number = DEFAULT_STEP;
 
   /** Enable meridian */
@@ -591,9 +625,11 @@ export abstract class NgxMatDatepickerBase<
   get enableMeridian(): boolean {
     return this._enableMeridian;
   }
+
   set enableMeridian(value: boolean) {
     this._enableMeridian = value;
   }
+
   public _enableMeridian: boolean = false;
 
   /** disable minute */
@@ -601,9 +637,11 @@ export abstract class NgxMatDatepickerBase<
   get disableMinute(): boolean {
     return this._disableMinute;
   }
+
   set disableMinute(value: boolean) {
     this._disableMinute = value;
   }
+
   public _disableMinute: boolean;
 
   /** Step second */
@@ -611,9 +649,11 @@ export abstract class NgxMatDatepickerBase<
   get defaultTime(): number[] {
     return this._defaultTime;
   }
+
   set defaultTime(value: number[]) {
     this._defaultTime = value;
   }
+
   public _defaultTime: number[];
 
   /** The id for the datepicker calendar. */
@@ -794,7 +834,7 @@ export abstract class NgxMatDatepickerBase<
     };
 
     if (this._componentRef) {
-      const { instance, location } = this._componentRef;
+      const {instance, location} = this._componentRef;
       instance._startExitAnimation();
       instance._animationDone.pipe(take(1)).subscribe(() => {
         const activeElement = this._document.activeElement;

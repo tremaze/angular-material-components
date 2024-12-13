@@ -19,9 +19,7 @@ import {
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import {
-  CanUpdateErrorState,
   ErrorStateMatcher,
-  mixinErrorState,
   ThemePalette,
 } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -31,8 +29,7 @@ import { FileOrArrayFile } from './file-input-type';
 
 let nextUniqueId = 0;
 
-const _NgxMatInputMixinBase = mixinErrorState(
-  class {
+class NgxMatInputMixinBase {
     readonly stateChanges = new Subject<void>();
 
     constructor(
@@ -42,8 +39,7 @@ const _NgxMatInputMixinBase = mixinErrorState(
       /** @docs-private */
       public ngControl: NgControl,
     ) {}
-  },
-);
+  }
 
 @Directive({
   selector: '[ngxMatFileInputIcon]',
@@ -69,12 +65,11 @@ export class NgxMatFileInputIcon {}
   imports: [MatIconModule, MatButtonModule],
 })
 export class NgxMatFileInputComponent
-  extends _NgxMatInputMixinBase
+  extends NgxMatInputMixinBase
   implements
     MatFormFieldControl<FileOrArrayFile>,
     OnDestroy,
     DoCheck,
-    CanUpdateErrorState,
     ControlValueAccessor
 {
   private _inputFileRef = viewChild<ElementRef>('inputFile');
@@ -210,6 +205,12 @@ export class NgxMatFileInputComponent
     if (this.ngControl) {
       this.updateErrorState();
     }
+  }
+
+  updateErrorState() {
+    const control = this.ngControl ? this.ngControl.control : null;
+
+    this.errorState = (this.errorStateMatcher ?? this._defaultErrorStateMatcher).isErrorState(control, this._parentForm);
   }
 
   // Implemented as part of ControlValueAccessor.
