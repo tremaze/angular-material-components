@@ -5153,7 +5153,7 @@
             ['href', 'https://www.npmjs.com/package/@ngxmc/file-input'],
             ['href', 'https://github.com/h2qutc/angular-material-components/issues'],
             ['href', 'https://github.com/h2qutc/angular-material-components'],
-            ['href', 'https://www.buymeacoffee.com/h2qutc', 'target', '_blank'],
+            ['href', 'https://www.buymeacoffee.com/gnurub', 'target', '_blank'],
             [
               'src',
               'https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png',

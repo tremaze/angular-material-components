@@ -421,7 +421,7 @@
           consts: [
             [3, 'mat-stretch-tabs'],
             ['label', 'API'],
-            ['href', 'https://www.buymeacoffee.com/h2qutc', 'target', '_blank'],
+            ['href', 'https://www.buymeacoffee.com/gnurub', 'target', '_blank'],
             [
               'src',
               'https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png',
