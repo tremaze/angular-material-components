@@ -11,7 +11,7 @@ A DatetimePicker like @angular/material
 [Datepicker](https://material.angular.io/components/datepicker/overview) by adding support for
 choosing time.
 
-<a href="https://www.buymeacoffee.com/h2qutc" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/gnurub" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ## DEMO
 
@@ -44,48 +44,98 @@ npm install --save  @ngxmc/datetime-picker
 
 ## Setup
 
-Basically the same way the @angular/material Datepicker is configured and imported.
+Add the date provider to your app configuration.
 
+** Note: ** to prevent the _ERROR Error: NgxMatDatetimePicker: No provider found for
+NgxMatDateAdapter. You must import one of the following modules at your application root:
+NgxMatNativeDateModule, NgxMatMomentDateModule, or provide a custom implementation._
+
+```typescript
+import { provideNgxMatNativeDate } from '@ngxmc/datetime-picker';
+
+export const appConfig: ApplicationConfig = {
+  providers: [
+    ...,
+    provideNgxMatNativeDate(),
+    ...,
+  ],
+};
 ```
-import { NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@ngxmc/datetime-picker';
-@NgModule({
-   ...
-   imports: [
-      BrowserModule,
-      HttpClientModule,
-      BrowserAnimationsModule,
-      MatDatepickerModule,
-      MatInputModule,
-      NgxMatTimepickerModule,
-      FormsModule,
-      ReactiveFormsModule,
-      MatButtonModule,
-      NgxMatDatetimePickerModule,
-   ],
-   ...
+
+On your component, you can use the datepicker as follows:
+
+```typescript
+import {
+  NgxMatDatepickerActions,
+  NgxMatDatepickerApply,
+  NgxMatDatepickerCancel,
+  NgxMatDatepickerClear,
+  NgxMatDatepickerInput,
+  NgxMatDatetimepicker,
+} from '@ngxmc/datetime-picker';
+
+@Component({
+  selector: 'test',
+  imports: [
+    NgxMatDatepickerActions,
+    NgxMatDatepickerActions,
+    NgxMatDatepickerApply,
+    NgxMatDatepickerCancel,
+    NgxMatDatepickerClear,
+    NgxMatDatepickerInput,
+    NgxMatDatetimepicker,
+    ..., // other imports
+  ],
+  template: `
+    <input matInput [ngxMatDatetimePicker]="event" class="hidden" />
+
+    <ngx-mat-datetime-picker #event>
+      <ngx-mat-datepicker-actions>
+        <div class="flex w-full justify-between">
+          <button mat-button ngxMatDatepickerClear>Clear</button>
+          <div>
+            <button mat-button ngxMatDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" ngxMatDatepickerApply>Apply</button>
+          </div>
+        </div>
+      </ngx-mat-datepicker-actions>
+    </ngx-mat-datetime-picker>
+  `,
 })
-export class AppModule { }
+export class TestComponent {}
 ```
 
 @see [src/app/demo-datetime/demo-datetime.module.ts](src/app/demo-datetime/demo-datetime.module.ts)
 
-## Using the component
+## Using the component The same API as @angular/material Datepicker (@see [API
 
-The same API as @angular/material Datepicker (@see
-[API docs](https://material.angular.io/components/datepicker/api))
+docs](https://material.angular.io/components/datepicker/api)) ### Datetime Picker
+(ngx-mat-datetime-picker)
 
-### Datetime Picker (ngx-mat-datetime-picker)
-
-```
+```html
 <mat-form-field>
-   <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date" [formControl]="dateControl"
-      [min]="minDate" [max]="maxDate" [disabled]="disabled">
-   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-   <ngx-mat-datetime-picker #picker [showSpinners]="showSpinners" [showSeconds]="showSeconds"
-      [stepHour]="stepHour" [stepMinute]="stepMinute" [stepSecond]="stepSecond"
-      [touchUi]="touchUi" [color]="color" [enableMeridian]="enableMeridian"
-      [disableMinute]="disableMinute" [hideTime]="hideTime">
-   </ngx-mat-datetime-picker>
+  <input
+    matInput
+    [ngxMatDatetimePicker]="picker"
+    placeholder="Choose a date"
+    [formControl]="dateControl"
+    [min]="minDate"
+    [max]="maxDate"
+    [disabled]="disabled" />
+  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker
+    #picker
+    [showSpinners]="showSpinners"
+    [showSeconds]="showSeconds"
+    [stepHour]="stepHour"
+    [stepMinute]="stepMinute"
+    [stepSecond]="stepSecond"
+    [touchUi]="touchUi"
+    [color]="color"
+    [enableMeridian]="enableMeridian"
+    [disableMinute]="disableMinute"
+    [hideTime]="hideTime">
+  </ngx-mat-datetime-picker>
 </mat-form-field>
 ```
 
