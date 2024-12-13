@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "outputPath": "dist/angular-material-components",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
