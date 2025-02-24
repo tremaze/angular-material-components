@@ -22,10 +22,9 @@ import {
 } from '@angular/core';
 import { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
 import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
-import { NgxMatDateAdapter } from './core/date-adapter';
-import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 import { NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, NgxDateRange } from './date-selection-model';
 import { createMissingDateImplError } from './datepicker-errors';
 import { NgxMatDatepickerIntl } from './datepicker-intl';
@@ -60,10 +59,10 @@ export class NgxMatCalendarHeader<D> {
     private _intl: NgxMatDatepickerIntl,
     @Inject(forwardRef(() => NgxMatCalendar))
     public calendar: NgxMatCalendar<D>,
-    @Optional() private _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional()
-    @Inject(NGX_MAT_DATE_FORMATS)
-    private _dateFormats: NgxMatDateFormats,
+    @Inject(MAT_DATE_FORMATS)
+    private _dateFormats: MatDateFormats,
     changeDetectorRef: ChangeDetectorRef,
   ) {
     this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
@@ -379,18 +378,18 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
 
   constructor(
     _intl: NgxMatDatepickerIntl,
-    @Optional() private _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional()
-    @Inject(NGX_MAT_DATE_FORMATS)
-    private _dateFormats: NgxMatDateFormats,
+    @Inject(MAT_DATE_FORMATS)
+    private _dateFormats: MatDateFormats,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {
     if (!this._dateAdapter) {
-      throw createMissingDateImplError('NgxMatDateAdapter');
+      throw createMissingDateImplError('DateAdapter');
     }
 
     if (!this._dateFormats) {
-      throw createMissingDateImplError('NGX_MAT_DATE_FORMATS');
+      throw createMissingDateImplError('MAT_DATE_FORMATS');
     }
 
     this._intlChanges = _intl.changes.subscribe(() => {
@@ -464,7 +463,11 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   /** Handles date selection in the month view. */
   _dateSelected(event: NgxMatCalendarUserEvent<D | null>): void {
     if (event.value && this.selected) {
-      this._dateAdapter.copyTime(event.value as D, this.selected as D);
+      const selected = this.selected as D;
+      const hours = this._dateAdapter.getHours(selected);
+      const minutes = this._dateAdapter.getMinutes(selected);
+      const seconds = this._dateAdapter.getSeconds(selected);
+      this._dateAdapter.setTime(event.value as D, hours, minutes, seconds);
     }
 
     const date = event.value;

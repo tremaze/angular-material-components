@@ -36,6 +36,7 @@ import {
   Directive,
   ElementRef,
   EventEmitter,
+  HostBinding,
   Inject,
   InjectionToken,
   Input,
@@ -53,16 +54,14 @@ import {
   input,
   output,
   viewChild,
-  HostBinding,
 } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
-import { ThemePalette } from '@angular/material/core';
+import { DateAdapter, ThemePalette } from '@angular/material/core';
 import { Observable, Subject, Subscription, merge } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { NgxMatCalendar, NgxMatCalendarView } from './calendar';
 import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
-import { NgxMatDateAdapter } from './core/date-adapter';
 import {
   NGX_MAT_DATE_RANGE_SELECTION_STRATEGY,
   NgxMatDateRangeSelectionStrategy,
@@ -214,7 +213,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
     private _globalModel: NgxMatDateSelectionModel<S, D>,
-    private _dateAdapter: NgxMatDateAdapter<D>,
+    private _dateAdapter: DateAdapter<D>,
     @Optional()
     @Inject(NGX_MAT_DATE_RANGE_SELECTION_STRATEGY)
     private _rangeSelectionStrategy: NgxMatDateRangeSelectionStrategy<D>,
@@ -285,7 +284,7 @@ export class NgxMatDatepickerContent<S, D = NgxExtractDateTypeFromSelection<S>>
       );
       this._model.updateSelection(newSelection as unknown as S, this);
     } else {
-      const isSameTime = this._dateAdapter.isSameTime(selection as unknown as D, value);
+      const isSameTime = this._dateAdapter.sameTime(selection as unknown as D, value);
       const isSameDate = this._dateAdapter.sameDate(value, selection as unknown as D);
       const isSame = isSameDate && isSameTime;
 
@@ -702,12 +701,12 @@ export abstract class NgxMatDatepickerBase<
     private _ngZone: NgZone,
     private _viewContainerRef: ViewContainerRef,
     @Inject(NGX_MAT_DATEPICKER_SCROLL_STRATEGY) scrollStrategy: any,
-    @Optional() private _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional() private _dir: Directionality,
     private _model: NgxMatDateSelectionModel<S, D>,
   ) {
     if (!this._dateAdapter) {
-      throw createMissingDateImplError('NgxMatDateAdapter');
+      throw createMissingDateImplError('DateAdapter');
     }
 
     this._scrollStrategy = scrollStrategy;

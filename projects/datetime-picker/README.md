@@ -1,4 +1,4 @@
-# Angular Material DatetimePicker, Timepicker for @angular/material 7.x, 8.x, 9.x, 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x
+# Angular Material DatetimePicker, Timepicker for @angular/material 7.x, 8.x, 9.x, 10.x, 11.x, 12.x, 13.x, 14.x, 15.x, 16.x, 18.x, 19.x
 
 [![Build Status](https://travis-ci.com/h2qutc/angular-material-components.svg?branch=master)](https://travis-ci.com/h2qutc/angular-material-components)
 [![License](https://img.shields.io/npm/l/angular-material-components.svg)](https://www.npmjs.com/package/angular-material-components)
@@ -48,17 +48,18 @@ npm install --save  @ngxmc/datetime-picker
 
 Add the date provider to your app configuration.
 
-** Note: ** to prevent the _ERROR Error: NgxMatDatetimePicker: No provider found for
-NgxMatDateAdapter. You must import one of the following modules at your application root:
-provideNgxMatNativeDate, NgxMatMomentDateModule, or provide a custom implementation._
+** Note: ** to prevent the _ERROR Error: NgxMatDatetimePicker: No provider found for DateAdapter.
+You must import one of the following modules at your application root: provideNativeDateAdapter,
+provideMomentDateAdapter, provideLuxonDateAdapter, provideDateFnsAdapter, or provide a custom
+implementation._
 
 ```typescript
-import { provideNgxMatNativeDate } from '@ngxmc/datetime-picker';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     ...,
-    provideNgxMatNativeDate(),
+    provideNativeDateAdapter(),
     ...,
   ],
 };
@@ -175,31 +176,10 @@ _You can use all @Input of ngx-mat-timepicker for ngx-mat-datetime-picker_
 
 ## Choosing a date implementation and date format settings
 
-The datepicker was built to be date implementation agnostic. This means that it can be made to work
-with a variety of different date implementations. However it also means that developers need to make
-sure to provide the appropriate pieces for the datepicker to work with their chosen implementation.
-
-The easiest way to ensure this is to import one of the provided date modules:
-
-|                       | **provideNgxMatNativeDate** | **provideNgxMatMomentDate**                                                              |
-| --------------------- | -------------------------- | ----------------------------------------------------------------------------------- |
-| **Date type**         | Date                       | Moment                                                                              |
-| **Supported locales** | en-US                      | [See project for details](https://github.com/moment/moment/tree/develop/src/locale) |
-| **Dependencies**      | None                       | [Moment.js](https://momentjs.com/)                                                  |
-| **Import from**       | @ngxmc/datetime-picker     | [@ngxmc/moment-adapter](https://www.npmjs.com/package/@ngxmc/moment-adapter)        |
-
-To use provideNgxMatMomentDate:
-
-```
-npm install --save  @ngxmc/moment-adapter
-```
-
-Please note: provideNgxMatNativeDate is based off the functionality available in JavaScript's native
-Date object. Thus it is not suitable for many locales. One of the biggest shortcomings of the native
-Date object is the inability to set the parse format.
-
-We highly recommend using the **provideNgxMatMomentDate** or a custom **NgxMatDateAdapter** that works
-with the formatting/parsing library of your choice.
+[NativeDateAdapter](https://github.com/angular/components/blob/main/src/material/core/datetime/index.ts)
+[DateFnsAdapter](https://github.com/angular/components/blob/main/src/material-date-fns-adapter/adapter/index.ts)
+[LuxonDateAdapter](https://github.com/angular/components/blob/main/src/material-luxon-adapter/adapter/index.ts)
+[MomentDateAdapter](https://github.com/angular/components/blob/main/src/material-moment-adapter/adapter/index.ts)
 
 For example:
 
@@ -207,12 +187,13 @@ Creating a custom date adapter:
 
 ```
 @Injectable()
-export class CustomDateAdapter extends NgxMatDateAdapter<D> {...}
+export class CustomDateAdapter extends DateAdapter<D> {...}
 // D can be Date, Moment or customized type
 ```
+
 ```
 // If using Moment
-const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+const CUSTOM_DATE_FORMATS: MatDateFormats = {
   parse: {
     dateInput: "l, LTS"
   },
@@ -228,17 +209,16 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
 Creating a custom date adapter module
 
 ```
-export function provideNgxMatMomentDate() {
+export function provideNgxMatCustomDate() {
   return makeEnvironmentProviders([
-    { provide: NgxMatDateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
-    { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    { provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
   ]);
 }
 
 ```
 
-You can also customize the date format by providing your custom NGX_MAT_DATE_FORMATS in your module.
-
+You can also customize the date format by providing your custom MAT_DATE_FORMATS in your module.
 
 ## Theming
 

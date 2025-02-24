@@ -17,10 +17,9 @@ import {
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlContainer, NgControl, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import { DateAdapter, ThemePalette } from '@angular/material/core';
 import { MAT_FORM_FIELD, MatFormFieldControl } from '@angular/material/form-field';
 import { Subject, Subscription, merge } from 'rxjs';
-import { NgxMatDateAdapter } from './core/date-adapter';
 import {
   NGX_MAT_DATE_RANGE_INPUT_PARENT,
   NgxMatDateRangeInputParent,
@@ -262,13 +261,13 @@ export class NgxMatDateRangeInput<D>
     private _changeDetectorRef: ChangeDetectorRef,
     private _elementRef: ElementRef<HTMLElement>,
     @Optional() @Self() control: ControlContainer,
-    @Optional() private _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional()
     @Inject(MAT_FORM_FIELD)
     private _formField?: _NgxMatFormFieldPartial,
   ) {
     if (!_dateAdapter) {
-      throw createMissingDateImplError('NgxMatDateAdapter');
+      throw createMissingDateImplError('DateAdapter');
     }
 
     // The datepicker module can be used both with MDC and non-MDC form fields. We have

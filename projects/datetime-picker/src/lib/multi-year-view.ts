@@ -24,6 +24,7 @@ import {
   output,
   viewChild,
 } from '@angular/core';
+import { DateAdapter } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import {
@@ -32,7 +33,6 @@ import {
   NgxMatCalendarCellClassFunction,
   NgxMatCalendarUserEvent,
 } from './calendar-body';
-import { NgxMatDateAdapter } from './core/date-adapter';
 import { NgxDateRange } from './date-selection-model';
 import { createMissingDateImplError } from './datepicker-errors';
 
@@ -149,11 +149,11 @@ export class NgxMatMultiYearView<D> implements AfterContentInit, OnDestroy {
 
   constructor(
     private _changeDetectorRef: ChangeDetectorRef,
-    @Optional() public _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() public _dateAdapter: DateAdapter<D>,
     @Optional() private _dir?: Directionality,
   ) {
     if (!this._dateAdapter) {
-      throw createMissingDateImplError('NgxMatDateAdapter');
+      throw createMissingDateImplError('DateAdapter');
     }
 
     this._activeDate = this._dateAdapter.today();
@@ -404,7 +404,7 @@ export class NgxMatMultiYearView<D> implements AfterContentInit, OnDestroy {
 }
 
 export function isSameMultiYearView<D>(
-  dateAdapter: NgxMatDateAdapter<D>,
+  dateAdapter: DateAdapter<D>,
   date1: D,
   date2: D,
   minDate: D | null,
@@ -425,7 +425,7 @@ export function isSameMultiYearView<D>(
  * "startingYear" will render when paged into view.
  */
 export function getActiveOffset<D>(
-  dateAdapter: NgxMatDateAdapter<D>,
+  dateAdapter: DateAdapter<D>,
   activeDate: D,
   minDate: D | null,
   maxDate: D | null,
@@ -439,7 +439,7 @@ export function getActiveOffset<D>(
  * or the minimum year would be at the beginning of a page.
  */
 function getStartingYear<D>(
-  dateAdapter: NgxMatDateAdapter<D>,
+  dateAdapter: DateAdapter<D>,
   minDate: D | null,
   maxDate: D | null,
 ): number {

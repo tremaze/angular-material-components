@@ -20,10 +20,13 @@ import {
   Validator,
   ValidatorFn,
 } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatDateFormats,
+  ThemePalette,
+} from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
-import { NgxMatDateAdapter } from './core/date-adapter';
-import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 import {
   NgxDateSelectionModelChange,
   NgxExtractDateTypeFromSelection,
@@ -158,7 +161,7 @@ export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSel
       this._dateAdapter.deserialize(control.value),
     );
     const min = this._getMinDate();
-    return !min || !controlValue || this._dateAdapter.compareDateWithTime(min, controlValue) <= 0
+    return !min || !controlValue || this._dateAdapter.compareDate(min, controlValue) <= 0
       ? null
       : { matDatetimePickerMin: { min: min, actual: controlValue } };
   };
@@ -169,7 +172,7 @@ export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSel
       this._dateAdapter.deserialize(control.value),
     );
     const max = this._getMaxDate();
-    return !max || !controlValue || this._dateAdapter.compareDateWithTime(max, controlValue) >= 0
+    return !max || !controlValue || this._dateAdapter.compareDate(max, controlValue) >= 0
       ? null
       : { matDatetimePickerMax: { max: max, actual: controlValue } };
   };
@@ -230,16 +233,16 @@ export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSel
 
   constructor(
     protected _elementRef: ElementRef<HTMLInputElement>,
-    @Optional() public _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() public _dateAdapter: DateAdapter<D>,
     @Optional()
-    @Inject(NGX_MAT_DATE_FORMATS)
-    private _dateFormats: NgxMatDateFormats,
+    @Inject(MAT_DATE_FORMATS)
+    private _dateFormats: MatDateFormats,
   ) {
     if (!this._dateAdapter) {
-      throw createMissingDateImplError('NgxMatDateAdapter');
+      throw createMissingDateImplError('DateAdapter');
     }
     if (!this._dateFormats) {
-      throw createMissingDateImplError('NGX_MAT_DATE_FORMATS');
+      throw createMissingDateImplError('MAT_DATE_FORMATS');
     }
 
     // Update the displayed date when the locale changes.
@@ -315,7 +318,7 @@ export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSel
     this._lastValueValid = this._isValidValue(date);
     date = this._dateAdapter.getValidDateOrNull(date);
 
-    const isSameTime = this._dateAdapter.isSameTime(date, this.value);
+    const isSameTime = this._dateAdapter.sameTime(date, this.value);
     const isSameDate = this._dateAdapter.sameDate(date, this.value);
     const isSame = isSameDate && isSameTime;
 
@@ -410,7 +413,7 @@ export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSel
  */
 export function dateInputsHaveChanged(
   changes: SimpleChanges,
-  adapter: NgxMatDateAdapter<unknown>,
+  adapter: DateAdapter<unknown>,
 ): boolean {
   const keys = Object.keys(changes);
 

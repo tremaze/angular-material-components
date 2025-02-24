@@ -17,10 +17,6 @@
     "@ngxmc/file-input": {
       "path": "projects/file-input",
       "release-type": "node"
-    },
-    "@ngxmc/moment-adapter": {
-      "path": "projects/moment-adapter",
-      "release-type": "node"
     }
   }
 }

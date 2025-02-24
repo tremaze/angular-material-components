@@ -113,17 +113,17 @@ export class DemoDatetimeComponent {
     ]
   })
   export class AppComponent { }`;
-  public code4 = 'npm install --save  @ngxmc/moment-adapter';
+  public code4 = 'npm install --save  @angular/material-moment-adapter';
   public code5 = `@Injectable()
-  export class CustomDateAdapter extends NgxMatDateAdapter<D> {...}
+  export class CustomDateAdapter extends DateAdapter<D> {...}
   // D can be Date, Moment or customized type`;
 
   public code6 = `@Component({
     providers: [
       {
-        provide: NgxMatDateAdapter,
+        provide: DateAdapter,
         useClass: CustomDateAdapter,
-        deps: [MAT_DATE_LOCALE, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+        deps: [MAT_DATE_LOCALE]
       }
     ],
   })
@@ -131,21 +131,24 @@ export class DemoDatetimeComponent {
 `;
 
   public code7 = `// If using Moment
-const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
+const CUSTOM_DATE_FORMATS: MatDateFormats = {
   parse: {
-    dateInput: "l, LTS"
+    dateInput: 'l',
+    timeInput: 'LT',
   },
   display: {
-    dateInput: "l, LTS",
-    monthYearLabel: "MMM YYYY",
-    dateA11yLabel: "LL",
-    monthYearA11yLabel: "MMMM YYYY"
-  }
+    dateInput: 'l',
+    timeInput: 'LT',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+    timeOptionLabel: 'LT',
+  },
 };
 
 //and in the module providers
 providers: [
-    { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_MOMENT_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_MOMENT_FORMATS }
   ]`;
 
   public code8 =

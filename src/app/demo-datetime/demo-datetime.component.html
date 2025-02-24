@@ -184,24 +184,40 @@
       <tbody>
         <tr>
           <th></th>
-          <th>NgxMatNativeDateModule</th>
-          <th>NgxMatMomentModule</th>
+          <th>provideNativeDateAdapter</th>
+          <th>provideLuxonDateAdapter</th>
+          <th>provideDateFnsAdapter</th>
+          <th>provideMomentDateAdapter</th>
         </tr>
         <tr>
           <td>Date type</td>
+          <td>Date</td>
+          <td>Date</td>
           <td>Date</td>
           <td>Moment</td>
         </tr>
         <tr>
           <td>Dependencies</td>
           <td>None</td>
+          <td>luxon</td>
+          <td>date-fns</td>
           <td>Moment.js</td>
         </tr>
         <tr>
           <td>Import from</td>
-          <td>&#64;angular-material-components/datetime-picker</td>
+          <td>&#64;angular/material/core</td>
           <td>
-            <a href="https://www.npmjs.com/package/@ngxmc/moment-adapter"
+            <a href="https://www.npmjs.com/package/@angular/material-luxon-adapter"
+              >&#64;angular/material-luxon-adapter</a
+            >
+          </td>
+          <td>
+            <a href="https://www.npmjs.com/package/@angular/material-date-fns-adapter"
+              >&#64;angular/material-date-fns-adapter</a
+            >
+          </td>
+          <td>
+            <a href="https://www.npmjs.com/package/@angular/material-moment-adapter"
               >&#64;angular-material-components/moment-adapter</a
             >
           </td>
@@ -209,18 +225,17 @@
       </tbody>
     </table>
 
-    To use <strong>NgxMatMomentModule</strong>:
+    To use <strong>provideMomentDateAdapter</strong>:
     <pre><code ngxMatHighlight>{{code4}}</code></pre>
 
     <p>
-      Please note: <strong>NgxMatNativeDateModule</strong> is based off the functionality available
-      in JavaScript's native Date object. Thus it is not suitable for many locales. One of the
-      biggest shortcomings of the native Date object is the inability to set the parse format.
+      Please note: <strong>provideNativeDateAdapter</strong> is based off the functionality
+      available in JavaScript's native Date object. Thus it is not suitable for many locales. One of
+      the biggest shortcomings of the native Date object is the inability to set the parse format.
     </p>
     <p>
-      We highly recommend using the <strong>NgxMatMomentModule</strong> or a custom
-      <strong>NgxMatDateAdapter</strong> that works with the formatting/parsing library of your
-      choice.
+      We highly recommend using the <strong>provideMomentDateAdapter</strong> or a custom
+      <strong>DateAdapter</strong> that works with the formatting/parsing library of your choice.
     </p>
     For example: Creating a custom date adapter
     <pre><code ngxMatHighlight class="language-typescript">{{code5}}</code></pre>
@@ -229,7 +244,7 @@
     <pre><code ngxMatHighlight class="language-typescript">{{code6}}</code></pre>
 
     You can also customize the date format by providing your custom
-    <strong>NGX_MAT_DATE_FORMATS</strong> in your module.
+    <strong>MAT_DATE_FORMATS</strong> in your module.
     <pre><code ngxMatHighlight class="language-typescript">{{code7}}</code></pre>
 
     <h2>Datetime picker with action buttons</h2>

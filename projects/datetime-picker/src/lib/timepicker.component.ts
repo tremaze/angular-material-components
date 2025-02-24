@@ -18,13 +18,12 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { ThemePalette } from '@angular/material/core';
+import { DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { NgxMatDateAdapter } from './core/date-adapter';
 import {
   createMissingDateImplError,
   DEFAULT_STEP,
@@ -108,12 +107,12 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
   public pattern = PATTERN_INPUT_HOUR;
 
   constructor(
-    @Optional() public _dateAdapter: NgxMatDateAdapter<D>,
+    @Optional() public _dateAdapter: DateAdapter<D>,
     private cd: ChangeDetectorRef,
     private formBuilder: FormBuilder,
   ) {
     if (!this._dateAdapter) {
-      throw createMissingDateImplError('NgxMatDateAdapter');
+      throw createMissingDateImplError('DateAdapter');
     }
     this.form = this.formBuilder.group({
       hour: [
@@ -203,9 +202,9 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
 
   /** Update controls of form by model */
   private _updateHourMinuteSecond() {
-    let _hour = this._dateAdapter.getHour(this._model);
-    const _minute = this._dateAdapter.getMinute(this._model);
-    const _second = this._dateAdapter.getSecond(this._model);
+    let _hour = this._dateAdapter.getHours(this._model);
+    const _minute = this._dateAdapter.getMinutes(this._model);
+    const _second = this._dateAdapter.getSeconds(this._model);
 
     if (this.enableMeridian()) {
       if (_hour >= LIMIT_TIMES.meridian) {
@@ -246,9 +245,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
     if (this._model) {
       const clonedModel = this._dateAdapter.clone(this._model);
 
-      this._dateAdapter.setHour(clonedModel, _hour);
-      this._dateAdapter.setMinute(clonedModel, this.minute);
-      this._dateAdapter.setSecond(clonedModel, this.second);
+      this._dateAdapter.setTime(clonedModel, _hour, this.minute, this.second);
       this._onChange(clonedModel);
     }
   }

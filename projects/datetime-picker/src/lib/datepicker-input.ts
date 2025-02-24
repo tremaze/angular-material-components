@@ -8,12 +8,15 @@ import {
   Optional,
 } from '@angular/core';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidatorFn, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import {
+  DateAdapter,
+  MAT_DATE_FORMATS,
+  MatDateFormats,
+  ThemePalette,
+} from '@angular/material/core';
 import { MAT_FORM_FIELD } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { Subscription } from 'rxjs';
-import { NgxMatDateAdapter } from './core/date-adapter';
-import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 import { NgxDateSelectionModelChange } from './date-selection-model';
 import { NgxMatDatepickerControl, NgxMatDatepickerPanel } from './datepicker-base';
 import {
@@ -130,8 +133,8 @@ export class NgxMatDatepickerInput<D>
 
   constructor(
     elementRef: ElementRef<HTMLInputElement>,
-    @Optional() dateAdapter: NgxMatDateAdapter<D>,
-    @Optional() @Inject(NGX_MAT_DATE_FORMATS) dateFormats: NgxMatDateFormats,
+    @Optional() dateAdapter: DateAdapter<D>,
+    @Optional() @Inject(MAT_DATE_FORMATS) dateFormats: MatDateFormats,
     @Optional()
     @Inject(MAT_FORM_FIELD)
     private _formField?: _NgxMatFormFieldPartial,

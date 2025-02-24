@@ -23,10 +23,13 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import {
+  DateAdapter,
+  ErrorStateMatcher,
+  MAT_DATE_FORMATS,
+  MatDateFormats,
+} from '@angular/material/core';
 import { _computeAriaAccessibleName } from './aria-accessible-name';
-import { NgxMatDateAdapter } from './core/date-adapter';
-import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 import { NgxDateRange, NgxDateSelectionModelChange } from './date-selection-model';
 import { NgxDateFilterFn, NgxMatDatepickerInputBase } from './datepicker-input-base';
 
@@ -87,8 +90,8 @@ abstract class NgxMatDateRangeInputPartBase<D>
     private _injector: Injector,
     @Optional() public _parentForm: NgForm,
     @Optional() public _parentFormGroup: FormGroupDirective,
-    @Optional() dateAdapter: NgxMatDateAdapter<D>,
-    @Optional() @Inject(NGX_MAT_DATE_FORMATS) dateFormats: NgxMatDateFormats,
+    @Optional() dateAdapter: DateAdapter<D>,
+    @Optional() @Inject(MAT_DATE_FORMATS) dateFormats: MatDateFormats,
   ) {
     super(_elementRef, dateAdapter, dateFormats);
   }
@@ -248,8 +251,8 @@ export class NgxMatStartDate<D> extends NgxMatDateRangeInputPartBase<D> {
     injector: Injector,
     @Optional() parentForm: NgForm,
     @Optional() parentFormGroup: FormGroupDirective,
-    @Optional() dateAdapter: NgxMatDateAdapter<D>,
-    @Optional() @Inject(NGX_MAT_DATE_FORMATS) dateFormats: NgxMatDateFormats,
+    @Optional() dateAdapter: DateAdapter<D>,
+    @Optional() @Inject(MAT_DATE_FORMATS) dateFormats: MatDateFormats,
   ) {
     super(
       rangeInput,
@@ -360,8 +363,8 @@ export class NgxMatEndDate<D> extends NgxMatDateRangeInputPartBase<D> {
     injector: Injector,
     @Optional() parentForm: NgForm,
     @Optional() parentFormGroup: FormGroupDirective,
-    @Optional() dateAdapter: NgxMatDateAdapter<D>,
-    @Optional() @Inject(NGX_MAT_DATE_FORMATS) dateFormats: NgxMatDateFormats,
+    @Optional() dateAdapter: DateAdapter<D>,
+    @Optional() @Inject(MAT_DATE_FORMATS) dateFormats: MatDateFormats,
   ) {
     super(
       rangeInput,
