@@ -9,6 +9,5 @@ export {
   NGX_MAT_NATIVE_DATE_FORMATS,
   NgxMatDateAdapter,
   NgxMatDateFormats,
-  NgxMatNativeDateAdapter
+  NgxMatNativeDateAdapter,
 };
-
