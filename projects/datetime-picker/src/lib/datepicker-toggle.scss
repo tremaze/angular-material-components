@@ -4,6 +4,7 @@
 // MDC sets `pointer-events: none` on disabled form fields which prevents clicks on the toggle.
 .mat-datepicker-toggle {
   pointer-events: auto;
+  color: var(--mat-datepicker-toggle-icon-color, var(--mat-sys-on-surface-variant));
 }
 
 @include cdk.high-contrast(active, off) {

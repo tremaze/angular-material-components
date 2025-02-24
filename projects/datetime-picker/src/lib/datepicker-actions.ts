@@ -18,7 +18,6 @@ import { NgxMatDatepickerBase, NgxMatDatepickerControl } from './datepicker-base
 @Directive({
   selector: '[ngxMatDatepickerApply], [ngxMatDateRangePickerApply]',
   host: { '(click)': '_applySelection()' },
-  standalone: true,
 })
 export class NgxMatDatepickerApply {
   constructor(
@@ -34,7 +33,6 @@ export class NgxMatDatepickerApply {
 @Directive({
   selector: '[ngxMatDatepickerClear], [ngxMatDateRangePickerClear]',
   host: { '(click)': '_clearSelection()' },
-  standalone: true,
 })
 export class NgxMatDatepickerClear {
   constructor(
@@ -58,7 +56,6 @@ export class NgxMatDatepickerClear {
 @Directive({
   selector: '[ngxMatDatepickerCancel], [ngxMatDateRangePickerCancel]',
   host: { '(click)': '_datepicker.close()' },
-  standalone: true,
 })
 export class NgxMatDatepickerCancel {
   constructor(
@@ -82,7 +79,6 @@ export class NgxMatDatepickerCancel {
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
 })
 export class NgxMatDatepickerActions implements AfterViewInit, OnDestroy {
   _template = viewChild<TemplateRef<unknown>>(TemplateRef);

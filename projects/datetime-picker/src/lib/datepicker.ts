@@ -21,7 +21,6 @@ import {
     NGX_MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
     { provide: NgxMatDatepickerBase, useExisting: NgxMatDatetimepicker },
   ],
-  standalone: true,
 })
 export class NgxMatDatetimepicker<D> extends NgxMatDatepickerBase<
   NgxMatDatepickerControl<D>,

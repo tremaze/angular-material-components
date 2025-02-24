@@ -7,7 +7,6 @@ import { NgxMatBaseColorCanvas } from '../base-color-canvas';
   selector: 'ngx-mat-color-slider',
   templateUrl: './color-slider.component.html',
   styleUrls: ['./color-slider.component.scss'],
-  standalone: true,
 })
 export class NgxMatColorSliderComponent extends NgxMatBaseColorCanvas {
   constructor(protected zone: NgZone) {

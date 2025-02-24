@@ -12,9 +12,7 @@ import { ThemePalette } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { Color } from '../../models';
 
-@Directive({
-  standalone: true,
-})
+@Directive()
 export abstract class NgxMatBaseColorCanvas implements OnDestroy, AfterViewInit {
   readonly colorChanged = output<Color>();
   readonly theme = input<ThemePalette>();

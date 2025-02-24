@@ -1,4 +1,4 @@
-# NgxMatMomentAdapter
+# provideNgxMatMomentDate
 
 ## Description
 
@@ -13,16 +13,10 @@ npm install --save  @ngxmc/moment-adapter
 ## Setup
 
 ```
-import { NgxMatMomentModule } from '@ngxmc/moment-adapter';
-@NgModule({
-   ...
-   imports: [
-      NgxMatMomentModule,
-      NgxMatDatetimePickerModule,
-   ],
-   ...
-})
-export class AppModule { }
+import { provideNgxMatMomentDate } from '@ngxmc/moment-adapter';
+export const appConfig: ApplicationConfig = {
+  providers: [provideAnimations(), ..., provideNgxMatMomentDate()],
+};
 ```
 
 ## License

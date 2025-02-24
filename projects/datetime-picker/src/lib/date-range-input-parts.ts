@@ -5,12 +5,12 @@ import {
   DoCheck,
   ElementRef,
   Inject,
+  inject,
   InjectionToken,
   Injector,
+  Input,
   OnInit,
   Optional,
-  inject,
-  Input,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -227,7 +227,6 @@ abstract class NgxMatDateRangeInputPartBase<D>
   // seem to pick them up from the base class. See #20932.
   outputs: ['dateChange', 'dateInput'],
   inputs: ['errorStateMatcher'],
-  standalone: true,
 })
 export class NgxMatStartDate<D> extends NgxMatDateRangeInputPartBase<D> {
   /** Validator that checks that the start date isn't after the end date. */
@@ -342,7 +341,6 @@ export class NgxMatStartDate<D> extends NgxMatDateRangeInputPartBase<D> {
   // seem to pick them up from the base class. See #20932.
   outputs: ['dateChange', 'dateInput'],
   inputs: ['errorStateMatcher'],
-  standalone: true,
 })
 export class NgxMatEndDate<D> extends NgxMatDateRangeInputPartBase<D> {
   /** Validator that checks that the end date isn't before the start date. */

@@ -19,7 +19,6 @@ import { NgxMatColorPickerComponent } from '../color-picker/color-picker.compone
 
 @Directive({
   selector: '[ngxMatColorpickerToggleIcon]',
-  standalone: true,
 })
 export class NgxMatColorpickerToggleIcon {}
 

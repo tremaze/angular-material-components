@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxMatNativeDateModule } from 'projects/datetime-picker/src';
 import { MaxSizeValidator, NgxMatFileInputComponent } from '../../../projects/file-input/src';
 import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
 
@@ -33,7 +32,6 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
     MatTabsModule,
     NgxMatFileInputComponent,
     NgxMatHighlightDirective,
-    NgxMatNativeDateModule,
     ReactiveFormsModule,
   ],
 })

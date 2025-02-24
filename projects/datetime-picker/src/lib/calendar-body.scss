@@ -48,9 +48,9 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
   padding-left: $calendar-body-label-side-padding;
   padding-right: $calendar-body-label-side-padding;
   text-align: start;
-  font-size: var(--mat-datepicker-calendar-body-label-text-size);
-  font-weight: var(--mat-datepicker-calendar-body-label-text-weight);
-  color: var(--mat-datepicker-calendar-body-label-text-color);
+  font-size: var(--mat-datepicker-calendar-body-label-text-size, var(--mat-sys-title-small-size));
+  font-weight: var(--mat-datepicker-calendar-body-label-text-weight, var(--mat-sys-title-small-weight));
+  color: var(--mat-datepicker-calendar-body-label-text-color, var(--mat-sys-on-surface));
 }
 
 // Label that is not rendered and removed from the accessibility tree.
@@ -64,7 +64,7 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
   line-height: 0;
 
   .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-    background-color: var(--mat-datepicker-calendar-date-hover-state-background-color);
+    background-color: var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
   }
 
 }
@@ -79,7 +79,8 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
   background: none;
   text-align: center;
   outline: none;
-  font-family: inherit;
+  font-family: var(--mat-datepicker-calendar-text-font, var(--mat-sys-body-medium-font));
+  font-size: var(--mat-datepicker-calendar-text-size, var(--mat-sys-body-medium-size));
   margin: 0;
 }
 
@@ -229,15 +230,16 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
   // Choosing a value clearly larger than the height ensures we get the correct capsule shape.
   border-radius: $calendar-body-cell-radius;
 
-  border-color: var(--mat-datepicker-calendar-date-outline-color);
+  color: var(--mat-datepicker-calendar-date-text-color, var(--mat-sys-on-surface));
+  border-color: var(--mat-datepicker-calendar-date-outline-color, transparent);
 
   &.mat-calendar-body-selected {
-    background-color: var(--mat-datepicker-calendar-date-selected-state-background-color);
-    color: var(--mat-datepicker-calendar-date-selected-state-text-color);
+    background-color: var(--mat-datepicker-calendar-date-selected-state-background-color, var(--mat-sys-primary));
+    color: var(--mat-datepicker-calendar-date-selected-state-text-color, var(--mat-sys-on-primary));
   }
 
   &.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
-    border-color: var(--mat-datepicker-calendar-date-today-outline-color);
+    border-color: var(--mat-datepicker-calendar-date-today-outline-color, var(--mat-sys-primary));
   }
 
   // Increase specificity because focus indicator styles are part of the `mat-core` mixin and can

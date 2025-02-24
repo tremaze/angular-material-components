@@ -50,7 +50,7 @@ Add the date provider to your app configuration.
 
 ** Note: ** to prevent the _ERROR Error: NgxMatDatetimePicker: No provider found for
 NgxMatDateAdapter. You must import one of the following modules at your application root:
-NgxMatNativeDateModule, NgxMatMomentDateModule, or provide a custom implementation._
+provideNgxMatNativeDate, NgxMatMomentDateModule, or provide a custom implementation._
 
 ```typescript
 import { provideNgxMatNativeDate } from '@ngxmc/datetime-picker';
@@ -181,24 +181,24 @@ sure to provide the appropriate pieces for the datepicker to work with their cho
 
 The easiest way to ensure this is to import one of the provided date modules:
 
-|                       | **NgxMatNativeDateModule** | **NgxMatMomentModule**                                                              |
+|                       | **provideNgxMatNativeDate** | **provideNgxMatMomentDate**                                                              |
 | --------------------- | -------------------------- | ----------------------------------------------------------------------------------- |
 | **Date type**         | Date                       | Moment                                                                              |
 | **Supported locales** | en-US                      | [See project for details](https://github.com/moment/moment/tree/develop/src/locale) |
 | **Dependencies**      | None                       | [Moment.js](https://momentjs.com/)                                                  |
 | **Import from**       | @ngxmc/datetime-picker     | [@ngxmc/moment-adapter](https://www.npmjs.com/package/@ngxmc/moment-adapter)        |
 
-To use NgxMatMomentModule:
+To use provideNgxMatMomentDate:
 
 ```
 npm install --save  @ngxmc/moment-adapter
 ```
 
-Please note: NgxMatNativeDateModule is based off the functionality available in JavaScript's native
+Please note: provideNgxMatNativeDate is based off the functionality available in JavaScript's native
 Date object. Thus it is not suitable for many locales. One of the biggest shortcomings of the native
 Date object is the inability to set the parse format.
 
-We highly recommend using the **NgxMatMomentModule** or a custom **NgxMatDateAdapter** that works
+We highly recommend using the **provideNgxMatMomentDate** or a custom **NgxMatDateAdapter** that works
 with the formatting/parsing library of your choice.
 
 For example:
@@ -210,24 +210,6 @@ Creating a custom date adapter:
 export class CustomDateAdapter extends NgxMatDateAdapter<D> {...}
 // D can be Date, Moment or customized type
 ```
-
-Creating a custom date adapter module
-
-```
-@NgModule({
-  providers: [
-    {
-      provide: NgxMatDateAdapter,
-      useClass: CustomDateAdapter,
-      deps: [MAT_DATE_LOCALE, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS]
-    }
-  ],
-})
-export class CustomDateModule { }
-```
-
-You can also customize the date format by providing your custom NGX_MAT_DATE_FORMATS in your module.
-
 ```
 // If using Moment
 const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
@@ -241,12 +223,22 @@ const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
     monthYearA11yLabel: "MMMM YYYY"
   }
 };
-
-//and in the module providers
-providers: [
-    { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_MOMENT_FORMATS }
-  ]
 ```
+
+Creating a custom date adapter module
+
+```
+export function provideNgxMatMomentDate() {
+  return makeEnvironmentProviders([
+    { provide: NgxMatDateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE, NGX_MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+    { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+  ]);
+}
+
+```
+
+You can also customize the date format by providing your custom NGX_MAT_DATE_FORMATS in your module.
+
 
 ## Theming
 

@@ -301,22 +301,22 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   private _maxDate: D | null;
 
   /** Function used to filter which dates are selectable. */
-  dateFilter = input<(date: D) => boolean>();
+  readonly dateFilter = input<(date: D) => boolean>();
 
   /** Function that can be used to add custom CSS classes to dates. */
-  dateClass = input<NgxMatCalendarCellClassFunction<D>>();
+  readonly dateClass = input<NgxMatCalendarCellClassFunction<D>>();
 
   /** Start of the comparison range. */
-  comparisonStart = input<D | null>();
+  readonly comparisonStart = input<D | null>();
 
   /** End of the comparison range. */
-  comparisonEnd = input<D | null>();
+  readonly comparisonEnd = input<D | null>();
 
   /** ARIA Accessible name of the `<input matStartDate/>` */
-  startDateAccessibleName = input<string | null>();
+  readonly startDateAccessibleName = input<string | null>();
 
   /** ARIA Accessible name of the `<input matEndDate/>` */
-  endDateAccessibleName = input<string | null>();
+  readonly endDateAccessibleName = input<string | null>();
 
   readonly currentView = linkedSignal(() => this.startView());
 
@@ -347,13 +347,13 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
   readonly _userDragDrop = output<NgxMatCalendarUserEvent<NgxDateRange<D>>>();
 
   /** Reference to the current month view component. */
-  monthView = viewChild<NgxMatMonthView<D>>(NgxMatMonthView);
+  readonly monthView = viewChild<NgxMatMonthView<D>>(NgxMatMonthView);
 
   /** Reference to the current year view component. */
-  yearView = viewChild<NgxMatYearView<D>>(NgxMatYearView);
+  readonly yearView = viewChild<NgxMatYearView<D>>(NgxMatYearView);
 
   /** Reference to the current multi-year view component. */
-  multiYearView = viewChild<NgxMatMultiYearView<D>>(NgxMatMultiYearView);
+  readonly multiYearView = viewChild<NgxMatMultiYearView<D>>(NgxMatMultiYearView);
 
   /**
    * The current active date. This determines which time period is shown and which date is

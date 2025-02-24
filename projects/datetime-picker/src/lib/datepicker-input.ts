@@ -60,7 +60,6 @@ export const NGX_MAT_DATEPICKER_VALIDATORS = {
     '(keydown)': '_onKeydown($event)',
   },
   exportAs: 'ngxMatDatepickerInput',
-  standalone: true,
 })
 export class NgxMatDatepickerInput<D>
   extends NgxMatDatepickerInputBase<D | null, D>

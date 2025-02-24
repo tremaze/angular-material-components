@@ -1,14 +1,13 @@
-import { AfterViewInit, Directive, ElementRef } from "@angular/core";
+import { afterNextRender, Directive, ElementRef, inject } from "@angular/core";
 import hljs from "highlight.js";
 
 @Directive({
   selector: "code[ngxMatHighlight]",
-  standalone: true,
 })
-export class NgxMatHighlightDirective implements AfterViewInit {
-  constructor(private eltRef: ElementRef) {}
+export class NgxMatHighlightDirective {
+  private readonly eltRef = inject(ElementRef)
 
-  ngAfterViewInit() {
-    hljs.highlightElement(this.eltRef.nativeElement);
+  constructor() {
+    afterNextRender(() => hljs.highlightElement(this.eltRef.nativeElement));
   }
 }

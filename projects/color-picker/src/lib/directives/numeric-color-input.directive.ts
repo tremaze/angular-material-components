@@ -3,7 +3,6 @@ import { NUMERIC_REGEX } from '../helpers';
 
 @Directive({
   selector: '[ngxMatNumericColorInput]',
-  standalone: true,
 })
 export class NumericColorInputDirective {
   @HostListener('input', ['$event'])

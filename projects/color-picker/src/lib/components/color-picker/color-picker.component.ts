@@ -14,8 +14,8 @@ import {
   ChangeDetectionStrategy,
   Component,
   ComponentRef,
-  ElementRef,
   EventEmitter,
+  HostBinding,
   Inject,
   InjectionToken,
   Input,
@@ -26,7 +26,6 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
   viewChild,
-  HostBinding,
 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { matDatepickerAnimations } from '@angular/material/datepicker';
@@ -88,7 +87,6 @@ export class NgxMatColorPickerContentComponent {
   exportAs: 'ngxMatColorPicker',
   changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
-  standalone: true,
   providers: [ColorAdapter, NGX_MAT_COLOR_PICKER_SCROLL_STRATEGY_FACTORY_PROVIDER],
 })
 export class NgxMatColorPickerComponent implements OnDestroy {

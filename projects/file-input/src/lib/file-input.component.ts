@@ -40,7 +40,6 @@ class NgxMatInputMixinBase {
 
 @Directive({
   selector: '[ngxMatFileInputIcon]',
-  standalone: true,
 })
 export class NgxMatFileInputIcon {}
 

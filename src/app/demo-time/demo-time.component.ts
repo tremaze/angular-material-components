@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
-import { NgxMatNativeDateModule } from 'projects/datetime-picker/src';
 import { NgxMatTimepickerComponent } from '../../../projects/datetime-picker/src/lib/timepicker.component';
 import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
 
@@ -31,7 +30,6 @@ import { NgxMatHighlightDirective } from '../shared/NgxMatHighlightDirective';
     MatRadioModule,
     MatSelectModule,
     NgxMatHighlightDirective,
-    NgxMatNativeDateModule,
     NgxMatTimepickerComponent,
     ReactiveFormsModule,
     RouterLink,

@@ -75,7 +75,6 @@ export const MAT_COLORPICKER_VALIDATORS: any = {
     '(keydown)': '_onKeydown($event)',
   },
   exportAs: 'ngxMatColorPickerInput',
-  standalone: true,
 })
 export class NgxMatColorPickerInput implements ControlValueAccessor, OnInit, OnDestroy, Validator {
   @Input()
