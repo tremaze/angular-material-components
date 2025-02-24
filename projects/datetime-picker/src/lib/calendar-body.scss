@@ -66,7 +66,10 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
   .mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
     background-color: var(--mat-datepicker-calendar-date-hover-state-background-color, color-mix(in srgb, var(--mat-sys-on-surface) calc(var(--mat-sys-hover-state-layer-opacity) * 100%), transparent));
   }
+}
 
+.mat-calendar-body-disabled>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  color: var(--mat-datepicker-calendar-date-disabled-state-text-color, color-mix(in srgb, var(--mat-sys-on-surface) 38%, transparent))
 }
 
 .mat-calendar-body-cell {
@@ -196,6 +199,7 @@ $calendar-range-end-body-cell-size: $calendar-body-cell-content-size + $calendar
     border-left: $calendar-body-preview-cell-border;
   }
 }
+
 
 .mat-calendar-body-disabled {
   cursor: default;
