@@ -7,12 +7,6 @@ export const LIMIT_TIMES = {
   maxSecond: 60,
   meridian: 12,
 };
-
-export const MERIDIANS = {
-  AM: 'AM',
-  PM: 'PM',
-};
-
 export const DEFAULT_STEP = 1;
 export const NUMERIC_REGEX = /[^0-9]/g;
 

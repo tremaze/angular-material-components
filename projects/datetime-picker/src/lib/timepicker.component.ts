@@ -5,8 +5,9 @@ import {
   forwardRef,
   inject,
   input,
+  linkedSignal,
   model,
-  signal,
+  untracked,
   ViewEncapsulation,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
@@ -28,12 +29,16 @@ import {
   DEFAULT_STEP,
   formatTwoDigitTimeValue,
   LIMIT_TIMES,
-  MERIDIANS,
   NUMERIC_REGEX,
   PATTERN_INPUT_HOUR,
   PATTERN_INPUT_MINUTE,
   PATTERN_INPUT_SECOND,
 } from './utils/date-utils';
+
+export enum MERIDIANS {
+  AM = 'AM',
+  PM = 'PM',
+}
 
 @Component({
   selector: 'ngx-mat-timepicker',
@@ -77,7 +82,10 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor {
 
   public readonly pattern = PATTERN_INPUT_HOUR;
 
-  public readonly meridian = signal<string>(MERIDIANS.AM);
+  public readonly meridianInput = input<MERIDIANS>(MERIDIANS.AM, {
+    alias: 'meridian',
+  });
+  public readonly meridian = linkedSignal(() => this.meridianInput());
 
   // Form modernizado
   public readonly form = this.formBuilder.group({
@@ -132,6 +140,11 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor {
       const val = this.value();
       this._updateHourMinuteSecond(val);
     });
+
+    effect(() => {
+      this.meridian();
+      untracked(() => this.change('hour'));
+    });
   }
 
   writeValue(val: D): void {
@@ -162,7 +175,6 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor {
 
   public toggleMeridian() {
     this.meridian.set(this.meridian() === MERIDIANS.AM ? MERIDIANS.PM : MERIDIANS.AM);
-    this.change('hour');
   }
 
   public change(prop: 'hour' | 'minute' | 'second', up?: boolean) {
