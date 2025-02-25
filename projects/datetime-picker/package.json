@@ -1,6 +1,6 @@
 {
   "name": "@ngxmc/datetime-picker",
-  "version": "19.3.0-rc.0",
+  "version": "19.3.0",
   "description": "Angular Material Datetime Picker",
   "author": "HO Hong Quan",
   "repository": {
