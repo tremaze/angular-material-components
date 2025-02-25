@@ -1,18 +1,18 @@
 import {
-  ChangeDetectorRef,
+  ChangeDetectionStrategy,
   Component,
+  effect,
   forwardRef,
+  inject,
   input,
-  OnChanges,
-  OnInit,
-  Optional,
-  SimpleChanges,
+  model,
+  signal,
   ViewEncapsulation,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   ControlValueAccessor,
   FormBuilder,
-  FormGroup,
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
   Validators,
@@ -22,8 +22,7 @@ import { DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 import {
   createMissingDateImplError,
   DEFAULT_STEP,
@@ -39,7 +38,7 @@ import {
 @Component({
   selector: 'ngx-mat-timepicker',
   templateUrl: './timepicker.component.html',
-  styleUrls: ['./timepicker.component.scss'],
+  styleUrl: './timepicker.component.scss',
   host: {
     class: 'ngx-mat-timepicker',
   },
@@ -52,6 +51,7 @@ import {
   ],
   exportAs: 'ngxMatTimepicker',
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     ReactiveFormsModule,
     MatFormFieldModule,
@@ -60,8 +60,9 @@ import {
     MatIconModule,
   ],
 })
-export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnInit, OnChanges {
-  public form: FormGroup;
+export class NgxMatTimepickerComponent<D> implements ControlValueAccessor {
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly _dateAdapter = inject(DateAdapter<D>, { optional: true });
 
   readonly disabled = input<boolean>(false);
   readonly showSpinners = input<boolean>(true);
@@ -74,144 +75,112 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
   readonly defaultTime = input<number[]>();
   readonly color = input<ThemePalette>('primary');
 
-  public meridian: string = MERIDIANS.AM;
+  public readonly pattern = PATTERN_INPUT_HOUR;
+
+  private readonly meridian = signal<string>(MERIDIANS.AM);
+
+  // Form modernizado
+  public readonly form = this.formBuilder.group({
+    hour: [
+      { value: null, disabled: this.disabled() },
+      [Validators.required, Validators.pattern(PATTERN_INPUT_HOUR)],
+    ],
+    minute: [
+      { value: null, disabled: this.disabled() },
+      [Validators.required, Validators.pattern(PATTERN_INPUT_MINUTE)],
+    ],
+    second: [
+      { value: null, disabled: this.disabled() },
+      [Validators.required, Validators.pattern(PATTERN_INPUT_SECOND)],
+    ],
+  });
+
+  private _onChange: any = () => {};
+  private _onTouched: any = () => {};
+  public readonly value = model<D>();
 
   /** Hour */
   private get hour() {
-    let val = Number(this.form.controls['hour'].value);
+    const val = Number(this.form.controls['hour'].getRawValue());
     return Number.isNaN(val) ? 0 : val;
   }
 
   private get minute() {
-    let val = Number(this.form.controls['minute'].value);
+    const val = Number(this.form.controls['minute'].getRawValue());
     return Number.isNaN(val) ? 0 : val;
   }
 
   private get second() {
-    let val = Number(this.form.controls['second'].value);
+    const val = Number(this.form.controls['second'].getRawValue());
     return Number.isNaN(val) ? 0 : val;
   }
 
-  /** Whether or not the form is valid */
-  public get valid(): boolean {
-    return this.form.valid;
-  }
-
-  private _onChange: any = () => {};
-  private _onTouched: any = () => {};
-  private _disabled: boolean;
-  private _model: D;
-
-  private _destroyed: Subject<void> = new Subject<void>();
-
-  public pattern = PATTERN_INPUT_HOUR;
-
-  constructor(
-    @Optional() public _dateAdapter: DateAdapter<D>,
-    private cd: ChangeDetectorRef,
-    private formBuilder: FormBuilder,
-  ) {
+  constructor() {
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }
-    this.form = this.formBuilder.group({
-      hour: [
-        { value: null, disabled: this.disabled() },
-        [Validators.required, Validators.pattern(PATTERN_INPUT_HOUR)],
-      ],
-      minute: [
-        { value: null, disabled: this.disabled() },
-        [Validators.required, Validators.pattern(PATTERN_INPUT_MINUTE)],
-      ],
-      second: [
-        { value: null, disabled: this.disabled() },
-        [Validators.required, Validators.pattern(PATTERN_INPUT_SECOND)],
-      ],
-    });
-  }
 
-  ngOnInit() {
-    this.form.valueChanges.pipe(takeUntil(this._destroyed), debounceTime(400)).subscribe((val) => {
+    this.form.valueChanges.pipe(takeUntilDestroyed(), debounceTime(300)).subscribe(() => {
       this._updateModel();
     });
+
+    effect(() => {
+      this._setDisableStates(this.disabled(), this.disableMinute());
+    });
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.disabled || changes.disableMinute) {
-      this._setDisableStates();
-    }
-  }
-
-  ngOnDestroy() {
-    this._destroyed.next();
-    this._destroyed.complete();
-  }
-
-  /**
-   * Writes a new value to the element.
-   * @param obj
-   */
   writeValue(val: D): void {
     if (val != null) {
-      this._model = val;
-      this._updateHourMinuteSecond();
+      this.value.set(val);
+      this._updateHourMinuteSecond(val);
     }
   }
 
-  /** Registers a callback function that is called when the control's value changes in the UI. */
   registerOnChange(fn: (_: any) => {}): void {
     this._onChange = fn;
   }
 
-  /**
-   * Set the function to be called when the control receives a touch event.
-   */
   registerOnTouched(fn: () => {}): void {
     this._onTouched = fn;
   }
 
-  /** Enables or disables the appropriate DOM element */
   setDisabledState(isDisabled: boolean): void {
-    this._disabled = isDisabled;
-    this.cd.markForCheck();
+    if (isDisabled) {
+      this.form.disable();
+    } else {
+      this._setDisableStates(false, this.disableMinute());
+    }
   }
 
-  /**
-   * Format input
-   * @param input
-   */
   public formatInput(input: HTMLInputElement) {
     input.value = input.value.replace(NUMERIC_REGEX, '');
   }
 
-  /** Toggle meridian */
   public toggleMeridian() {
-    this.meridian = this.meridian === MERIDIANS.AM ? MERIDIANS.PM : MERIDIANS.AM;
+    this.meridian.set(this.meridian() === MERIDIANS.AM ? MERIDIANS.PM : MERIDIANS.AM);
     this.change('hour');
   }
 
-  /** Change property of time */
   public change(prop: 'hour' | 'minute' | 'second', up?: boolean) {
     const next = this._getNextValueByProp(prop, up);
     this.form.controls[prop].setValue(formatTwoDigitTimeValue(next), {
       onlySelf: false,
-      emitEvent: false,
+      emitEvent: true,
     });
-    this._updateModel();
+    this._onTouched();
   }
 
-  /** Update controls of form by model */
-  private _updateHourMinuteSecond() {
-    let _hour = this._dateAdapter.getHours(this._model);
-    const _minute = this._dateAdapter.getMinutes(this._model);
-    const _second = this._dateAdapter.getSeconds(this._model);
+  private _updateHourMinuteSecond(val: D) {
+    let _hour = this._dateAdapter.getHours(val);
+    const _minute = this._dateAdapter.getMinutes(val);
+    const _second = this._dateAdapter.getSeconds(val);
 
     if (this.enableMeridian()) {
       if (_hour >= LIMIT_TIMES.meridian) {
         _hour = _hour - LIMIT_TIMES.meridian;
-        this.meridian = MERIDIANS.PM;
+        this.meridian.set(MERIDIANS.PM);
       } else {
-        this.meridian = MERIDIANS.AM;
+        this.meridian.set(MERIDIANS.AM);
       }
       if (_hour === 0) {
         _hour = LIMIT_TIMES.meridian;
@@ -224,59 +193,66 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
         minute: formatTwoDigitTimeValue(_minute),
         second: formatTwoDigitTimeValue(_second),
       },
-      {
-        emitEvent: false,
-      },
+      { emitEvent: false },
     );
   }
 
   /** Update model */
   private _updateModel() {
+    if (this.form.invalid) {
+      return;
+    }
+
     let _hour = this.hour;
 
     if (this.enableMeridian()) {
-      if (this.meridian === MERIDIANS.AM && _hour === LIMIT_TIMES.meridian) {
+      if (this.meridian() === MERIDIANS.AM && _hour === LIMIT_TIMES.meridian) {
         _hour = 0;
-      } else if (this.meridian === MERIDIANS.PM && _hour !== LIMIT_TIMES.meridian) {
+      } else if (this.meridian() === MERIDIANS.PM && _hour !== LIMIT_TIMES.meridian) {
         _hour = _hour + LIMIT_TIMES.meridian;
       }
     }
 
-    if (this._model) {
-      let clonedModel = this._dateAdapter.clone(this._model);
+    const val = this.value();
+    if (val) {
+      let clonedModel = this._dateAdapter.clone(val);
       clonedModel = this._dateAdapter.setTime(clonedModel, _hour, this.minute, this.second);
+
+      this.value.set(clonedModel);
       this._onChange(clonedModel);
+      this._onTouched();
     }
   }
 
   /**
    * Get next value by property
-   * @param prop
-   * @param up
    */
   private _getNextValueByProp(prop: string, up?: boolean): number {
     const keyProp = prop[0].toUpperCase() + prop.slice(1);
     const min = LIMIT_TIMES[`min${keyProp}`];
     let max = LIMIT_TIMES[`max${keyProp}`];
 
-    if (prop === 'hour' && this.enableMeridian()!) {
+    if (prop === 'hour' && this.enableMeridian()) {
       max = LIMIT_TIMES.meridian;
     }
 
     let next;
     if (up == null) {
       next = this[prop] % max;
-      if (prop === 'hour' && this.enableMeridian()!) {
+      if (prop === 'hour' && this.enableMeridian()) {
         if (next === 0) next = max;
       }
     } else {
-      next = up ? this[prop] + this[`step${keyProp}`]() : this[prop] - this[`step${keyProp}`]();
-      if (prop === 'hour' && this.enableMeridian()!) {
+      const step = this[`step${keyProp}`]();
+      next = up ? this[prop] + step : this[prop] - step;
+
+      if (prop === 'hour' && this.enableMeridian()) {
         next = next % (max + 1);
         if (next === 0) next = up ? 1 : max;
       } else {
         next = next % max;
       }
+
       if (up) {
         next = next > max ? next - max + min : next;
       } else {
@@ -290,12 +266,12 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor, OnIni
   /**
    * Set disable states
    */
-  private _setDisableStates() {
-    if (this.disabled()) {
+  private _setDisableStates(disabled: boolean, disableMinute: boolean) {
+    if (disabled) {
       this.form.disable();
     } else {
       this.form.enable();
-      if (this.disableMinute()) {
+      if (disableMinute) {
         this.form.get('minute').disable();
         if (this.showSeconds()) {
           this.form.get('second').disable();
