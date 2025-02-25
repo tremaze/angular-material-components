@@ -48,10 +48,10 @@ npm install --save  @ngxmc/datetime-picker
 
 Add the date provider to your app configuration.
 
-** Note: ** to prevent the _ERROR Error: NgxMatDatetimePicker: No provider found for DateAdapter.
-You must import one of the following modules at your application root: provideNativeDateAdapter,
-provideMomentDateAdapter, provideLuxonDateAdapter, provideDateFnsAdapter, or provide a custom
-implementation._
+[!IMPORTANT] to prevent the \_ERROR Error: NgxMatDatetimePicker: No provider found for DateAdapter.
+You must import one of the following providers at your application root or standalone component:
+provideNativeDateAdapter, provideMomentDateAdapter, provideLuxonDateAdapter, provideDateFnsAdapter,
+or provide a custom implementation.
 
 ```typescript
 import { provideNativeDateAdapter } from '@angular/material/core';
