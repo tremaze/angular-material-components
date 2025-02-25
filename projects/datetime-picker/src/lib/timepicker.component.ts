@@ -77,7 +77,7 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor {
 
   public readonly pattern = PATTERN_INPUT_HOUR;
 
-  private readonly meridian = signal<string>(MERIDIANS.AM);
+  public readonly meridian = signal<string>(MERIDIANS.AM);
 
   // Form modernizado
   public readonly form = this.formBuilder.group({
