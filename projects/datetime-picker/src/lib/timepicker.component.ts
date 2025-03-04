@@ -138,7 +138,9 @@ export class NgxMatTimepickerComponent<D> implements ControlValueAccessor {
 
     effect(() => {
       const val = this.value();
-      this._updateHourMinuteSecond(val);
+      if (val) {
+        this._updateHourMinuteSecond(val);
+      }
     });
 
     effect(() => {
