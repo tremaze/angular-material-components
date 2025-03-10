@@ -193,7 +193,7 @@ export class CustomDateAdapter extends DateAdapter<D> {...}
 
 ```
 // If using Moment
-const CUSTOM_DATE_FORMATS: MatDateFormats = {
+const CUSTOM_DATE_FORMATS: NgxMatDateFormats = {
   parse: {
     dateInput: "l, LTS"
   },
@@ -212,13 +212,13 @@ Creating a custom date adapter module
 export function provideNgxMatCustomDate() {
   return makeEnvironmentProviders([
     { provide: DateAdapter, useClass: CustomDateAdapter, deps: [MAT_DATE_LOCALE] },
-    { provide: MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
+    { provide: NGX_MAT_DATE_FORMATS, useValue: CUSTOM_DATE_FORMATS },
   ]);
 }
 
 ```
 
-You can also customize the date format by providing your custom MAT_DATE_FORMATS in your module.
+You can also customize the date format by providing your custom NGX_MAT_DATE_FORMATS in your module.
 
 ## Theming
 

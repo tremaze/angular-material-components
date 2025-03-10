@@ -22,8 +22,6 @@ import {
 } from '@angular/forms';
 import {
   DateAdapter,
-  MAT_DATE_FORMATS,
-  MatDateFormats,
   ThemePalette,
 } from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
@@ -33,6 +31,7 @@ import {
   NgxMatDateSelectionModel,
 } from './date-selection-model';
 import { createMissingDateImplError } from './datepicker-errors';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 
 /**
  * An event used for datepicker input and change events. We don't always have access to a native
@@ -235,14 +234,14 @@ export abstract class NgxMatDatepickerInputBase<S, D = NgxExtractDateTypeFromSel
     protected _elementRef: ElementRef<HTMLInputElement>,
     @Optional() public _dateAdapter: DateAdapter<D>,
     @Optional()
-    @Inject(MAT_DATE_FORMATS)
-    private _dateFormats: MatDateFormats,
+    @Inject(NGX_MAT_DATE_FORMATS)
+    private _dateFormats: NgxMatDateFormats,
   ) {
     if (!this._dateAdapter) {
       throw createMissingDateImplError('DateAdapter');
     }
     if (!this._dateFormats) {
-      throw createMissingDateImplError('MAT_DATE_FORMATS');
+      throw createMissingDateImplError('NGX_MAT_DATE_FORMATS');
     }
 
     // Update the displayed date when the locale changes.

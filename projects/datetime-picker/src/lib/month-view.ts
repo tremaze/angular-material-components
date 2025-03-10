@@ -29,7 +29,7 @@ import {
   output,
   viewChild,
 } from '@angular/core';
-import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import {
@@ -44,6 +44,7 @@ import {
 } from './date-range-selection-strategy';
 import { NgxDateRange } from './date-selection-model';
 import { createMissingDateImplError } from './datepicker-errors';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 
 const DAYS_PER_WEEK = 7;
 
@@ -201,8 +202,8 @@ export class NgxMatMonthView<D> implements AfterContentInit, OnChanges, OnDestro
   constructor(
     readonly _changeDetectorRef: ChangeDetectorRef,
     @Optional()
-    @Inject(MAT_DATE_FORMATS)
-    private _dateFormats: MatDateFormats,
+    @Inject(NGX_MAT_DATE_FORMATS)
+    private _dateFormats: NgxMatDateFormats,
     @Optional() public _dateAdapter: DateAdapter<D>,
     @Optional() private _dir?: Directionality,
     @Inject(NGX_MAT_DATE_RANGE_SELECTION_STRATEGY)
@@ -213,7 +214,7 @@ export class NgxMatMonthView<D> implements AfterContentInit, OnChanges, OnDestro
       throw createMissingDateImplError('DateAdapter');
     }
     if (!this._dateFormats) {
-      throw createMissingDateImplError('MAT_DATE_FORMATS');
+      throw createMissingDateImplError('NGX_MAT_DATE_FORMATS');
     }
 
     this._activeDate = this._dateAdapter.today();

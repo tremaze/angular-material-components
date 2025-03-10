@@ -22,7 +22,7 @@ import {
 } from '@angular/core';
 import { outputFromObservable, toObservable } from '@angular/core/rxjs-interop';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
 import { NgxMatCalendarCellClassFunction, NgxMatCalendarUserEvent } from './calendar-body';
 import { NGX_MAT_SINGLE_DATE_SELECTION_MODEL_PROVIDER, NgxDateRange } from './date-selection-model';
@@ -36,6 +36,7 @@ import {
   yearsPerPage,
 } from './multi-year-view';
 import { NgxMatYearView } from './year-view';
+import { NgxMatDateFormats, NGX_MAT_DATE_FORMATS } from './core/date-formats';
 
 let calendarHeaderId = 1;
 
@@ -61,8 +62,8 @@ export class NgxMatCalendarHeader<D> {
     public calendar: NgxMatCalendar<D>,
     @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional()
-    @Inject(MAT_DATE_FORMATS)
-    private _dateFormats: MatDateFormats,
+    @Inject(NGX_MAT_DATE_FORMATS)
+    private _dateFormats: NgxMatDateFormats,
     changeDetectorRef: ChangeDetectorRef,
   ) {
     this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
@@ -380,8 +381,8 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
     _intl: NgxMatDatepickerIntl,
     @Optional() private _dateAdapter: DateAdapter<D>,
     @Optional()
-    @Inject(MAT_DATE_FORMATS)
-    private _dateFormats: MatDateFormats,
+    @Inject(NGX_MAT_DATE_FORMATS)
+    private _dateFormats: NgxMatDateFormats,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {
     if (!this._dateAdapter) {
@@ -389,7 +390,7 @@ export class NgxMatCalendar<D> implements AfterContentInit, AfterViewChecked, On
     }
 
     if (!this._dateFormats) {
-      throw createMissingDateImplError('MAT_DATE_FORMATS');
+      throw createMissingDateImplError('NGX_MAT_DATE_FORMATS');
     }
 
     this._intlChanges = _intl.changes.subscribe(() => {

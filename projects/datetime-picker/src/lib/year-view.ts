@@ -25,7 +25,7 @@ import {
   output,
   viewChild,
 } from '@angular/core';
-import { DateAdapter, MAT_DATE_FORMATS, MatDateFormats } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import {
@@ -36,6 +36,7 @@ import {
 } from './calendar-body';
 import { NgxDateRange } from './date-selection-model';
 import { createMissingDateImplError } from './datepicker-errors';
+import { NGX_MAT_DATE_FORMATS, NgxMatDateFormats } from './core/date-formats';
 
 /**
  * An internal component used to display a single year in the datepicker.
@@ -144,8 +145,8 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
   constructor(
     readonly _changeDetectorRef: ChangeDetectorRef,
     @Optional()
-    @Inject(MAT_DATE_FORMATS)
-    private _dateFormats: MatDateFormats,
+    @Inject(NGX_MAT_DATE_FORMATS)
+    private _dateFormats: NgxMatDateFormats,
     @Optional() public _dateAdapter: DateAdapter<D>,
     @Optional() private _dir?: Directionality,
   ) {
@@ -153,7 +154,7 @@ export class NgxMatYearView<D> implements AfterContentInit, OnDestroy {
       throw createMissingDateImplError('DateAdapter');
     }
     if (!this._dateFormats) {
-      throw createMissingDateImplError('MAT_DATE_FORMATS');
+      throw createMissingDateImplError('NGX_MAT_DATE_FORMATS');
     }
 
     this._activeDate = this._dateAdapter.today();
